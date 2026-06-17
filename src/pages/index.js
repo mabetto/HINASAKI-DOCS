@@ -15,7 +15,7 @@ export default function Home() {
     <Layout title="アバタードキュメント | HINASAKI" description="HINASAKIアバタードキュメント">
       <main className={styles.main}>
         <h1 className={styles.title}>Avatar Documents</h1>
-        <p className={styles.subtitle}>アバターを選ぶ：</p>
+        <p className={styles.subtitle}>アバターを選択してください。</p>
         <div className={styles.grid}>
           {avatars.map((avatar) => (
             <Link key={avatar.name} to={avatar.to} className={styles.card}>

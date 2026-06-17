@@ -51,7 +51,8 @@ const config = {
         title: '',
         logo: {
           alt: 'HINASAKI',
-          src: 'img/hinasaki_logo_square.svg',
+          src: 'img/hinasaki_logo_yoko.svg',
+          srcDark: 'img/hinasaki_logo_yoko_white.svg',
         },
         items: [
           {

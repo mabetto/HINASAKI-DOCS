@@ -16,6 +16,10 @@ html {
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
+[data-theme='dark'] .navbar {
+  background-color: var(--ifm-background-color);
+}
+
 [data-theme='dark'] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;

@@ -1,0 +1,66 @@
+.footer {
+  background-color: var(--ifm-background-color);
+  border-top: 1px solid var(--ifm-toc-border-color);
+  padding: 3rem 8rem;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.discordBadge {
+  height: 28px;
+}
+
+.links {
+  display: flex;
+  gap: 2rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+
+.externalIcon {
+  opacity: 0.6;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: var(--ifm-color-primary);
+}
+
+.copyright {
+  font-size: 0.875rem;
+  color: var(--ifm-font-color-base);
+  margin: 0;
+}
+
+.builtWith {
+  font-size: 0.75rem;
+  color: var(--ifm-color-secondary-darkest);
+  margin: 0;
+}
+
+.builtWith a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.builtWith a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 2rem 1.5rem;
+  }
+}

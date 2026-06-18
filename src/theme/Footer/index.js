@@ -46,6 +46,7 @@ export default function Footer() {
             href="https://discord.gg/QcageYmsZM"
             target="_blank"
             rel="noopener noreferrer"
+            style={{display: 'flex', alignItems: 'center'}}
           >
             <img
               src="https://img.shields.io/discord/1310456099069104138?style=for-the-badge&logo=discord&logoColor=white&label=Discord&color=5865F2"

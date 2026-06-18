@@ -12,7 +12,9 @@
 }
 
 .discordBadge {
-  height: 28px;
+  height: 24px;
+  align-self: center;
+  display: block;
 }
 
 .topRow {

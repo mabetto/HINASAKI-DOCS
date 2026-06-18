@@ -24,6 +24,29 @@
   width: 100%;
 }
 
+.discordBadgeWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.discordIconMobile {
+  display: none !important;
+}
+
+@media (max-width: 480px) {
+  .discordBadgeWrapper {
+    display: none;
+  }
+
+  .discordIconMobile {
+    display: inline-flex !important;
+  }
+
+  .topRow {
+    justify-content: center;
+  }
+}
+
 .links {
   display: flex;
   gap: 2rem;
@@ -35,6 +58,7 @@
   align-items: center;
   justify-content: center;
   height: 28px;
+  flex-shrink: 0;
   color: var(--ifm-font-color-base);
   text-decoration: none;
   transition: opacity 0.2s;

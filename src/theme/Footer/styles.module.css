@@ -51,10 +51,6 @@
   width: auto;
 }
 
-/* ダークモード時にBOOTHロゴを白に (ガイドライン準拠) */
-[data-theme='dark'] .boothIcon {
-  filter: brightness(0) invert(1);
-}
 
 .vrchatIcon {
   height: 30px;
@@ -62,10 +58,6 @@
   margin-bottom: -9px;
 }
 
-/* ダークモード時にVRChatロゴを白に */
-[data-theme='dark'] .vrchatIcon {
-  filter: brightness(0) invert(1);
-}
 
 .bottomText {
   margin-top: 1.5rem;

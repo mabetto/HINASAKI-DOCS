@@ -8,39 +8,74 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.4rem;
 }
 
 .discordBadge {
   height: 28px;
 }
 
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .links {
   display: flex;
   gap: 2rem;
+  align-items: center;
 }
 
-.link {
+.iconButton {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  font-size: 0.9rem;
+  justify-content: center;
+  height: 28px;
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.iconButton:hover {
+  opacity: 0.6;
   color: var(--ifm-font-color-base);
   text-decoration: none;
 }
 
-.externalIcon {
-  opacity: 0.6;
+.boothIcon {
+  height: 24px;
+  width: auto;
 }
 
-.link:hover {
-  text-decoration: underline;
-  color: var(--ifm-color-primary);
+/* ダークモード時にBOOTHロゴを白に (ガイドライン準拠) */
+[data-theme='dark'] .boothIcon {
+  filter: brightness(0) invert(1);
+}
+
+.vrchatIcon {
+  height: 30px;
+  width: auto;
+  margin-bottom: -9px;
+}
+
+/* ダークモード時にVRChatロゴを白に */
+[data-theme='dark'] .vrchatIcon {
+  filter: brightness(0) invert(1);
+}
+
+.bottomText {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .copyright {
-  font-size: 0.875rem;
-  color: var(--ifm-font-color-base);
+  font-size: 0.75rem;
+  color: var(--ifm-color-secondary-darkest);
   margin: 0;
 }
 

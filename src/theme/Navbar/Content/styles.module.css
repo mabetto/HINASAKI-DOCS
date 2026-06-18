@@ -34,8 +34,30 @@
   display: none;
 }
 
+.mobileLocale {
+  display: none;
+}
+
 @media (max-width: 996px) {
   .navbarCenter {
     display: none;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .mobileLocale {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ifm-navbar-link-color);
+    font-size: var(--ifm-navbar-link-font-size, 1rem);
+    font-weight: var(--ifm-font-weight-semibold);
+    font-family: inherit;
+    padding: 0.25rem 0.4rem;
+    letter-spacing: 0.05em;
   }
 }

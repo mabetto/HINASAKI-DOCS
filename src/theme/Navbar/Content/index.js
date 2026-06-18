@@ -32,7 +32,7 @@ export default function NavbarContent() {
 
   return (
     <div className={styles.navbarLayout}>
-      {/* 左: ロゴ + モバイルトグル */}
+      {/* 左: ハンバーガー + ロゴ */}
       <div className={styles.navbarLeft}>
         {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
         <NavbarLogo />
@@ -43,9 +43,14 @@ export default function NavbarContent() {
         <NavbarItems items={leftItems} />
       </div>
 
-      {/* 右: ロケール等 */}
+      {/* 右: ロケール等 (PC) + JPボタン (モバイル) */}
       <div className={styles.navbarRight}>
-        <NavbarItems items={rightItems} />
+        <div className={styles.desktopOnly}>
+          <NavbarItems items={rightItems} />
+        </div>
+        <button className={styles.mobileLocale} aria-label="言語切り替え">
+          JP
+        </button>
         <NavbarColorModeToggle className={styles.colorModeToggle} />
         <NavbarSearch>
           <SearchBar />

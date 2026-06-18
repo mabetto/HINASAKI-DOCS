@@ -45,7 +45,9 @@ const config = {
     ({
       image: 'img/docusaurus-social-card.jpg',
       colorMode: {
-        respectPrefersColorScheme: true,
+        defaultMode: 'light',
+        disableSwitch: true,
+        respectPrefersColorScheme: false,
       },
       navbar: {
         title: '',
@@ -53,6 +55,7 @@ const config = {
           alt: 'HINASAKI',
           src: 'img/hinasaki_logo_yoko.svg',
           srcDark: 'img/hinasaki_logo_yoko_white.svg',
+          className: 'navbar-logo',
         },
         items: [
           {
@@ -60,6 +63,10 @@ const config = {
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'ドキュメント',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right',
           },
         ],
       },

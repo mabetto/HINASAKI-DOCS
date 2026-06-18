@@ -1,0 +1,41 @@
+.navbarLayout {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.navbarLeft {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 0.5rem;
+}
+
+.navbarCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbarRight {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  gap: 0.5rem;
+}
+
+.colorModeToggle {
+  display: none;
+}
+
+@media (max-width: 996px) {
+  .navbarCenter {
+    display: none;
+  }
+}

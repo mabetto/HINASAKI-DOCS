@@ -37,11 +37,66 @@ html {
 }
 
 .navbar__inner {
-  padding: 0 6rem;
+  padding: 0 2rem;
 }
 
-@media screen and (max-width: 768px) {
+.navbar__link {
+  font-weight: 700;
+}
+
+.navbar-locale-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 996px) {
   .navbar__inner {
     padding: 0 1.5rem;
+    position: relative;
+  }
+
+  .navbar-locale-mobile {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 3.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--ifm-navbar-link-font-size, 1rem);
+    font-weight: var(--ifm-font-weight-semibold);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ifm-navbar-link-color);
+    padding: 0.25rem 0.4rem;
+    letter-spacing: 0.05em;
+    font-family: inherit;
+  }
+
+  .navbar-logo {
+    content: url('/img/hinasaki_logo_square.svg');
+    height: 32px;
+    width: auto;
+  }
+
+  .navbar__brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+[data-theme='dark'] .navbar-logo {
+  content: url('/img/hinasaki_logo_yoko_white.svg');
+}
+
+[data-theme='dark'] @media screen and (max-width: 996px) {
+  .navbar-logo {
+    content: url('/img/hinasaki_logo_square_white.svg');
+  }
+}
+
+@media screen and (max-width: 996px) {
+  [data-theme='dark'] .navbar-logo {
+    content: url('/img/hinasaki_logo_square_white.svg');
   }
 }

@@ -1,17 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=M+PLUS+Rounded+1c&display=swap');
-
-html {
-  font-family: "M PLUS Rounded 1c", sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
 
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, "M PLUS Rounded 1c", sans-serif;
+  --ifm-color-primary: #33cccc;
+  --ifm-color-primary-dark: #2db8b8;
+  --ifm-color-primary-darker: #2aaeae;
+  --ifm-color-primary-darkest: #238f8f;
+  --ifm-color-primary-light: #3dd6d6;
+  --ifm-color-primary-lighter: #47d9d9;
+  --ifm-color-primary-lightest: #63dfdf;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
@@ -40,8 +37,32 @@ html {
   padding: 0 2rem;
 }
 
-.navbar__link {
-  font-weight: 700;
+
+
+/* markdown内の見出しに筑紫B適用 */
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6,
+.blog-list-page article h2,
+.blog-post-page h1 {
+  font-family: "fot-tsukubrdgothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* 更新履歴一覧のタイトルサイズ */
+.blog-list-page article h2 {
+  font-size: 2.5rem;
+}
+
+.blog-list-page article header {
+  margin-bottom: 0.5rem;
+}
+
+.blog-list-page article {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .navbar-locale-mobile {
@@ -78,11 +99,6 @@ html {
     width: auto;
   }
 
-  .navbar__brand {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 }
 
 [data-theme='dark'] .navbar-logo {

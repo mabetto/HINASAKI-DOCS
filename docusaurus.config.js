@@ -17,6 +17,14 @@ const config = {
   organizationName: 'mabetto',
   projectName: 'HINASAKI-DOCS',
 
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: {},
+      innerHTML: `(function(d){var config={kitId:'kyg8krc',scriptTimeout:3000,async:true},h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)})(document);`,
+    },
+  ],
+
   onBrokenLinks: 'throw',
 
   i18n: {
@@ -32,7 +40,19 @@ const config = {
         docs: {
           sidebarPath: './sidebars.js',
         },
-        blog: false,
+        blog: {
+          path: 'changelog',
+          routeBasePath: 'changelog',
+          blogTitle: '更新履歴',
+          blogDescription: 'HINASAKIアバターの更新履歴',
+          blogSidebarTitle: '更新履歴',
+          blogSidebarCount: 'ALL',
+          showReadingTime: false,
+          feedOptions: {
+            type: 'all',
+            title: 'HINASAKI 更新履歴',
+          },
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -63,6 +83,11 @@ const config = {
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'ドキュメント',
+          },
+          {
+            to: '/changelog',
+            label: '更新履歴',
+            position: 'left',
           },
           {
             type: 'localeDropdown',

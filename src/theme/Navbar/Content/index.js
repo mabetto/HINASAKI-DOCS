@@ -32,15 +32,19 @@ export default function NavbarContent() {
 
   return (
     <div className={styles.navbarLayout}>
-      {/* 左: ハンバーガー + ロゴ */}
+      {/* 左: ドキュメントタブ (PC) / ハンバーガー (モバイル) */}
       <div className={styles.navbarLeft}>
-        {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
-        <NavbarLogo />
+        <div className={styles.mobileOnly}>
+          {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
+        </div>
+        <div className={styles.desktopOnly}>
+          <NavbarItems items={leftItems} />
+        </div>
       </div>
 
-      {/* 中央: ナビゲーション (PCのみ) */}
+      {/* 中央: ロゴ */}
       <div className={styles.navbarCenter}>
-        <NavbarItems items={leftItems} />
+        <NavbarLogo />
       </div>
 
       {/* 右: ロケール等 (PC) + JPボタン (モバイル) */}

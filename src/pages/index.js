@@ -4,8 +4,11 @@ import styles from './index.module.css';
 
 const avatars = [
   {
-    name: '３＋１　｜　さん↑ぷらす→うの↑',
+    name: '３＋１（さん↑ぷらす→うの↑）',
+    reading: 'さん↑ぷらす→うの↑',
+    logo: '/img/3+1_logo.svg',
     image: '/img/3+1_main.webp',
+    modelNumber: 'T2404',
     to: '/docs/intro',
   },
 ];
@@ -19,12 +22,20 @@ export default function Home() {
         <div className={styles.grid}>
           {avatars.map((avatar) => (
             <Link key={avatar.name} to={avatar.to} className={styles.card}>
-              <p className={styles.avatarName}>{avatar.name}</p>
+              <div className={styles.avatarNameRow}>
+                <img
+                  src={avatar.logo}
+                  alt={avatar.name}
+                  className={styles.avatarLogo}
+                />
+                <span className={styles.avatarReading}>　｜　{avatar.reading}</span>
+              </div>
               <img
                 src={avatar.image}
                 alt={avatar.name}
                 className={styles.avatarImage}
               />
+              <span className={styles.modelNumber}>({avatar.modelNumber})</span>
             </Link>
           ))}
         </div>

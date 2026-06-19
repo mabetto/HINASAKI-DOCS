@@ -7,6 +7,7 @@
   font-weight: 700;
   margin-bottom: 0.25rem;
   text-align: left;
+  font-family: "fot-tsukubrdgothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .subtitle {
@@ -69,6 +70,7 @@
   color: var(--ifm-color-secondary-darkest);
   margin-top: 0.5rem;
   letter-spacing: 0.05em;
+  font-family: "fot-tsukubrdgothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 @media screen and (max-width: 996px) {

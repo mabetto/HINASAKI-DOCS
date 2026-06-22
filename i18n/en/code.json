@@ -335,8 +335,8 @@
                                  "description":  "Homepage homepage.description"
                              },
     "homepage.title":  {
-                           "message":  "Avatar Documents | HINASAKI",
-                           "description":  "Homepage homepage.title"
+                           "message":  "Avatar Documents",
+                           "description":  "Homepage title"
                        },
     "colorPalette.noSetting":  {
                                    "message":  "No Setting (= 0)",

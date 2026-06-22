@@ -335,8 +335,8 @@
                                  "description":  "Homepage homepage.description"
                              },
     "homepage.title":  {
-                           "message":  "아바타 문서 | HINASAKI",
-                           "description":  "Homepage homepage.title"
+                           "message":  "아바타 문서",
+                           "description":  "Homepage title"
                        },
     "colorPalette.noSetting":  {
                                    "message":  "설정 없음 (= 0)",

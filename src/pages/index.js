@@ -20,7 +20,7 @@ export default function Home() {
   const localePrefix = currentLocale === defaultLocale ? '' : `/${currentLocale}`;
   return (
     <Layout
-      title={translate({id: 'homepage.title', message: 'アバタードキュメント | HINASAKI'})}
+      title={translate({id: 'homepage.title', message: 'アバタードキュメント'})}
       description={translate({id: 'homepage.description', message: 'HINASAKIアバタードキュメント'})}
     >
       <main className={styles.main}>

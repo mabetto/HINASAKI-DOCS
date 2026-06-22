@@ -1,0 +1,107 @@
+---
+sidebar_position: 2
+title: もちふぃった～
+---
+
+import TipsCard from '@site/src/components/TipsCard';
+
+# もちふぃった～
+
+**もちふぃった～** (MochiFitter) is a tool for converting outfits designed for a different avatar to fit another avatar. 3+1 supports conversion in **both directions: target (other avatar outfit → 3+1) and source (3+1 outfit → other avatar)**.
+
+:::note[Note]
+Instructions for reverse conversion (3+1 outfit → other avatar) will be added to this manual when A2L support is added.
+:::
+
+**Download:** [BOOTH](https://booth.pm/ja/items/7657840)
+
+---
+
+## Installation
+
+1. Add **Modular Avatar** to your project via VCC
+2. Import the MochiFitter Unitypackage into your project
+3. From the Unity menu, go to **Tools → MochiFitter**
+4. Click the **Install** button (first time only — this may take a while)
+
+---
+
+## Usage
+
+<img src="/img/mochifitter/inspector.webp" alt="MochiFitter Inspector" style={{borderRadius:'8px', width:'100%', marginBottom:'1rem'}} />
+
+### 1. Select Mode
+
+Set **Mode** to `Outfit Retargeting`.
+
+### 2. Select Avatars
+
+| Field | Value |
+|------|--------|
+| **Target Avatar** | `3+1` |
+| **Source Avatar** | The supported avatar for the outfit you want to convert (e.g., `Milltina → 3+1 (via Template)`) |
+
+After setting these, click **Rescan Conversion Options**.
+
+<TipsCard>The 3+1 conversion profile is distributed on the **HINASAKI Discord server**. It will also be available as a **free download from the 3+1 product page from June 23, 2026 onward**. Please obtain it in advance and import it into your project.</TipsCard>
+
+### 3. Set the Outfit to Convert
+
+Drag and drop the prefab of the outfit you want to convert into **Outfit to Convert**.
+
+### 4. Configure Blend Shapes
+
+Check the blend shapes used by the outfit being converted, such as corset or high heels.
+
+:::warning[Warning]
+Only check blend shapes that the target outfit is specifically designed to use. For outfits that do not have a high heel blend shape, set all blend shapes other than the base body high heel to 100 to restore the default state.
+:::
+
+### 5. Advanced Settings
+
+| Field | Description |
+|------|------|
+| **Weight Transfer Shape Source** | Set this to the avatar's root object when you want to transfer weights with a body shape blend shape applied, such as an enlarged bust. |
+| **Disable Triangulation** | Enable this for outfits where you want to preserve quad polygons. |
+| **Enable Subdivision** | Effective for preventing clipping on outfits with a low polygon count (increases processing time). |
+| **Use OMOCHI Format** | Enable for outfits with FBX settings that cannot be read in Blender (experimental feature). |
+
+### 6. Execute Conversion
+
+Click the **Execute Retargeting** button to run the conversion. After it completes, drag the generated prefab onto the avatar's root object.
+
+<TipsCard>After conversion, verify that materials are correctly assigned. Reassign manually as needed.</TipsCard>
+
+---
+
+## Compatibility by Body Shape
+
+Because 3+1 has a larger bust than many other avatars, converting **form-fitting outfits** from avatars with a smaller bust may cause distortion around the chest and torso. This is less noticeable with looser designs, but tight-fitting designs may require manual correction.
+
+<img src="/img/mochifitter/conversion-example.webp" alt="Conversion example: form-fitting (left) and loose (right)" style={{borderRadius:'8px', width:'100%', marginBottom:'0.5rem'}} />
+
+<img src="/img/mochifitter/shinano-distortion.webp" alt="Example of distortion when converting from a small-bust avatar" style={{borderRadius:'8px', width:'100%'}} />
+
+---
+
+## Manual Fixes After Conversion
+
+### Shoes
+
+Shoes are particularly prone to distortion after conversion due to how they are fitted to socks. Setting the **`MF_Origin`** blend shape added to the converted mesh to **100** restores a shape closer to the original silhouette.
+
+<img src="/img/mochifitter/shoe-distortion.webp" alt="Shoes immediately after conversion (with distortion)" style={{borderRadius:'8px', width:'100%', marginBottom:'0.5rem'}} />
+
+<img src="/img/mochifitter/shoe-fixed.webp" alt="After applying MF_Origin" style={{borderRadius:'8px', width:'100%', marginBottom:'0.5rem'}} />
+
+<img src="/img/mochifitter/mf-origin-inspector.webp" alt="MF_Origin blend shape in the Inspector" style={{borderRadius:'8px', width:'100%'}} />
+
+<TipsCard>Using the base body's clipping-prevention blend shapes improves the final result. For shoes, `adj_pumps` / `adj_shrink_ankle(s)` / `adj_shrink_foot(s)` / `adj_shrink_toe(s)` are especially effective.</TipsCard>
+
+### Outfits with a Chest Center Auxiliary Bone
+
+If the outfit being converted has an auxiliary bone controlling the center of the chest, the original setup may include a Rotation Constraint. Because 3+1 has a unique breast bone structure, replacing it with a **Parent Constraint** works better.
+
+Add **Breast.L.001** and **Breast.R.001** as sources and set each Weight to **1**.
+
+<img src="/img/mochifitter/parent-constraint.webp" alt="Parent Constraint configuration example" style={{borderRadius:'8px', width:'100%'}} />

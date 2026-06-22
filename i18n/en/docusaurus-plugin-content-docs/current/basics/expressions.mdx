@@ -1,0 +1,92 @@
+---
+sidebar_position: 2
+title: Expressions
+---
+
+# Expressions
+
+The expression palette can be switched from **FX Controls** in the action menu.
+
+---
+
+## Expression Palette
+
+Expressions are divided into three sets. Switch between Set A / B / C in **FX Controls** (`Facial_palette`). Within each set, expressions are switched using left-hand gestures.
+
+{/* ###image### */}
+
+export const Face = ({src, label}) => (
+  <div style={{textAlign:'center'}}>
+    <div style={{width:'80px',height:'80px',borderRadius:'12px',overflow:'hidden',margin:'0 auto 4px'}}>
+      <img src={src} alt={label} style={{width:'100%',height:'100%',objectFit:'cover',transform:'scale(1.6)',transformOrigin:'45% center'}} />
+    </div>
+    <span style={{fontSize:'0.75em',color:'var(--ifm-color-content-secondary)'}}>{label}</span>
+  </div>
+);
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'15%'}} />
+    <col style={{width:'28.3%'}} />
+    <col style={{width:'28.3%'}} />
+    <col style={{width:'28.3%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center',whiteSpace:'nowrap'}}>Gesture</th>
+      <th style={{textAlign:'center'}}><img src="/img/icons/FACIAL_A.png" alt="Set A" style={{width:'32px',verticalAlign:'middle'}} /> Set A</th>
+      <th style={{textAlign:'center'}}><img src="/img/icons/FACIAL_B.png" alt="Set B" style={{width:'32px',verticalAlign:'middle'}} /> Set B</th>
+      <th style={{textAlign:'center'}}><img src="/img/icons/FACIAL_C.png" alt="Set C" style={{width:'32px',verticalAlign:'middle'}} /> Set C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>✊</td>
+      <td><Face src="/img/expressions/FACE00.webp" label="FACE00" /></td>
+      <td><Face src="/img/expressions/FACE07.webp" label="FACE07" /></td>
+      <td><Face src="/img/expressions/FACE14.webp" label="FACE14" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>🖐️</td>
+      <td><Face src="/img/expressions/FACE01.webp" label="FACE01" /></td>
+      <td><Face src="/img/expressions/FACE08.webp" label="FACE08" /></td>
+      <td><Face src="/img/expressions/FACE15.webp" label="FACE15" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>🫵</td>
+      <td><Face src="/img/expressions/FACE02.webp" label="FACE02" /></td>
+      <td><Face src="/img/expressions/FACE09.webp" label="FACE09" /></td>
+      <td><Face src="/img/expressions/FACE16.webp" label="FACE16" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>✌️</td>
+      <td><Face src="/img/expressions/FACE03.webp" label="FACE03" /></td>
+      <td><Face src="/img/expressions/FACE10.webp" label="FACE10" /></td>
+      <td><Face src="/img/expressions/FACE17.webp" label="FACE17" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>🤘</td>
+      <td><Face src="/img/expressions/FACE04.webp" label="FACE04" /></td>
+      <td><Face src="/img/expressions/FACE11.webp" label="FACE11" /></td>
+      <td><Face src="/img/expressions/FACE18.webp" label="FACE18" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}><span style={{display:'inline-block',transform:'rotate(90deg)'}}>👆</span></td>
+      <td><Face src="/img/expressions/FACE05.webp" label="FACE05" /></td>
+      <td><Face src="/img/expressions/FACE12.webp" label="FACE12" /></td>
+      <td><Face src="/img/expressions/FACE19.webp" label="FACE19" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>👍</td>
+      <td><Face src="/img/expressions/FACE06.webp" label="FACE06" /></td>
+      <td><Face src="/img/expressions/FACE13.webp" label="FACE13" /></td>
+      <td><Face src="/img/expressions/FACE20.webp" label="FACE20" /></td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## MMD Compatibility Mode
+
+Turning on **Compatibility Mode.app** switches to compatibility expressions for MMD motions etc. (`MMD` parameter).

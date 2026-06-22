@@ -1,0 +1,46 @@
+---
+sidebar_position: 1
+title: Troubleshooting & FAQ
+---
+
+import FaqCard from '@site/src/components/FaqCard';
+
+# Troubleshooting & FAQ
+
+<FaqCard q="I don't know the password to extract the SE Extension archive">
+
+The password is listed in `PASSWORD.txt`, which is included inside the main package (`3+1_PKG.unitypackage`). Please import the main package first and then check the file.
+
+</FaqCard>
+
+<FaqCard q="Shaders turn pink">
+
+The lilToon shader has not been imported. Please import it from the [lilToon distribution page](https://lilxyzw.github.io/lilToon/).
+
+</FaqCard>
+
+<FaqCard q="NDMF / Modular Avatar errors appear">
+
+Please install the latest version of Modular Avatar from VCC (VRChat Creator Companion).
+
+</FaqCard>
+
+<FaqCard q="Physics objects deform when using AvatarPoseSystem">
+
+The PhysBone pinning feature of AvatarPoseSystem (APS) can interfere with all PhysBone physics objects in 3+1, causing them to become stuck in unintended shapes.
+
+When using APS, set all PhysBones you are using to **Unfix**. Alternatively, capture in an environment where APS is not used.
+
+</FaqCard>
+
+<FaqCard q="Eyebrows are hidden by an added front hair part">
+
+The material of the added front hair requires the setting `StencilComp: NotEqual / StencilRef: 1`. See [Shader Settings](/3plus1/settings/) for details.
+
+</FaqCard>
+
+<FaqCard q="Brightness adjustment does not work for added materials only">
+
+Set the initial value of `_MonochromeLighting` to `0.5`. See [Shader Settings](/3plus1/settings/) for details.
+
+</FaqCard>

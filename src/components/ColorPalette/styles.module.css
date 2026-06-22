@@ -1,0 +1,177 @@
+.wrapper {
+  border: 0.5px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  font-family: "fot-tsukubrdgothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+:global(html[lang="ko"]) .wrapper {
+  font-family: "source-han-serif-kr-variable", serif;
+  font-variation-settings: "wght" 400;
+}
+
+.header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 0.5px solid var(--ifm-color-emphasis-200);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pickerLabel {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.pickerRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+.colorInput {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0.5px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 2px;
+  background: var(--ifm-background-color);
+}
+
+.pickerHex {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.body {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section {}
+
+.sectionLabel {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-800);
+  margin-bottom: 0.75rem;
+}
+
+.ratioBar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.swatchRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.swatch {
+  flex: 1;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.swatchColor {
+  border-radius: 8px;
+  height: 56px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.35rem 0.5rem;
+  transition: filter 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.swatch:hover .swatchColor {
+  filter: brightness(0.92);
+}
+
+.swatchLarge .swatchColor {
+  height: 72px;
+}
+
+.swatchHex {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.65rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.swatchLabel {
+  font-size: 0.72rem;
+  color: var(--ifm-color-emphasis-700);
+  margin-top: 0.3rem;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.divider {
+  height: 0.5px;
+  background: var(--ifm-color-emphasis-200);
+}
+
+.simRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.simSwatch {
+  flex: 1;
+  border-radius: 8px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.simLabel {
+  font-size: 0.72rem;
+  color: var(--ifm-color-emphasis-700);
+  margin-top: 0.3rem;
+  text-align: center;
+}
+
+.lightPickerRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.lightPickerLabel {
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.simArrow {
+  display: flex;
+  align-items: center;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 1.2rem;
+  padding-bottom: 1.4rem;
+}
+
+.simNote {
+  font-size: 0.72rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-top: 0.5rem;
+}

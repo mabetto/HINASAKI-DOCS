@@ -33,8 +33,56 @@
   display: none;
 }
 
-.mobileLocale {
+.mobileLocaleWrapper {
   display: none;
+  position: relative;
+}
+
+.mobileLocale {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ifm-navbar-link-color);
+  font-size: var(--ifm-navbar-link-font-size, 1rem);
+  font-weight: var(--ifm-font-weight-semibold);
+  font-family: inherit;
+  padding: 0.25rem 0.4rem;
+  letter-spacing: 0.05em;
+}
+
+.mobileLocaleMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: var(--ifm-navbar-background-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  min-width: 80px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+}
+
+.mobileLocaleMenu li a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--ifm-navbar-link-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: var(--ifm-font-weight-semibold);
+  letter-spacing: 0.05em;
+}
+
+.mobileLocaleMenu li a:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.mobileLocaleActive {
+  color: var(--ifm-color-primary) !important;
 }
 
 .mobileOnly {
@@ -51,17 +99,7 @@
     display: flex;
   }
 
-  .mobileLocale {
+  .mobileLocaleWrapper {
     display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--ifm-navbar-link-color);
-    font-size: var(--ifm-navbar-link-font-size, 1rem);
-    font-weight: var(--ifm-font-weight-semibold);
-    font-family: inherit;
-    padding: 0.25rem 0.4rem;
-    letter-spacing: 0.05em;
   }
 }

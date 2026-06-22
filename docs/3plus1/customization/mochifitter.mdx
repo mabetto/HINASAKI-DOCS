@@ -1,0 +1,107 @@
+﻿---
+sidebar_position: 2
+title: もちふぃった～
+---
+
+import TipsCard from '@site/src/components/TipsCard';
+
+# もちふぃった～
+
+**もちふぃった～**（MochiFitter）は、対応していないアバター向けの衣装を別のアバターに合わせて変換するツールです。３＋１は**変換先（他アバター衣装 → ３＋１）・変換元（３＋１衣装 → 他アバター）の両方**に対応しています。
+
+:::note[注記]
+逆変換（３＋１衣装 → 他アバター）の手順については、A2L 追加の際にこのマニュアルに追加予定です。
+:::
+
+**入手先：** [BOOTH](https://booth.pm/ja/items/7657840)
+
+---
+
+## インストール
+
+1. VCC でプロジェクトに **Modular Avatar** を追加する
+2. MochiFitter の Unitypackage をプロジェクトにインポートする
+3. Unity メニューから **Tools → MochiFitter** を開く
+4. **Install** ボタンを押す（初回のみ。処理に時間がかかります）
+
+---
+
+## 使い方
+
+<img src="/img/mochifitter/inspector.webp" alt="MochiFitter インスペクター" style={{borderRadius:'8px', width:'100%', marginBottom:'1rem'}} />
+
+### 1. モード選択
+
+**Mode** を `Outfit Retargeting` に設定します。
+
+### 2. アバター選択
+
+| 項目 | 設定値 |
+|------|--------|
+| **Target Avatar（変換先）** | `3+1` |
+| **Source Avatar（変換元）** | 変換したい衣装の対応アバター（例：`Milltina → 3+1 (Template経由)`） |
+
+設定後、**変換オプションを再スキャン / Rescan Conversion Options** を押します。
+
+<TipsCard>３＋１の変換プロファイルは **HINASAKI Discord サーバー**で配布しています。また、**2026年6月23日以降は３＋１の販売ページから無料でダウンロード**できるようになります。あらかじめ入手してプロジェクトにインポートしておいてください。</TipsCard>
+
+### 3. 変換する衣装を設定する
+
+変換したい衣装のプレハブを **Outfit to Convert** にドラッグ＆ドロップします。
+
+### 4. ブレンドシェイプの設定
+
+コルセットやハイヒールなど、変換対象の衣装が使用するブレンドシェイプにチェックを入れます。
+
+:::warning[注意]
+変換対象の衣装で使用することが前提となっているシェイプキーのみチェックしてください。ハイヒールブレンドシェイプが無い衣装など、素体のハイヒール以外のブレンドシェイプは 100 にしてデフォルト状態にしてください。
+:::
+
+### 5. 詳細設定
+
+| 項目 | 説明 |
+|------|------|
+| **Weight Transfer Shape Source** | 胸を大きくした状態など、体型変更ブレンドシェイプを適用した状態でウェイトを転送したい場合にアバターのルートオブジェクトを設定します |
+| **Disable Triangulation** | 四角ポリゴンを維持したい衣装の場合に有効にします |
+| **Enable Subdivision** | ポリゴン数が少ない衣装の貫通防止に有効です（処理時間が長くなります） |
+| **Use OMOCHI Format** | Blender で読み込めない FBX 設定の衣装に対して有効にします（テスト機能） |
+
+### 6. 変換を実行する
+
+**Execute Retargeting** ボタンを押して変換を実行します。完了後、生成されたプレハブをアバターのルートオブジェクトにドラッグしてください。
+
+<TipsCard>変換後にマテリアルが正しく割り当てられているか確認してください。必要に応じて手動で設定し直してください。</TipsCard>
+
+---
+
+## 体格による互換性
+
+３＋１は他の多くのアバターと比べてバストサイズが大きいため、バストの小さいアバター向け衣装から変換した際に**体にフィットするタイプの衣装**では胸・胴体周辺に歪みが発生することがあります。ゆとりのある衣装では目立ちにくいですが、タイトなデザインでは手動修正が必要になる場合があります。
+
+<img src="/img/mochifitter/conversion-example.webp" alt="変換例：ぴっちり（左）とゆったり（右）" style={{borderRadius:'8px', width:'100%', marginBottom:'0.5rem'}} />
+
+<img src="/img/mochifitter/shinano-distortion.webp" alt="バストの小さいアバターからの変換時の歪みの例" style={{borderRadius:'8px', width:'100%'}} />
+
+---
+
+## 変換後の手動対応
+
+### 靴
+
+靴は靴下にフィットさせる仕様上、変換後に歪みが生じやすいパーツです。変換後のメッシュに追加される **`MF_Origin`** シェイプキーを **100** に設定すると、元のシルエットに近い形状に戻すことができます。
+
+<img src="/img/mochifitter/shoe-distortion.webp" alt="靴の変換直後（歪みあり）" style={{borderRadius:'8px', width:'100%', marginBottom:'0.5rem'}} />
+
+<img src="/img/mochifitter/shoe-fixed.webp" alt="MF_Origin適用後" style={{borderRadius:'8px', width:'100%', marginBottom:'0.5rem'}} />
+
+<img src="/img/mochifitter/mf-origin-inspector.webp" alt="MF_Origin シェイプキーのインスペクター" style={{borderRadius:'8px', width:'100%'}} />
+
+<TipsCard>素体の貫通防止用シェイプキーを活用すると、改変時の仕上がりがよくなります。靴では `adj_pumps` / `adj_shrink_ankle(s)` / `adj_shrink_foot(s)` / `adj_shrink_toe(s)` が特に有効です。</TipsCard>
+
+### 胸の中心補助ボーンがある衣装
+
+変換する衣装に胸の中心を制御する補助ボーンがある場合、元の設定にロテーションコンストレイントが含まれていることがありますが、３＋１のブレストボーン構造が特殊なため、**Parent Constraint** に置き換えるとうまくいきます。
+
+ソースに **Breast.L.001** と **Breast.R.001** を追加し、それぞれ Weight を **1** に設定してください。
+
+<img src="/img/mochifitter/parent-constraint.webp" alt="Parent Constraint の設定例" style={{borderRadius:'8px', width:'100%'}} />

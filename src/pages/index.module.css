@@ -73,6 +73,16 @@
   font-family: "fot-tsukubrdgothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+:global(html[lang="ko"]) .title {
+  font-family: "fot-tsukubrdgothic-std", sans-serif;
+}
+
+:global(html[lang="ko"]) .subtitle,
+:global(html[lang="ko"]) .modelNumber {
+  font-family: "source-han-serif-kr-variable", serif;
+  font-variation-settings: "wght" 400;
+}
+
 @media screen and (max-width: 996px) {
   .main {
     padding: 2rem 5rem;

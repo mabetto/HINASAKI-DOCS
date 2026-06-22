@@ -1,0 +1,51 @@
+---
+sidebar_position: 1
+title: Unityへのインポート
+---
+
+# Unityへのインポート
+
+:::note[注]
+
+VRChat Creator Companion（VCC）でアバタープロジェクトを作成済みであること
+
+:::
+
+---
+
+## 手順
+
+1. VCC に以下の URL からリポジトリを追加し、**Modular Avatar** をインストールします。
+
+   ```
+   vcc://vpm/addRepo?url=https://vpm.nadena.dev/vpm.json
+   ```
+
+2. **lilToon** の最新版を `Assets` フォルダに読み込みます。
+
+3. `3+1_PKG.unitypackage` を `Assets` フォルダに読み込みます。
+
+4. `Assets/HINASAKI/3+1/3+1_Upload.unity` を開きます。
+
+5. Unity メニューから **VRChat SDK → Show Control Panel** を開きます。
+
+6. VRChat アカウントでログインします。
+
+7. **Builder** タブでアバター名を入力します。
+
+8. **Build & Publish** をクリックしてアップロードします。
+
+---
+
+## 言語拡張のインストール
+
+エクスプレッションメニューの言語を切り替えられます。初期状態は日本語です。
+
+| ファイル | 言語 |
+|---------|------|
+| `3+1_LANG_EN_EXT.unitypackage` | English |
+| `3+1_LANG_KO_EXT.unitypackage` | 한국어 |
+
+1. 上記の手順 1〜4 を完了させます。
+2. 言語拡張の `.unitypackage` を `Assets` フォルダに読み込み、エクスプレッションメニューを上書きします。
+3. 手順 5〜8 を実行してアップロードします。

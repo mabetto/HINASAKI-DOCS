@@ -1,0 +1,85 @@
+---
+sidebar_position: 2
+title: MA設定
+---
+
+# MA設定
+
+３＋１は **Modular Avatar** を前提とした非破壊構成です。衣装・アクセサリの追加はすべて MA で行い、ベースアバターのデータは直接編集しません。
+
+---
+
+## COS_A / COS_B の構成
+
+```
+3+1（ベースアバター）
+├─ SA_COS_A
+└─ SA_COS_B
+```
+
+COS_A と COS_B はそれぞれ独立したプレハブとして Hierarchy に配置され、MA Merge Animator によって各自の FX Controller をベースアバターの FX レイヤーへマージします。どちらのプレハブも常に存在しており、表示・非表示の切り替えはアニメーターが制御します。
+
+COS_B は COS_A の「キャストオフ後の状態」をベースとしています。COS_A の `CostumeBody` パラメーターが OFF になると COS_A の衣装メッシュが非表示になり、代わりに COS_B のメッシュが表示される仕組みです。COS_B 専用の FX Controller は主にボディバリエーションとライティング設定のみを担当しており、クローゼットやランプなどのメニューは持ちません。
+
+| | COS_A | COS_B |
+|--|-------|-------|
+| スタイル | 制服 | 素体（COS_A キャストオフ後のベース） |
+| FX Controller | 独自レイヤーをベースにマージ | 独自レイヤーをベースにマージ |
+| メニュー追加 | クローゼット・ランプ | なし |
+
+---
+
+## コンポーネント構成
+
+新しいコスチュームプレハブを追加する際は、以下の MA コンポーネントを組み合わせて構成します。
+
+| コンポーネント | 役割 |
+|--------------|------|
+| MA Merge Animator | コスチューム用 FX Controller をベースにマージ |
+| MA Parameters | コスチューム固有パラメーターを追加 |
+| MA Menu Installer | 衣装メニューをトップメニューに統合 |
+| MA Bone Proxy | ベースアバターのボーンに追従 |
+
+MA Merge Animator はレイヤーを非破壊でマージするため、既存の FX レイヤーを上書きしません。`matchAvatarWriteDefaults: true` により、ベースアバターの Write Defaults 設定と自動的に統一されます。
+
+MA Merge Animator 設定値：
+
+| 設定 | 値 |
+|------|-----|
+| layerType | 5（FX） |
+| pathMode | 0（Relative） |
+| matchAvatarWriteDefaults | true |
+| deleteAttachedAnimator | true |
+
+---
+
+## パラメーター一覧
+
+### SA_COS_A FX
+
+COS_A の FX Controller が参照するパラメーターです。`GestureLeft` / `GestureRight` / `Facial_palette` はベースアバターの FX Controller（表情・ジェスチャーレイヤー）と共有されます。`Brightness` / `Lighting(mono)` も同様にベースアバターと共有し、COS_A 専用のアニメーションクリップで各マテリアルの明るさを制御します。
+
+`CostumeHead` / `CostumeBody` / `CostumeSkirt` は COS_A 固有のパラメーターで、クローゼットメニューの各ボタンに対応します。`CostumeHead` と `CostumeBody` が Int 型なのは、衣装が増えた際に対応できるよう冗長性を確保した設計です。`Turnsignal` は値によってウインカーの動作モードが変わります。
+
+| パラメーター | 型 | 説明 |
+|------------|---|------|
+| `GestureLeft` | Int | VRChat 組み込み（左手ジェスチャー） |
+| `GestureRight` | Int | VRChat 組み込み（右手ジェスチャー） |
+| `Facial_palette` | Int | 表情セット選択（0=A / 1=B / 2=C） |
+| `CostumeHead` | Int | 頭部衣装の表示切り替え |
+| `CostumeBody` | Int | ボディ衣装の表示切り替え |
+| `CostumeSkirt` | Bool | スカートの表示切り替え |
+| `Daylight` | Bool | デイライト ON/OFF |
+| `Turnsignal` | Int | ウインカー（0=OFF / 1=ハザード / 2=左 / 3=右） |
+| `Brightness` | Float | 明るさ調整 |
+| `Lighting(mono)` | Float | ライトのモノクロ化 |
+
+### SA_COS_B FX
+
+COS_B の FX Controller はシンプルな構成で、`CostumeBody` によるボディバリエーションの切り替えと、ライティング設定のみを担当します。`Brightness` / `Lighting(mono)` はベースアバターと共有されており、COS_B 専用のアニメーションクリップで COS_B のマテリアルに適用されます。
+
+| パラメーター | 型 | 説明 |
+|------------|---|------|
+| `CostumeBody` | Int | ボディ衣装の表示切り替え |
+| `Brightness` | Float | 明るさ調整 |
+| `Lighting(mono)` | Float | ライトのモノクロ化 |

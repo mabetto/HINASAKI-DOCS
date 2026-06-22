@@ -1,0 +1,85 @@
+---
+sidebar_position: 2
+title: MA Settings
+---
+
+# MA Settings
+
+3+1 uses a non-destructive setup based on **Modular Avatar**. All costume and accessory additions are done through MA, and the base avatar data is never edited directly.
+
+---
+
+## COS_A / COS_B Structure
+
+```
+3+1 (Base Avatar)
+├─ SA_COS_A
+└─ SA_COS_B
+```
+
+COS_A and COS_B are each placed in the Hierarchy as independent prefabs. MA Merge Animator merges their respective FX Controllers into the base avatar's FX layers. Both prefabs are always present; visibility toggling is controlled by the animator.
+
+COS_B is based on the state of COS_A after "cast-off." When the `CostumeBody` parameter in COS_A turns OFF, the COS_A costume meshes are hidden and the COS_B meshes are displayed instead. COS_B's dedicated FX Controller handles only body variations and lighting settings, and does not include closet or lamp menus.
+
+| | COS_A | COS_B |
+|--|-------|-------|
+| Style | Uniform | Base body (COS_A post cast-off state) |
+| FX Controller | Merged into base with dedicated layers | Merged into base with dedicated layers |
+| Menu additions | Closet, Lamp | None |
+
+---
+
+## Component Structure
+
+When adding a new costume prefab, combine the following MA components.
+
+| Component | Role |
+|--------------|------|
+| MA Merge Animator | Merges the costume's FX Controller into the base |
+| MA Parameters | Adds costume-specific parameters |
+| MA Menu Installer | Integrates the costume menu into the top menu |
+| MA Bone Proxy | Follows the base avatar's bones |
+
+MA Merge Animator merges layers non-destructively and does not overwrite existing FX layers. With `matchAvatarWriteDefaults: true`, the Write Defaults setting is automatically aligned with the base avatar.
+
+MA Merge Animator settings:
+
+| Setting | Value |
+|------|-----|
+| layerType | 5 (FX) |
+| pathMode | 0 (Relative) |
+| matchAvatarWriteDefaults | true |
+| deleteAttachedAnimator | true |
+
+---
+
+## Parameter List
+
+### SA_COS_A FX
+
+These are the parameters referenced by the COS_A FX Controller. `GestureLeft` / `GestureRight` / `Facial_palette` are shared with the base avatar's FX Controller (facial expression and gesture layers). `Brightness` / `Lighting(mono)` are likewise shared with the base avatar, and brightness for each material is controlled via COS_A-specific animation clips.
+
+`CostumeHead` / `CostumeBody` / `CostumeSkirt` are parameters unique to COS_A, corresponding to each button in the closet menu. `CostumeHead` and `CostumeBody` are of type Int to allow for redundancy when additional costumes are added. `Turnsignal` changes its behavior depending on the value.
+
+| Parameter | Type | Description |
+|------------|---|------|
+| `GestureLeft` | Int | VRChat built-in (left hand gesture) |
+| `GestureRight` | Int | VRChat built-in (right hand gesture) |
+| `Facial_palette` | Int | Expression set selection (0=A / 1=B / 2=C) |
+| `CostumeHead` | Int | Toggles head costume visibility |
+| `CostumeBody` | Int | Toggles body costume visibility |
+| `CostumeSkirt` | Bool | Toggles skirt visibility |
+| `Daylight` | Bool | Daylight ON/OFF |
+| `Turnsignal` | Int | Turn signal (0=OFF / 1=Hazard / 2=Left / 3=Right) |
+| `Brightness` | Float | Brightness adjustment |
+| `Lighting(mono)` | Float | Light monochrome level |
+
+### SA_COS_B FX
+
+The COS_B FX Controller has a simple structure, handling only body variation switching via `CostumeBody` and lighting settings. `Brightness` / `Lighting(mono)` are shared with the base avatar, and are applied to COS_B materials via COS_B-specific animation clips.
+
+| Parameter | Type | Description |
+|------------|---|------|
+| `CostumeBody` | Int | Toggles body costume visibility |
+| `Brightness` | Float | Brightness adjustment |
+| `Lighting(mono)` | Float | Light monochrome level |

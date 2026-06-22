@@ -1,0 +1,65 @@
+---
+sidebar_position: 3
+title: Installing the SE Extension
+---
+
+# Installing the SE Extension
+
+The SE extension is a free DLC. It must be downloaded and installed separately from the main package.
+
+---
+
+## Steps
+
+1. Add the following repository URL to VCC and install **Modular Avatar**.
+
+   ```
+   vcc://vpm/addRepo?url=https://vpm.nadena.dev/vpm.json
+   ```
+
+2. Add the following repository URL to VCC and install **VRCFury**.
+
+   ```
+   vcc://vpm/addRepo?url=https%3A%2F%2Fvcc.vrcfury.com
+   ```
+
+3. Import the latest version of **lilToon** into the `Assets` folder.
+
+4. Import both `3+1_PKG.unitypackage` and `3+1_SE_EXT.unitypackage` into the `Assets` folder.
+
+5. Open `Assets/HINASAKI/3+1/3+1_Upload.unity`.
+
+6. Drag and drop the **SA_A2XL_R18** prefab from `Assets/HINASAKI/A2XL_SE_Extension/Prefab/` onto **3+1** in the Hierarchy.
+
+7. Configure the shape keys of **Basebody** inside `SA_A2XL_R18` to match the costume.
+
+   Default costume (COS_A) values:
+
+   | Shape Key | Value |
+   |------------|-----|
+   | `adj_bust_cloth1` | 100 |
+   | `adj_pumps` | 100 |
+   | `opt_hekochiku` | 10 |
+
+:::info[Note]
+
+**For the 3+1 Large variant only:** On the **MA Merge Armature** attached to the `Armature` of `SA_A2XL_R18`, enable "Reset position to match source avatar" → "Also match scale" and apply.
+
+:::
+
+8. Open **VRChat SDK → Show Control Panel** from the Unity menu and upload.
+
+---
+
+## Installing Language Extensions
+
+The SE extension expressions menu also supports Japanese, English, and Korean.
+
+| File | Language |
+|---------|------|
+| `3+1_SE_LANG_EN_EXT.unitypackage` | English |
+| `3+1_SE_LANG_KO_EXT.unitypackage` | 한국어 |
+
+1. Complete steps 1–6 above.
+2. Import the language extension `.unitypackage` into the `Assets` folder.
+3. Perform step 8 to upload.

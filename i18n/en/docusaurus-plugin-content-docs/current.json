@@ -1,0 +1,26 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.threePlusOneSidebar.category.概要": {
+    "message": "Overview",
+    "description": "The label for category '概要' in sidebar 'threePlusOneSidebar'"
+  },
+  "sidebar.threePlusOneSidebar.category.はじめる": {
+    "message": "Getting Started",
+    "description": "The label for category 'はじめる' in sidebar 'threePlusOneSidebar'"
+  },
+  "sidebar.threePlusOneSidebar.category.基本操作": {
+    "message": "Basics",
+    "description": "The label for category '基本操作' in sidebar 'threePlusOneSidebar'"
+  },
+  "sidebar.threePlusOneSidebar.category.改変ガイド": {
+    "message": "Customization Guide",
+    "description": "The label for category '改変ガイド' in sidebar 'threePlusOneSidebar'"
+  },
+  "sidebar.threePlusOneSidebar.category.仕様": {
+    "message": "Specifications",
+    "description": "The label for category '仕様' in sidebar 'threePlusOneSidebar'"
+  }
+}

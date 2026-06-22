@@ -1,0 +1,84 @@
+---
+sidebar_position: 6
+title: ましゅまろPBの導入
+---
+
+import TipsCard from '@site/src/components/TipsCard';
+
+# ましゅまろPBの導入
+
+**ましゅまろPB**（wataame89 様）は、押しつぶれ・揺れ・重力・プレイヤー間干渉を備えた VRChat 向け胸物理システムです。３＋１は**追加プリセット①（有料）**の対応アバターです。
+
+**入手先：** [BOOTH](https://wataame89.booth.pm/items/4511536)  
+**公式ドキュメント：** [wataame89.github.io](https://wataame89.github.io/documents-wataameya/marshmallowPB/howtouse/install)
+
+---
+
+## インストール
+
+1. VCC でプロジェクトに **Modular Avatar** を追加する
+2. ましゅまろPB 本体と**追加プリセット①**をインポートする
+3. Hierarchy でアバターを右クリック → **wataameya → MarshmallowPB** を選択する
+4. プリセット一覧から **さんぷらすうの 3+1** を選択する — 胸ボーン（Breast.L / Breast.R）が自動で設定されます
+
+<img src="/img/marshmallow-pb/basic-settings.webp" alt="基本設定" style={{borderRadius:'8px', width:'100%'}} />
+
+5. 生成された `marshmallow_PB_Setup` オブジェクトの設定を以下の値に合わせる
+
+---
+
+## ３＋１向け設定値
+
+プリセットで **さんぷらすうの 3+1** を選択すると、PB の物理パラメーターはほぼ自動で設定されます。手動で変更が必要なのは **PBプリセット** と **Collider** の2か所のみです。
+
+---
+
+### PB設定（PhysBone Setting）
+
+<img src="/img/marshmallow-pb/pb-settings.webp" alt="PB設定" style={{borderRadius:'8px', width:'100%'}} />
+
+**PBプリセット**はお好みで選択してください。`たゆんたゆん（やわらかめ）Bouncy (Soft)` が制作者のおすすめです。
+
+**Collider** には以下の6本を順番に割り当ててください。Element 6〜9 は None のままにします。
+
+| スロット | オブジェクト |
+|---------|------------|
+| Element 0 | L_Col_LowerArm |
+| Element 1 | L_Col_UpperArm |
+| Element 2 | R_Col_UpperArm |
+| Element 3 | R_Col_LowerArm |
+| Element 4 | L_Col_UpperLeg |
+| Element 5 | R_Col_UpperLeg |
+
+---
+
+### 干渉/つぶれ設定・貫通防止設定・メニュー設定
+
+<img src="/img/marshmallow-pb/squish-settings.webp" alt="干渉・貫通防止・メニュー設定" style={{borderRadius:'8px', width:'100%'}} />
+
+チェックボックスは**つぶれ機能無効化を除いてすべて ON** にします。**メニューインストール先**が `3+1 PreferenceMenu` になっていることを確認してください。
+
+---
+
+## ３＋１の胸つぶれシステムを無効化する
+
+３＋１には標準で胸つぶれ用のレイヤー **SYS_SCALE_L / SYS_SCALE_R** が FX コントローラーに搭載されています。ましゅまろPBのつぶれ機能と二重になるため、無効化または削除してください。
+
+<img src="/img/marshmallow-pb/fx-sys-scale.webp" alt="FX コントローラー SYS_SCALE レイヤー" style={{borderRadius:'8px', width:'100%'}} />
+
+1. Project ウィンドウで３＋１の FX コントローラーを開く
+2. Animator ウィンドウで **SYS_SCALE_L** と **SYS_SCALE_R** レイヤーを探す
+3. 各レイヤーの **Weight を 0** に設定するか、レイヤーを削除する
+
+<TipsCard>Weight を 0 にする方法は後から元に戻せます。削除する場合は事前にコントローラーのバックアップを取っておいてください。</TipsCard>
+
+---
+
+## 動作確認
+
+設定後、Gesture Manager Emulator（`Tools → Gesture Manager Emulator`）で以下を確認してください。
+
+- [ ] 胸が揺れる
+- [ ] 胸を押すとつぶれる
+- [ ] 左右の胸が干渉し合う
+- [ ] SYS_SCALE_L / SYS_SCALE_R 由来のつぶれと二重になっていない

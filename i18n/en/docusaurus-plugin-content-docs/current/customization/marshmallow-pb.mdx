@@ -1,0 +1,84 @@
+---
+sidebar_position: 6
+title: Setting Up ましゅまろPB
+---
+
+import TipsCard from '@site/src/components/TipsCard';
+
+# Setting Up ましゅまろPB
+
+**ましゅまろPB** (by wataame89) is a VRChat breast physics system featuring squishing, bouncing, gravity, and player-to-player interaction. 3+1 is a supported avatar for **Additional Preset ① (paid)**.
+
+**Download:** [BOOTH](https://wataame89.booth.pm/items/4511536)  
+**Official documentation:** [wataame89.github.io](https://wataame89.github.io/documents-wataameya/marshmallowPB/howtouse/install)
+
+---
+
+## Installation
+
+1. Add **Modular Avatar** to your project via VCC
+2. Import the ましゅまろPB main package and **Additional Preset ①**
+3. In the Hierarchy, right-click the avatar → select **wataameya → MarshmallowPB**
+4. Select **さんぷらすうの 3+1** from the preset list — the breast bones (Breast.L / Breast.R) are configured automatically
+
+<img src="/img/marshmallow-pb/basic-settings.webp" alt="Basic settings" style={{borderRadius:'8px', width:'100%'}} />
+
+5. Adjust the settings on the generated `marshmallow_PB_Setup` object to the values below
+
+---
+
+## Recommended Settings for 3+1
+
+When you select **さんぷらすうの 3+1** as the preset, the physics parameters for PB are set almost automatically. The only two items that need manual adjustment are **PB Preset** and **Collider**.
+
+---
+
+### PB Settings (PhysBone Setting)
+
+<img src="/img/marshmallow-pb/pb-settings.webp" alt="PB settings" style={{borderRadius:'8px', width:'100%'}} />
+
+Choose **PB Preset** according to your preference. `たゆんたゆん（やわらかめ）Bouncy (Soft)` is the creator's recommendation.
+
+Assign the following 6 objects to **Collider** in order. Leave Elements 6–9 as None.
+
+| Slot | Object |
+|---------|------------|
+| Element 0 | L_Col_LowerArm |
+| Element 1 | L_Col_UpperArm |
+| Element 2 | R_Col_UpperArm |
+| Element 3 | R_Col_LowerArm |
+| Element 4 | L_Col_UpperLeg |
+| Element 5 | R_Col_UpperLeg |
+
+---
+
+### Squish / Collision Settings, Penetration Prevention Settings, and Menu Settings
+
+<img src="/img/marshmallow-pb/squish-settings.webp" alt="Squish, penetration prevention, and menu settings" style={{borderRadius:'8px', width:'100%'}} />
+
+Enable **all checkboxes except Disable Squish**. Confirm that the **Menu Install Target** is set to `3+1 PreferenceMenu`.
+
+---
+
+## Disabling 3+1's Built-in Breast Squish System
+
+3+1 includes breast squish layers **SYS_SCALE_L / SYS_SCALE_R** in the FX controller by default. Because these overlap with ましゅまろPB's squish feature, they should be disabled or deleted.
+
+<img src="/img/marshmallow-pb/fx-sys-scale.webp" alt="FX controller SYS_SCALE layers" style={{borderRadius:'8px', width:'100%'}} />
+
+1. Open 3+1's FX controller in the Project window
+2. In the Animator window, locate the **SYS_SCALE_L** and **SYS_SCALE_R** layers
+3. Set each layer's **Weight to 0**, or delete the layers
+
+<TipsCard>Setting the weight to 0 allows you to revert the change later. If you choose to delete the layers, make a backup of the controller first.</TipsCard>
+
+---
+
+## Verification
+
+After setup, use Gesture Manager Emulator (`Tools → Gesture Manager Emulator`) to confirm the following:
+
+- [ ] Breasts bounce
+- [ ] Pressing the breasts causes squishing
+- [ ] The left and right breasts interact with each other
+- [ ] There is no double squish from SYS_SCALE_L / SYS_SCALE_R

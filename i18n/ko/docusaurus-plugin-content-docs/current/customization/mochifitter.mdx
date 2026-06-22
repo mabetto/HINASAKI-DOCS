@@ -1,0 +1,107 @@
+---
+sidebar_position: 2
+title: もちふぃった～
+---
+
+import TipsCard from '@site/src/components/TipsCard';
+
+# もちふぃった～
+
+**もちふぃった～**（MochiFitter）는 지원하지 않는 아바타용 의상을 다른 아바타에 맞게 변환하는 툴입니다. 3+1은 **변환 대상（다른 아바타 의상 → 3+1）과 변환 원본（3+1 의상 → 다른 아바타）** 양방향을 지원합니다.
+
+:::note[참고]
+역변환（3+1 의상 → 다른 아바타）의 절차는 A2L 추가 시 이 매뉴얼에 추가될 예정입니다.
+:::
+
+**입수처：** [BOOTH](https://booth.pm/ja/items/7657840)
+
+---
+
+## 설치
+
+1. VCC에서 프로젝트에 **Modular Avatar**를 추가합니다
+2. MochiFitter의 Unitypackage를 프로젝트에 임포트합니다
+3. Unity 메뉴에서 **Tools → MochiFitter**를 엽니다
+4. **Install** 버튼을 누릅니다（최초 1회만. 처리에 시간이 걸립니다）
+
+---
+
+## 사용 방법
+
+<img src="/img/mochifitter/inspector.webp" alt="MochiFitter 인스펙터" style={{borderRadius:'8px', width:'100%', marginBottom:'1rem'}} />
+
+### 1. 모드 선택
+
+**Mode**를 `Outfit Retargeting`으로 설정합니다.
+
+### 2. 아바타 선택
+
+| 항목 | 설정값 |
+|------|--------|
+| **Target Avatar（변환 대상）** | `3+1` |
+| **Source Avatar（변환 원본）** | 변환하려는 의상의 대응 아바타（예：`Milltina → 3+1 (Template 경유)`） |
+
+설정 후 **변환 옵션 재스캔 / Rescan Conversion Options**를 누릅니다.
+
+<TipsCard>3+1의 변환 프로파일은 **HINASAKI Discord 서버**에서 배포하고 있습니다. 또한 **2026년 6월 23일 이후에는 3+1 판매 페이지에서 무료로 다운로드**할 수 있게 됩니다. 미리 입수하여 프로젝트에 임포트해 두십시오.</TipsCard>
+
+### 3. 변환할 의상 설정
+
+변환하려는 의상의 프리팹을 **Outfit to Convert**에 드래그 앤 드롭합니다.
+
+### 4. 블렌드 셰이프 설정
+
+코르셋이나 하이힐 등 변환 대상 의상이 사용하는 블렌드 셰이프에 체크를 입력합니다.
+
+:::warning[주의]
+변환 대상 의상에서 사용하는 것이 전제된 셰이프 키만 체크하십시오. 하이힐 블렌드 셰이프가 없는 의상 등, 소체의 하이힐 이외의 블렌드 셰이프는 100으로 설정하여 기본 상태로 만드십시오.
+:::
+
+### 5. 고급 설정
+
+| 항목 | 설명 |
+|------|------|
+| **Weight Transfer Shape Source** | 가슴을 크게 한 상태 등 체형 변경 블렌드 셰이프를 적용한 상태에서 웨이트를 전송하고 싶은 경우에 아바타의 루트 오브젝트를 설정합니다 |
+| **Disable Triangulation** | 사각형 폴리곤을 유지하고 싶은 의상의 경우에 활성화합니다 |
+| **Enable Subdivision** | 폴리곤 수가 적은 의상의 관통 방지에 효과적입니다（처리 시간이 길어집니다） |
+| **Use OMOCHI Format** | Blender에서 읽을 수 없는 FBX 설정의 의상에 대해 활성화합니다（테스트 기능） |
+
+### 6. 변환 실행
+
+**Execute Retargeting** 버튼을 눌러 변환을 실행합니다. 완료 후 생성된 프리팹을 아바타의 루트 오브젝트에 드래그하십시오.
+
+<TipsCard>변환 후 머티리얼이 올바르게 할당되어 있는지 확인하십시오. 필요에 따라 수동으로 다시 설정하십시오.</TipsCard>
+
+---
+
+## 체형에 따른 호환성
+
+3+1은 다른 많은 아바타에 비해 가슴 크기가 크기 때문에, 가슴이 작은 아바타용 의상을 변환했을 때 **몸에 밀착되는 타입의 의상**에서는 가슴·몸통 주변에 왜곡이 발생하는 경우가 있습니다. 여유로운 디자인의 의상에서는 눈에 잘 띄지 않지만, 타이트한 디자인에서는 수동 수정이 필요할 수 있습니다.
+
+<img src="/img/mochifitter/conversion-example.webp" alt="변환 예：밀착형（왼쪽）과 여유형（오른쪽）" style={{borderRadius:'8px', width:'100%', marginBottom:'0.5rem'}} />
+
+<img src="/img/mochifitter/shinano-distortion.webp" alt="가슴이 작은 아바타에서 변환 시 왜곡 예시" style={{borderRadius:'8px', width:'100%'}} />
+
+---
+
+## 변환 후 수동 대응
+
+### 신발
+
+신발은 양말에 피팅시키는 구조상 변환 후 왜곡이 발생하기 쉬운 파츠입니다. 변환 후 메시에 추가되는 **`MF_Origin`** 셰이프 키를 **100**으로 설정하면 원래 실루엣에 가까운 형상으로 되돌릴 수 있습니다.
+
+<img src="/img/mochifitter/shoe-distortion.webp" alt="신발 변환 직후（왜곡 있음）" style={{borderRadius:'8px', width:'100%', marginBottom:'0.5rem'}} />
+
+<img src="/img/mochifitter/shoe-fixed.webp" alt="MF_Origin 적용 후" style={{borderRadius:'8px', width:'100%', marginBottom:'0.5rem'}} />
+
+<img src="/img/mochifitter/mf-origin-inspector.webp" alt="MF_Origin 셰이프 키 인스펙터" style={{borderRadius:'8px', width:'100%'}} />
+
+<TipsCard>소체의 관통 방지용 셰이프 키를 활용하면 개조 시 완성도가 높아집니다. 신발의 경우 `adj_pumps` / `adj_shrink_ankle(s)` / `adj_shrink_foot(s)` / `adj_shrink_toe(s)`가 특히 효과적입니다.</TipsCard>
+
+### 가슴 중심 보조 본이 있는 의상
+
+변환하는 의상에 가슴 중심을 제어하는 보조 본이 있는 경우, 원래 설정에 로테이션 컨스트레인트가 포함되어 있는 경우가 있습니다. 3+1의 브레스트 본 구조가 특수하기 때문에 **Parent Constraint**로 교체하면 잘 작동합니다.
+
+소스에 **Breast.L.001**과 **Breast.R.001**을 추가하고 각각 Weight를 **1**로 설정하십시오.
+
+<img src="/img/mochifitter/parent-constraint.webp" alt="Parent Constraint 설정 예시" style={{borderRadius:'8px', width:'100%'}} />

@@ -1,0 +1,73 @@
+---
+sidebar_position: 4
+title: Bangs Stencil Settings
+---
+
+import TipsCard from '@site/src/components/TipsCard';
+
+# Bangs Stencil Settings
+
+In 3+1, the stencil buffer is used to allow **eyebrows and eyeliner to show through** even when the bangs overlap the face. When adding new bangs, you must apply the same settings to the material. Without this, eyebrows and eyeliner will be hidden behind the bangs.
+
+For details on how this works, see [Shader Settings › Stencil System](/3plus1/settings/#stencil-system).
+
+---
+
+## Setup Steps
+
+### 1. Select the bangs material
+
+Select the bangs object from the Project window or Hierarchy and open the material it uses in the Inspector.
+
+### 2. Open the lilToon stencil settings
+
+In the lilToon material Inspector, expand the **"Stencil"** section.
+
+<TipsCard>If the section is not visible, switch the display mode at the top of the Inspector to "Intermediate" or higher.</TipsCard>
+
+### 3. Set the values
+
+| Field | Value |
+|------|-----|
+| Stencil Ref | **1** |
+| Stencil Comp | **NotEqual** |
+| Stencil Pass | Keep |
+| Stencil Fail | Keep |
+| Stencil ZFail | Keep |
+
+<TipsCard>Pass / Fail / ZFail can remain at the default Keep. Only Ref and Comp need to be changed.</TipsCard>
+
+### 4. If there are multiple materials
+
+If multiple materials are assigned to the bangs object, apply the same settings to **all materials**.
+
+### 5. Verify in Play mode
+
+Enter Unity's Play mode and confirm that eyebrows and eyeliner are visible through the bangs.
+
+---
+
+## Matching lilToon Settings
+
+The **Brightness** (`Brightness` parameter) and **Monochrome Lighting** (`Lighting(mono)` parameter) in the preference menu work by having the COS_A animator directly control each material's `_LightMinLimit` / `_MonochromeLighting`.
+
+Materials on newly added meshes are outside the scope of this animator, so **aligning the default values with the base avatar** ensures visual consistency when the radial is not in use.
+
+For details, see [Shader Settings](/3plus1/settings/).
+
+| Property | Min (Radial 0) | Max (Radial 1) |
+|-----------|------|------|
+| `_LightMinLimit` | 0.05 | 1.0 |
+| `_MonochromeLighting` | 0.5 | 1.0 |
+
+<TipsCard>If you want new parts to follow brightness or monochrome changes from the radial, you need to add the new mesh's material slots to COS_A's animation clips.</TipsCard>
+
+---
+
+## Checklist
+
+- [ ] `Stencil Ref` on the bangs material is set to **1**
+- [ ] `Stencil Comp` on the bangs material is set to **NotEqual**
+- [ ] If there are multiple materials, all of them have been configured
+- [ ] Eyebrows and eyeliner are visible through the bangs in Play mode
+- [ ] lilToon lighting values match the base avatar

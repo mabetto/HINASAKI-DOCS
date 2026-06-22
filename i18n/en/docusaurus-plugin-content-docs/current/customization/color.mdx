@@ -1,0 +1,104 @@
+---
+sidebar_position: 4
+title: Choosing Colors
+---
+
+import ColorPalette from '@site/src/components/ColorPalette';
+import TipsCard from '@site/src/components/TipsCard';
+
+# Choosing Colors
+
+A collection of color-selection tips that can make a noticeable difference in the quality of your finished look.
+
+<ColorPalette />
+
+---
+
+## The 70:25:5 Rule
+
+A widely used ratio for color schemes.
+
+| Role | Ratio | Example |
+|------|------|-----|
+| Base color | 70% | Hair, main outfit color |
+| Sub color | 25% | Outfit sub-parts, accent materials |
+| Accent color | 5% | Buttons, gems, highlight colors |
+
+<TipsCard>Accent colors draw the eye precisely because they cover a small area. Reserving bold colors for this role is the most effective approach.</TipsCard>
+
+## Avoid Pure Colors
+
+Colors with extreme RGB values (such as pure red `255, 0, 0`) are heavily affected by VRChat's lighting environment and world post-effects. In bright worlds they tend to saturate and clip; in dark worlds they often appear unnaturally vivid.
+
+<TipsCard>Simply lowering the saturation slightly and adjusting the brightness can greatly improve how the color blends in.</TipsCard>
+
+---
+
+## The Three Attributes of Color
+
+Color is made up of three elements: **Hue, Saturation, and Value (Brightness)**. These can be controlled in most paint software and Unity's color picker using HSV/HSL mode.
+
+| Attribute | Meaning |
+|------|------|
+| Hue | The "what color" — red, blue, green, etc. Represented as a position on the color wheel. |
+| Saturation | The vividness of the color. Higher values approach pure color; lower values approach gray. |
+| Value / Brightness | The lightness of the color. Higher values approach white; lower values approach black. |
+
+## Choosing Hues
+
+### Group by Analogous Colors
+
+Grouping adjacent hues (e.g., blue → blue-violet → violet) creates natural harmony.
+
+<TipsCard>This is a forgiving scheme even for beginners. Start with analogous colors, then add a small amount of a complementary color as you gain confidence.</TipsCard>
+
+### Add Accents with Complementary Colors
+
+Adding a small amount of the opposite color on the color wheel (e.g., orange against blue) draws the eye.
+
+<TipsCard>Using a complementary color as the accent is a classic approach. Refer to the "Complementary" field in the palette tool above.</TipsCard>
+
+### Unify Color Temperature
+
+Mixing warm colors (red, orange, yellow) and cool colors (blue, cyan) makes it harder to create a cohesive impression.
+
+<TipsCard>A practical approach is to lean the overall palette toward one temperature and use the opposite as an accent.</TipsCard>
+
+## Controlling Saturation and Brightness
+
+### Match Saturation Levels
+
+A large gap in saturation between the base color and sub color makes individual parts look "detached."
+
+<TipsCard>Use the existing textures as a saturation reference and keep additional materials within the same range for a unified look.</TipsCard>
+
+### Use Brightness Contrast for Definition
+
+Varying brightness within the same hue creates a sense of volume and visual weight.
+
+<TipsCard>Simply making the upper body brighter and the lower body slightly darker tightens up the silhouette.</TipsCard>
+
+---
+
+## Account for Lighting When Choosing Colors
+
+3+1 uses `_LightMinLimit: 0.05` to maintain a minimum brightness even in dark worlds, and `_MonochromeLighting: 0.5` to partially desaturate colored lights.
+
+<TipsCard>Deciding on colors based solely on your production environment (a single Directional Light) often leads to unexpected results inside VRChat. It is recommended to check your colors under multiple lighting conditions.</TipsCard>
+
+## Reference the Original Texture's Color Range
+
+When creating textures for new outfits or accessories, referencing the color range (saturation and brightness levels) of the original `SA_CLOTH_A.psd` or `SA_HAIR_A.psd` helps maintain visual consistency.
+
+<TipsCard>Sampling a color from the original texture with the eyedropper and deriving new colors from it is the easiest way to achieve a natural blend.</TipsCard>
+
+---
+
+## Areas for Improvement
+
+| Situation | How to approach it |
+|------------|------------|
+| Too many colors | Limit hues to 3–4 and create variety through brightness differences |
+| Uniform saturation throughout | Use low saturation for the base and reserve high saturation for the accent only |
+| Overuse of pure colors | Mixing in a little white, black, or gray makes them blend more naturally |
+| Weak contrast | Deliberately creating brightness differences produces a more readable silhouette |

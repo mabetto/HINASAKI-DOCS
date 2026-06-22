@@ -1,0 +1,84 @@
+---
+sidebar_position: 6
+title: ましゅまろPB 도입
+---
+
+import TipsCard from '@site/src/components/TipsCard';
+
+# ましゅまろPB 도입
+
+**ましゅまろPB**（wataame89 님）는 눌림·흔들림·중력·플레이어 간 상호작용을 갖춘 VRChat용 가슴 물리 시스템입니다. 3+1은 **추가 프리셋 ①（유료）**의 대응 아바타입니다.
+
+**입수처：** [BOOTH](https://wataame89.booth.pm/items/4511536)  
+**공식 문서：** [wataame89.github.io](https://wataame89.github.io/documents-wataameya/marshmallowPB/howtouse/install)
+
+---
+
+## 설치
+
+1. VCC에서 프로젝트에 **Modular Avatar**를 추가합니다
+2. ましゅまろPB 본체와 **추가 프리셋 ①**을 임포트합니다
+3. Hierarchy에서 아바타를 우클릭 → **wataameya → MarshmallowPB**를 선택합니다
+4. 프리셋 목록에서 **さんぷらすうの 3+1**을 선택합니다 — 가슴 본（Breast.L / Breast.R）이 자동으로 설정됩니다
+
+<img src="/img/marshmallow-pb/basic-settings.webp" alt="기본 설정" style={{borderRadius:'8px', width:'100%'}} />
+
+5. 생성된 `marshmallow_PB_Setup` 오브젝트의 설정을 아래 값으로 맞춥니다
+
+---
+
+## 3+1용 설정값
+
+프리셋에서 **さんぷらすうの 3+1**을 선택하면 PB의 물리 파라미터는 거의 자동으로 설정됩니다. 수동으로 변경이 필요한 것은 **PB 프리셋**과 **Collider** 2곳뿐입니다.
+
+---
+
+### PB 설정（PhysBone Setting）
+
+<img src="/img/marshmallow-pb/pb-settings.webp" alt="PB 설정" style={{borderRadius:'8px', width:'100%'}} />
+
+**PB 프리셋**은 원하시는 대로 선택하십시오. `たゆんたゆん（やわらかめ）Bouncy (Soft)`가 제작자의 추천입니다.
+
+**Collider**에는 아래 6개를 순서대로 할당하십시오. Element 6~9는 None으로 둡니다.
+
+| 슬롯 | 오브젝트 |
+|---------|------------|
+| Element 0 | L_Col_LowerArm |
+| Element 1 | L_Col_UpperArm |
+| Element 2 | R_Col_UpperArm |
+| Element 3 | R_Col_LowerArm |
+| Element 4 | L_Col_UpperLeg |
+| Element 5 | R_Col_UpperLeg |
+
+---
+
+### 간섭/눌림 설정·관통 방지 설정·메뉴 설정
+
+<img src="/img/marshmallow-pb/squish-settings.webp" alt="간섭·관통 방지·메뉴 설정" style={{borderRadius:'8px', width:'100%'}} />
+
+체크박스는 **눌림 기능 비활성화를 제외하고 모두 ON**으로 설정합니다. **메뉴 설치 위치**가 `3+1 PreferenceMenu`로 되어 있는지 확인하십시오.
+
+---
+
+## 3+1의 가슴 눌림 시스템 비활성화
+
+3+1에는 기본으로 가슴 눌림용 레이어 **SYS_SCALE_L / SYS_SCALE_R**이 FX 컨트롤러에 탑재되어 있습니다. ましゅまろPB의 눌림 기능과 이중으로 작동하므로 비활성화 또는 삭제하십시오.
+
+<img src="/img/marshmallow-pb/fx-sys-scale.webp" alt="FX 컨트롤러 SYS_SCALE 레이어" style={{borderRadius:'8px', width:'100%'}} />
+
+1. Project 창에서 3+1의 FX 컨트롤러를 엽니다
+2. Animator 창에서 **SYS_SCALE_L**과 **SYS_SCALE_R** 레이어를 찾습니다
+3. 각 레이어의 **Weight를 0**으로 설정하거나 레이어를 삭제합니다
+
+<TipsCard>Weight를 0으로 설정하는 방법은 나중에 원래대로 되돌릴 수 있습니다. 삭제하는 경우에는 미리 컨트롤러의 백업을 해 두십시오.</TipsCard>
+
+---
+
+## 동작 확인
+
+설정 후 Gesture Manager Emulator（`Tools → Gesture Manager Emulator`）에서 아래 사항을 확인하십시오.
+
+- [ ] 가슴이 흔들림
+- [ ] 가슴을 누르면 눌림이 발생함
+- [ ] 좌우 가슴이 서로 상호작용함
+- [ ] SYS_SCALE_L / SYS_SCALE_R로 인한 눌림과 이중으로 작동하지 않음

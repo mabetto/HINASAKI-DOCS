@@ -29,8 +29,19 @@ const config = {
 
   i18n: {
     defaultLocale: 'ja',
-    locales: ['ja'],
+    locales: ['ja', 'en', 'ko'],
+    localeConfigs: {
+      ja: { label: '日本語' },
+      en: { label: 'English' },
+      ko: { label: '한국어' },
+    },
   },
+
+  // 新しいアバターを追加する場合:
+  // 1. docs/<avatar-id>/ フォルダを作成してページを追加
+  // 2. plugins に @docusaurus/plugin-content-docs のインスタンスを追加
+  //    { id: '<avatar-id>', path: 'docs/<avatar-id>', routeBasePath: '<avatar-id>', sidebarPath: './sidebars-<avatar-id>.js' }
+  // 3. navbar.items に { type: 'docSidebar', sidebarId: '...', docsPluginId: '<avatar-id>', label: 'アバター名' } を追加
 
   presets: [
     [
@@ -38,6 +49,8 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          path: 'docs/3plus1',
+          routeBasePath: '3plus1',
           sidebarPath: './sidebars.js',
         },
         blog: {
@@ -80,14 +93,17 @@ const config = {
         items: [
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'threePlusOneSidebar',
+            docsPluginId: 'default',
             position: 'left',
-            label: 'ドキュメント',
+            label: '３＋１（さん↑ぷらす→うの↑）',
+            className: 'navbar-3plus1',
           },
           {
             to: '/changelog',
             label: '更新履歴',
             position: 'left',
+            className: 'navbar-changelog',
           },
           {
             type: 'localeDropdown',

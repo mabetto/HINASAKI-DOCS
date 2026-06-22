@@ -1,0 +1,87 @@
+---
+sidebar_position: 1
+title: 커스터마이징에 사용하는 툴
+---
+
+import TipsCard from '@site/src/components/TipsCard';
+
+# 커스터마이징에 사용하는 툴
+
+3+1의 개조·커스터마이징에 사용하는 주요 툴과 입수처를 정리하였습니다.
+
+---
+
+## VRChat Creator Companion（VCC）
+
+VRChat 공식 패키지 관리 툴입니다. Unity 프로젝트 생성과 아래 패키지의 설치·업데이트에 사용합니다.
+
+**입수처：** [vrchat.com/home/download](https://vrchat.com/home/download)
+
+<TipsCard>VCC 경유로 설치하면 의존성이 자동으로 해결되므로 수동 임포트보다 안정적입니다.</TipsCard>
+
+---
+
+## NDMF / Modular Avatar
+
+Non-Destructive Modular Framework（NDMF）와 Modular Avatar（MA）는 아바타를 파괴하지 않고 개조를 적용하기 위한 프레임워크입니다. 3+1의 의상·SE 확장은 모두 MA 기반으로 구성되어 있습니다.
+
+**VCC에서 설치：** `bd.isns.modular-avatar`
+
+
+---
+
+## lilToon
+
+3+1의 모든 머티리얼에 사용되는 셰이더입니다.
+
+**VCC에서 설치：** `jp.lilxyzw.liltoon`
+
+<TipsCard>색상 변경은 lilToon의 「메인 컬러」텍스처를 교체하는 방법을 권장합니다.</TipsCard>
+
+---
+
+## Adobe Photoshop
+
+텍스처 편집·제작에 사용하는 이미지 편집 소프트웨어입니다. 레이어 마스크나 색조 보정 등 고급 편집이 가능합니다.
+
+**입수처：** [adobe.com](https://www.adobe.com/jp/products/photoshop.html)
+
+---
+
+## CLIP STUDIO PAINT
+
+텍스처 페인팅 및 일러스트 제작에 사용할 수 있는 페인트 소프트웨어입니다. Photoshop 형식（.psd）의 읽기·쓰기를 지원합니다.
+
+**입수처：** [clipstudio.net](https://www.clipstudio.net/ja/)
+
+---
+
+## VRCFury
+
+SE 확장을 사용하는 경우 필수입니다.
+
+**VCC에서 설치：** `com.vrcfury.vrcfury`
+
+---
+
+## もちふぃった～
+
+VRChat용 의상을 비대응 아바타에 맞게 변환하는 툴입니다. 변환에는 **변환 원본·변환 대상 각각의 변환 프로파일**과 **변환 대상 아바타 본체**가 필요합니다.
+
+**입수처：** [BOOTH](https://booth.pm/ja/items/7657840)
+
+---
+
+## unity-overwriter
+
+FBX 등의 에셋을 재임포트했을 때 머티리얼이나 컴포넌트의 설정을 덮어써서 유지할 수 있는 에디터 확장입니다. 텍스처 교체 후 설정을 다시 해야 하는 수고를 줄일 수 있습니다.
+
+**입수처：** [GitHub / unity-overwriter](https://github.com/ina-amagami/unity-overwriter)
+
+---
+
+## Copy Components by Regex
+
+정규 표현식으로 컴포넌트를 필터링하여 복사·붙여넣기할 수 있는 에디터 확장입니다. 많은 컴포넌트 중에서 특정 컴포넌트만 다른 오브젝트로 옮기고 싶을 때 유용합니다.
+
+**입수처：** [GitHub / CopyComponentsByRegex](https://github.com/Taremin/CopyComponentsByRegex)

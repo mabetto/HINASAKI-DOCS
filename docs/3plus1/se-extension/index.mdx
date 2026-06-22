@@ -1,0 +1,171 @@
+---
+sidebar_position: 5
+title: SE拡張（R18）
+---
+
+# SE拡張
+
+## 概要
+
+SE拡張（`SA_A2XL_R18.prefab`）は Modular Avatar で Non-Destructive に追加する R18 拡張パーツです。本体アバターに追加するだけで以下の機能が有効になります。
+
+---
+
+## メニュー構造
+
+MA Menu Installer によりトップメニューに自動統合されます。
+
+```
+R18 Menu
+├─ PubicHair（ON/OFF）
+├─ Clitoris（ラジアル）
+├─ Nipple_L（ラジアル）
+├─ Nipple_R（ラジアル）
+└─ Pussy_Open（ラジアル）
+```
+
+<table className="icon-table">
+  <tbody>
+    <tr>
+      <td><img src="/img/icons/PUBICHAIR_SWITCH.png" alt="PubicHair" /></td>
+      <td><strong>PubicHair</strong></td>
+      <td>陰毛の表示・非表示を切り替えます。設定は保存されます（`saved: true`）。</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/CLIT.png" alt="Clitoris" /></td>
+      <td><strong>Clitoris</strong></td>
+      <td>クリトリスへの接触強度をリアルタイムで表示します。セッション中のみ同期されます（`saved: false`）。</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/NIPPLES.png" alt="Nipple_L" /></td>
+      <td><strong>Nipple_L</strong></td>
+      <td>左乳首への接触強度をリアルタイムで表示します。セッション中のみ同期されます（`saved: false`）。</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/NIPPLES.png" alt="Nipple_R" /></td>
+      <td><strong>Nipple_R</strong></td>
+      <td>右乳首への接触強度をリアルタイムで表示します。セッション中のみ同期されます（`saved: false`）。</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/PUSSYOPEN.png" alt="Pussy_Open" /></td>
+      <td><strong>Pussy_Open</strong></td>
+      <td>開閉状態を手動で調整します。セッション中のみ同期されます（`saved: false`）。</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## 接触検出システム（ContactReceiver）
+
+VRChat の ContactReceiver コンポーネントにより、他プレイヤーや自分のアバターからの接触を検出します。
+
+| センサー | 検出部位 | 対応タグ | 検出半径 |
+|---------|---------|---------|---------|
+| Sen_Clit | クリトリス | Foot / Finger | 0.02m |
+| L_Sen_Nipple | 左乳首 | Foot / Finger | 0.025m |
+| R_Sen_Nipple | 右乳首 | Foot / Finger | 0.025m |
+
+全センサー共通設定：
+- `allowSelf: true` — 自分自身の接触も検出
+- `allowOthers: true` — 他プレイヤーの接触も検出
+- `minVelocity: 0.05` — 最低速度フィルター（誤検出防止）
+
+### パラメーターの構造
+
+接触検出システムは Bool と Float の2種類のパラメーターを組み合わせて動作します。
+
+| パラメーター | 型 | 役割 |
+|------------|---|------|
+| `Clitoris_Contact` | Bool | 現在接触中かどうか（ContactReceiver が直接書き込む） |
+| `Nipple_L_Contact` | Bool | 左乳首への接触中フラグ |
+| `Nipple_R_Contact` | Bool | 右乳首への接触中フラグ |
+| `Clitoris` | Float | クリトリスへの累積接触強度（0.0〜1.0） |
+| `Nipple_L` | Float | 左乳首への累積接触強度（0.0〜1.0） |
+| `Nipple_R` | Float | 右乳首への累積接触強度（0.0〜1.0） |
+
+`_Contact` 系の Bool はリアルタイムな「今触れているか」を表し、Float 系は接触履歴の累積値として蓄積されます。Float パラメーターは `synced: true / saved: false` — セッション中のみ同期され、ログアウトでリセットされます。
+
+### 値の増減ロジック
+
+接触中（`_Contact = true`）は対応する Float 値が **+0.02/tick** で上昇します。接触が離れると `SYS_NSFW_Contact_Subtract` レイヤーが起動し、値が 0.2 以上ある限り **-0.02/tick** で徐々に減衰させます。これにより接触の余韻が自然に残る挙動になっています。
+
+Float 値が **0.99 を超える**と特殊ステートへ遷移します：
+
+| 部位 | 閾値 | 遷移先ステート |
+|------|------|-------------|
+| クリトリス | Clitoris > 0.99 | `CLITORIS_ORGASM` |
+| 左乳首 | Nipple_L > 0.99 | `LACTATION_L` |
+| 右乳首 | Nipple_R > 0.99 | `LACTATION_R` |
+
+### アニメーターレイヤー構成
+
+R18FX Controller は役割ごとに独立したレイヤーで構成されています。
+
+| レイヤー | 役割 |
+|---------|------|
+| `SYS_NSFW_Contact_Subtract` | 接触が離れたとき Float 値を自動減衰させるシステム |
+| `FX_CLITORIS_CONTACT` | クリトリス接触中に `Clitoris` を加算し、上限でオーガズムへ遷移 |
+| `FX_NIPPLE_L_CONTACT` | 左乳首接触中に `Nipple_L` を加算し、上限で射乳へ遷移 |
+| `FX_NIPPLE_R_CONTACT` | 右乳首接触中に `Nipple_R` を加算し、上限で射乳へ遷移 |
+| `FX_CLITORIS_ERECTION` | `Clitoris` 値で Clit ボーンの LocalScale をドライブ |
+| `FX_NIPPLE_L_ERECTION` | `Nipple_L` 値で Nipple.L ボーンの LocalPosition をドライブ |
+| `FX_NIPPLE_R_ERECTION` | `Nipple_R` 値で Nipple.R ボーンの LocalPosition をドライブ |
+| `FX_PUSSY_OPEN` | `Pussy_Open` で SPS `act_(i)_open` と排尿エミッターを制御 |
+
+:::warning[改変時の注意]
+
+`FX_PUSSY_OPEN` レイヤーの IDLE ステートには `CostumeBody = 2`（脱衣状態）の遷移条件が設定されています。デフォルト衣装を削除した場合はこの条件が満たされず、PUSSY_OPEN が機能しません。
+
+**対処法：**
+- `SA_A2XL_SE R18FX` の `CostumeBody` パラメーターを削除し、`FX_PUSSY_OPEN` レイヤーの IDLE ステートの条件も削除する
+- または、独自衣装の脱衣ステートに `CostumeBody = 2` を割り当てる
+
+:::
+
+### アニメーションのドライブ方法
+
+ERECTION 系レイヤーは `m_TimeParameterActive: true` を使い、アニメーションの再生位置（Time）を Float パラメーターの値で直接制御します。これにより「値 0.0 = 通常形状 / 値 1.0 = 最大変形」が Float 値に比例してリアルタイムに反映されます。
+
+| アニメーション | 制御対象 | 手法 |
+|--------------|---------|------|
+| CLITORIS_ERECTION | `Armature/Hips/Clit` | ボーンの LocalScale を変化 |
+| NIPPLE_L_ERECTION | `Armature/.../Nipple.L` | ボーンの LocalPosition を変化 |
+| NIPPLE_R_ERECTION | `Armature/.../Nipple.R` | ボーンの LocalPosition を変化 |
+| PUSSY_OPEN | `Basebody` / `Peeing_System` | SPS `act_(i)_open` ＋ 排尿エミッターの IsActive |
+
+---
+
+## SPS（VRCFury Sexual Penetration System）
+
+VRCFury v1.1174.0 による侵入深度検出システムです。ContactReceiver とは独立して動作します。
+
+| オブジェクト | SPS名称 | 対応 BlendShape |
+|------------|---------|----------------|
+| Pussy | おまんこ | act_(i)_push / open_half1 / open_half2 |
+| Anus | あなる | act_*_push / open_half1 / open_half2 |
+
+侵入深度に応じて BlendShape が自動的に駆動されます。`enableAuto: true` により自動検出が有効です。
+
+ArmatureLink（`linkMode: 4`）によりベースアバターのボーン階層へ Non-Destructive に統合されます。
+
+---
+
+## PhysBone（物理演算）
+
+| 部位 | immobile | limitType | maxAngleX | maxAngleZ |
+|------|---------|-----------|-----------|-----------|
+| Clitoris | 1.0 | Angle | 10° | 45° |
+| Labia ×2 | 1.0 | Angle | 10° | 45° |
+
+---
+
+## パラメーター一覧
+
+| パラメーター | 型 | saved | synced | 説明 |
+|------------|---|-------|--------|------|
+| `PubicHair` | Bool | ✓ | ✓ | 陰毛表示 |
+| `Clitoris` | Float | ✗ | ✓ | クリトリス接触強度 |
+| `Nipple_L` | Float | ✗ | ✓ | 左乳首接触強度 |
+| `Nipple_R` | Float | ✗ | ✓ | 右乳首接触強度 |
+| `Pussy_Open` | Float | ✗ | ✓ | 開閉状態 |

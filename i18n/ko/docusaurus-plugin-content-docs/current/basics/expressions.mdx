@@ -1,0 +1,92 @@
+---
+sidebar_position: 2
+title: 표정
+---
+
+# 표정
+
+액션 메뉴의 **FX 컨트롤**에서 표정 팔레트를 전환할 수 있습니다.
+
+---
+
+## 표정 팔레트
+
+표정은 3개의 세트로 나뉩니다. **FX 컨트롤**에서 세트 A / B / C를 전환합니다（`Facial_palette`）. 각 세트의 표정은 왼손 제스처로 전환합니다.
+
+{/* ###image### */}
+
+export const Face = ({src, label}) => (
+  <div style={{textAlign:'center'}}>
+    <div style={{width:'80px',height:'80px',borderRadius:'12px',overflow:'hidden',margin:'0 auto 4px'}}>
+      <img src={src} alt={label} style={{width:'100%',height:'100%',objectFit:'cover',transform:'scale(1.6)',transformOrigin:'45% center'}} />
+    </div>
+    <span style={{fontSize:'0.75em',color:'var(--ifm-color-content-secondary)'}}>{label}</span>
+  </div>
+);
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'15%'}} />
+    <col style={{width:'28.3%'}} />
+    <col style={{width:'28.3%'}} />
+    <col style={{width:'28.3%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center',whiteSpace:'nowrap'}}>제스처</th>
+      <th style={{textAlign:'center'}}><img src="/img/icons/FACIAL_A.png" alt="세트A" style={{width:'32px',verticalAlign:'middle'}} /> 세트 A</th>
+      <th style={{textAlign:'center'}}><img src="/img/icons/FACIAL_B.png" alt="세트B" style={{width:'32px',verticalAlign:'middle'}} /> 세트 B</th>
+      <th style={{textAlign:'center'}}><img src="/img/icons/FACIAL_C.png" alt="세트C" style={{width:'32px',verticalAlign:'middle'}} /> 세트 C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>✊</td>
+      <td><Face src="/img/expressions/FACE00.webp" label="FACE00" /></td>
+      <td><Face src="/img/expressions/FACE07.webp" label="FACE07" /></td>
+      <td><Face src="/img/expressions/FACE14.webp" label="FACE14" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>🖐️</td>
+      <td><Face src="/img/expressions/FACE01.webp" label="FACE01" /></td>
+      <td><Face src="/img/expressions/FACE08.webp" label="FACE08" /></td>
+      <td><Face src="/img/expressions/FACE15.webp" label="FACE15" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>🫵</td>
+      <td><Face src="/img/expressions/FACE02.webp" label="FACE02" /></td>
+      <td><Face src="/img/expressions/FACE09.webp" label="FACE09" /></td>
+      <td><Face src="/img/expressions/FACE16.webp" label="FACE16" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>✌️</td>
+      <td><Face src="/img/expressions/FACE03.webp" label="FACE03" /></td>
+      <td><Face src="/img/expressions/FACE10.webp" label="FACE10" /></td>
+      <td><Face src="/img/expressions/FACE17.webp" label="FACE17" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>🤘</td>
+      <td><Face src="/img/expressions/FACE04.webp" label="FACE04" /></td>
+      <td><Face src="/img/expressions/FACE11.webp" label="FACE11" /></td>
+      <td><Face src="/img/expressions/FACE18.webp" label="FACE18" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}><span style={{display:'inline-block',transform:'rotate(90deg)'}}>👆</span></td>
+      <td><Face src="/img/expressions/FACE05.webp" label="FACE05" /></td>
+      <td><Face src="/img/expressions/FACE12.webp" label="FACE12" /></td>
+      <td><Face src="/img/expressions/FACE19.webp" label="FACE19" /></td>
+    </tr>
+    <tr>
+      <td style={{textAlign:'center',verticalAlign:'middle',fontSize:'1.8em'}}>👍</td>
+      <td><Face src="/img/expressions/FACE06.webp" label="FACE06" /></td>
+      <td><Face src="/img/expressions/FACE13.webp" label="FACE13" /></td>
+      <td><Face src="/img/expressions/FACE20.webp" label="FACE20" /></td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## MMD 호환 모드
+
+**호환 모드.app**을 ON으로 하면 MMD 모션 등과의 호환 표정으로 전환됩니다（`MMD` 파라미터）.

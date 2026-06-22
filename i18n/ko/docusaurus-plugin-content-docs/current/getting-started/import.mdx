@@ -1,0 +1,51 @@
+---
+sidebar_position: 1
+title: Unity에 임포트
+---
+
+# Unity에 임포트
+
+:::note[주의]
+
+VRChat Creator Companion（VCC）에서 아바타 프로젝트가 이미 생성되어 있어야 합니다.
+
+:::
+
+---
+
+## 순서
+
+1. VCC에 다음 URL로 리포지토리를 추가하고 **Modular Avatar**를 설치합니다.
+
+   ```
+   vcc://vpm/addRepo?url=https://vpm.nadena.dev/vpm.json
+   ```
+
+2. **lilToon** 최신 버전을 `Assets` 폴더에 불러옵니다.
+
+3. `3+1_PKG.unitypackage`를 `Assets` 폴더에 불러옵니다.
+
+4. `Assets/HINASAKI/3+1/3+1_Upload.unity`를 엽니다.
+
+5. Unity 메뉴에서 **VRChat SDK → Show Control Panel**을 엽니다.
+
+6. VRChat 계정으로 로그인합니다.
+
+7. **Builder** 탭에서 아바타 이름을 입력합니다.
+
+8. **Build & Publish**를 클릭하여 업로드합니다.
+
+---
+
+## 언어 확장 설치
+
+익스프레션 메뉴의 언어를 변경할 수 있습니다. 초기 상태는 일본어입니다.
+
+| 파일 | 언어 |
+|---------|------|
+| `3+1_LANG_EN_EXT.unitypackage` | English |
+| `3+1_LANG_KO_EXT.unitypackage` | 한국어 |
+
+1. 위 순서 1~4를 완료합니다.
+2. 언어 확장 `.unitypackage`를 `Assets` 폴더에 불러와 익스프레션 메뉴를 덮어씁니다.
+3. 순서 5~8을 실행하여 업로드합니다.

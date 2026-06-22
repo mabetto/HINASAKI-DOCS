@@ -1,0 +1,89 @@
+---
+sidebar_position: 3
+title: 髪・衣装の追加（MA）
+---
+
+import TipsCard from '@site/src/components/TipsCard';
+
+# 髪・衣装の追加（Modular Avatar）
+
+Modular Avatar（MA）による衣装の基本セットアップ（MA Merge Armature・MA Shape Changer など）は[公式チュートリアル](https://modular-avatar.nadena.dev/ja/docs/tutorials)を参照してください。
+
+このページでは、MAで衣装が動く状態になっている前提で、**３＋１のフォーマットに合わせる**手順を説明します。
+
+---
+
+## クローゼットメニューに追加する
+
+３＋１のクローゼットは `3+1 OutfitMenu.asset` というサブメニューに各衣装がトグルを差し込む構造になっています。COS_A はこのサブメニューへ `SA_COS_A OutfitMenu.asset`（`CostumeHead` / `CostumeBody` / `CostumeSkirt` の3トグル）を MA Menu Installer で挿入しています。
+
+### 1. MA Object Toggle を追加する
+
+衣装オブジェクトに `Add Component` → **MA Object Toggle** を追加します。ON/OFF の初期状態を設定するだけで、パラメーターとアニメーションが自動生成されます。
+
+### 2. MA Menu Item と MA Menu Installer を追加する
+
+衣装オブジェクトに `Add Component` で **MA Menu Item** と **MA Menu Installer** の両方を追加します。
+
+**MA Menu Item の設定：**
+
+| 項目 | 値 |
+|------|-----|
+| Name | ラベル名 |
+| Icon | 任意のアイコン画像 |
+| Type | Toggle |
+| Parameter | MA Object Toggle が生成したパラメーター名 |
+| Value | 1 |
+
+**MA Menu Installer の設定：**
+
+| 項目 | 値 |
+|------|-----|
+| Install Target Menu | `3+1 OutfitMenu.asset` |
+
+<TipsCard>COS_A の `SA_COS_A OutfitMenu.asset` を参考にアイコンとパラメーター名を設定すると、体裁を揃えやすいです。</TipsCard>
+
+---
+
+## MA Parameters を合わせる
+
+COS_A と同じパラメーター設定にする場合は、衣装オブジェクトに **MA Parameters** を追加して以下のように設定します。
+
+| パラメーター名 | 型 | デフォルト値 | Saved |
+|--------------|-----|------------|-------|
+| `CostumeHead` | Bool | 0 | OFF |
+| `CostumeBody` | Bool | 0 | OFF |
+| `CostumeSkirt` | Bool | 0 | OFF |
+
+<TipsCard>Saved を OFF にするとワールド移動時にトグルがリセットされます。常に状態を保持したい場合は Saved を ON にしてください。</TipsCard>
+
+---
+
+## MA Merge Animator を合わせる
+
+衣装に独自のアニメーターがある場合は **MA Merge Animator** を追加して、COS_A と同じ設定にします。
+
+| 設定項目 | 値 |
+|----------|-----|
+| Animator to Merge | 衣装用 Animator Controller |
+| Layer Type | FX |
+| Delete Attached Animator | ON |
+| Path Mode | Relative |
+| Match Avatar Write Defaults | ON |
+
+---
+
+## lilToon の設定を合わせる
+
+プリファレンスメニューの **明度**（`Brightness` パラメーター）と **ライトのモノクロ化**（`Lighting(mono)` パラメーター）は、COS_A のアニメーターが各マテリアルの `_LightMinLimit` / `_MonochromeLighting` を直接操作することで機能しています。
+
+新しく追加したメッシュのマテリアルはこのアニメーターの対象外になるため、**デフォルト値を本体と揃えておく**ことで、ラジアル未操作時の見た目を統一できます。
+
+詳細は [シェーダー設定](/3plus1/settings/) を参照してください。
+
+| プロパティ | 最小値（ラジアル 0） | 最大値（ラジアル 1） |
+|-----------|------|------|
+| `_LightMinLimit` | 0.05 | 1.0 |
+| `_MonochromeLighting` | 0.5 | 1.0 |
+
+<TipsCard>ラジアルで明度やモノクロを動かしたときに新規パーツだけ追従させたい場合は、COS_A のアニメーションクリップに新規メッシュのマテリアルスロットを追記する必要があります。</TipsCard>

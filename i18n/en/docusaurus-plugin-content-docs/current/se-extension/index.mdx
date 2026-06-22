@@ -1,0 +1,171 @@
+---
+sidebar_position: 5
+title: SE Extension (R18)
+---
+
+# SE Extension
+
+## Overview
+
+The SE Extension (`SA_A2XL_R18.prefab`) is an R18 expansion part added non-destructively via Modular Avatar. Adding it to the base avatar enables the following features.
+
+---
+
+## Menu Structure
+
+Automatically integrated into the top menu by MA Menu Installer.
+
+```
+R18 Menu
+├─ PubicHair (ON/OFF)
+├─ Clitoris (Radial)
+├─ Nipple_L (Radial)
+├─ Nipple_R (Radial)
+└─ Pussy_Open (Radial)
+```
+
+<table className="icon-table">
+  <tbody>
+    <tr>
+      <td><img src="/img/icons/PUBICHAIR_SWITCH.png" alt="PubicHair" /></td>
+      <td><strong>PubicHair</strong></td>
+      <td>Toggles pubic hair visibility. The setting is saved (`saved: true`).</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/CLIT.png" alt="Clitoris" /></td>
+      <td><strong>Clitoris</strong></td>
+      <td>Displays clitoral contact intensity in real time. Synced during the session only (`saved: false`).</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/NIPPLES.png" alt="Nipple_L" /></td>
+      <td><strong>Nipple_L</strong></td>
+      <td>Displays left nipple contact intensity in real time. Synced during the session only (`saved: false`).</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/NIPPLES.png" alt="Nipple_R" /></td>
+      <td><strong>Nipple_R</strong></td>
+      <td>Displays right nipple contact intensity in real time. Synced during the session only (`saved: false`).</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/PUSSYOPEN.png" alt="Pussy_Open" /></td>
+      <td><strong>Pussy_Open</strong></td>
+      <td>Manually adjusts the open/close state. Synced during the session only (`saved: false`).</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Contact Detection System (ContactReceiver)
+
+VRChat's ContactReceiver component detects contact from other players and the avatar itself.
+
+| Sensor | Detection Area | Accepted Tags | Detection Radius |
+|---------|---------|---------|---------|
+| Sen_Clit | Clitoris | Foot / Finger | 0.02m |
+| L_Sen_Nipple | Left nipple | Foot / Finger | 0.025m |
+| R_Sen_Nipple | Right nipple | Foot / Finger | 0.025m |
+
+Common settings for all sensors:
+- `allowSelf: true` — detects contact from the avatar itself
+- `allowOthers: true` — detects contact from other players
+- `minVelocity: 0.05` — minimum velocity filter (prevents false positives)
+
+### Parameter Structure
+
+The contact detection system operates by combining two types of parameters: Bool and Float.
+
+| Parameter | Type | Role |
+|------------|---|------|
+| `Clitoris_Contact` | Bool | Whether contact is currently occurring (written directly by ContactReceiver) |
+| `Nipple_L_Contact` | Bool | Left nipple contact flag |
+| `Nipple_R_Contact` | Bool | Right nipple contact flag |
+| `Clitoris` | Float | Accumulated clitoral contact intensity (0.0–1.0) |
+| `Nipple_L` | Float | Accumulated left nipple contact intensity (0.0–1.0) |
+| `Nipple_R` | Float | Accumulated right nipple contact intensity (0.0–1.0) |
+
+The `_Contact` Bool parameters represent real-time "currently touching" state, while the Float parameters accumulate as a running total of contact history. Float parameters are `synced: true / saved: false` — synced during the session only, and reset on logout.
+
+### Value Increase/Decrease Logic
+
+While contact is active (`_Contact = true`), the corresponding Float value increases at **+0.02/tick**. When contact ends, the `SYS_NSFW_Contact_Subtract` layer activates and gradually decreases the value at **-0.02/tick** as long as it is 0.2 or above. This creates a natural lingering sensation after contact ends.
+
+When the Float value **exceeds 0.99**, a transition to a special state occurs:
+
+| Area | Threshold | Destination State |
+|------|------|-------------|
+| Clitoris | Clitoris > 0.99 | `CLITORIS_ORGASM` |
+| Left nipple | Nipple_L > 0.99 | `LACTATION_L` |
+| Right nipple | Nipple_R > 0.99 | `LACTATION_R` |
+
+### Animator Layer Structure
+
+The R18FX Controller is structured with independent layers for each function.
+
+| Layer | Role |
+|---------|------|
+| `SYS_NSFW_Contact_Subtract` | System that automatically decreases Float values when contact ends |
+| `FX_CLITORIS_CONTACT` | Increments `Clitoris` during contact and transitions to orgasm at the upper limit |
+| `FX_NIPPLE_L_CONTACT` | Increments `Nipple_L` during contact and transitions to lactation at the upper limit |
+| `FX_NIPPLE_R_CONTACT` | Increments `Nipple_R` during contact and transitions to lactation at the upper limit |
+| `FX_CLITORIS_ERECTION` | Drives the LocalScale of the Clit bone based on the `Clitoris` value |
+| `FX_NIPPLE_L_ERECTION` | Drives the LocalPosition of the Nipple.L bone based on the `Nipple_L` value |
+| `FX_NIPPLE_R_ERECTION` | Drives the LocalPosition of the Nipple.R bone based on the `Nipple_R` value |
+| `FX_PUSSY_OPEN` | Controls SPS `act_(i)_open` and the urination emitter via `Pussy_Open` |
+
+:::warning[Note When Modifying]
+
+The IDLE state of the `FX_PUSSY_OPEN` layer has a transition condition of `CostumeBody = 2` (undressed state). If the default costume is removed, this condition will not be met and PUSSY_OPEN will not function.
+
+**Solutions:**
+- Delete the `CostumeBody` parameter from `SA_A2XL_SE R18FX` and also remove the condition from the IDLE state of the `FX_PUSSY_OPEN` layer.
+- Alternatively, assign `CostumeBody = 2` to the undressed state of your custom costume.
+
+:::
+
+### Animation Drive Method
+
+ERECTION layers use `m_TimeParameterActive: true` to directly control the animation playback position (Time) with the Float parameter value. This means "value 0.0 = default shape / value 1.0 = maximum deformation" is reflected in real time in proportion to the Float value.
+
+| Animation | Control Target | Method |
+|--------------|---------|------|
+| CLITORIS_ERECTION | `Armature/Hips/Clit` | Changes bone LocalScale |
+| NIPPLE_L_ERECTION | `Armature/.../Nipple.L` | Changes bone LocalPosition |
+| NIPPLE_R_ERECTION | `Armature/.../Nipple.R` | Changes bone LocalPosition |
+| PUSSY_OPEN | `Basebody` / `Peeing_System` | SPS `act_(i)_open` + IsActive of urination emitter |
+
+---
+
+## SPS (VRCFury Sexual Penetration System)
+
+A penetration depth detection system using VRCFury v1.1174.0. Operates independently of ContactReceiver.
+
+| Object | SPS Name | Corresponding BlendShape |
+|------------|---------|----------------|
+| Pussy | おまんこ | act_(i)_push / open_half1 / open_half2 |
+| Anus | あなる | act_*_push / open_half1 / open_half2 |
+
+BlendShapes are driven automatically in proportion to penetration depth. Automatic detection is enabled via `enableAuto: true`.
+
+Non-destructive integration into the base avatar's bone hierarchy is achieved via ArmatureLink (`linkMode: 4`).
+
+---
+
+## PhysBone (Physics)
+
+| Area | immobile | limitType | maxAngleX | maxAngleZ |
+|------|---------|-----------|-----------|-----------|
+| Clitoris | 1.0 | Angle | 10° | 45° |
+| Labia ×2 | 1.0 | Angle | 10° | 45° |
+
+---
+
+## Parameter List
+
+| Parameter | Type | saved | synced | Description |
+|------------|---|-------|--------|------|
+| `PubicHair` | Bool | ✓ | ✓ | Pubic hair visibility |
+| `Clitoris` | Float | ✗ | ✓ | Clitoral contact intensity |
+| `Nipple_L` | Float | ✗ | ✓ | Left nipple contact intensity |
+| `Nipple_R` | Float | ✗ | ✓ | Right nipple contact intensity |
+| `Pussy_Open` | Float | ✗ | ✓ | Open/close state |

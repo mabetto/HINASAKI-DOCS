@@ -1,5 +1,7 @@
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Translate, {translate} from '@docusaurus/Translate';
 import styles from './index.module.css';
 
 const avatars = [
@@ -9,19 +11,26 @@ const avatars = [
     logo: '/img/3+1_logo.svg',
     image: '/img/3+1_main.webp',
     modelNumber: 'T2404',
-    to: '/docs/intro',
+    path: '/3plus1/overview/about',
   },
 ];
 
 export default function Home() {
+  const {i18n: {currentLocale, defaultLocale}} = useDocusaurusContext();
+  const localePrefix = currentLocale === defaultLocale ? '' : `/${currentLocale}`;
   return (
-    <Layout title="アバタードキュメント | HINASAKI" description="HINASAKIアバタードキュメント">
+    <Layout
+      title={translate({id: 'homepage.title', message: 'アバタードキュメント | HINASAKI'})}
+      description={translate({id: 'homepage.description', message: 'HINASAKIアバタードキュメント'})}
+    >
       <main className={styles.main}>
         <h1 className={styles.title}>Avatar Documents</h1>
-        <p className={styles.subtitle}>アバターを選択してください。</p>
+        <p className={styles.subtitle}>
+          <Translate id="homepage.selectAvatar">アバターを選択してください。</Translate>
+        </p>
         <div className={styles.grid}>
           {avatars.map((avatar) => (
-            <Link key={avatar.name} to={avatar.to} className={styles.card}>
+            <Link key={avatar.name} to={`${localePrefix}${avatar.path}`} className={styles.card}>
               <div className={styles.avatarNameRow}>
                 <img
                   src={avatar.logo}

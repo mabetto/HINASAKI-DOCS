@@ -1,0 +1,46 @@
+---
+sidebar_position: 1
+title: トラブルシューティング・FAQ
+---
+
+import FaqCard from '@site/src/components/FaqCard';
+
+# トラブルシューティング・FAQ
+
+<FaqCard q="SE拡張のアーカイブを展開するパスワードがわからない">
+
+本体パッケージ（`3+1_PKG.unitypackage`）内に同梱されている `PASSWORD.txt` に記載されています。先に本体パッケージをインポートしてから確認してください。
+
+</FaqCard>
+
+<FaqCard q="シェーダーがピンク色になる">
+
+lilToon シェーダーがインポートされていません。[lilToon の配布ページ](https://lilxyzw.github.io/lilToon/)からインポートしてください。
+
+</FaqCard>
+
+<FaqCard q="NDMF / Modular Avatar のエラーが出る">
+
+VCC（VRChat Creator Companion）から最新の Modular Avatar をインストールしてください。
+
+</FaqCard>
+
+<FaqCard q="AvatarPoseSystem 使用時に揺れものが変形する">
+
+AvatarPoseSystem（APS）の PhysBone 固定機能が、３＋１のすべての揺れもの PhysBone と干渉し、揺れものが意図しない形状に変形したまま戻らなくなることがあります。
+
+APS 導入時は、使用するすべての PhysBone を **Unfix** に設定してください。または APS を使用しない環境で撮影してください。
+
+</FaqCard>
+
+<FaqCard q="追加した前髪パーツで眉が隠れる">
+
+追加する前髪マテリアルに `StencilComp: NotEqual / StencilRef: 1` の設定が必要です。詳しくは[シェーダー設定](/3plus1/settings/)を参照してください。
+
+</FaqCard>
+
+<FaqCard q="追加マテリアルだけ明るさ調整が効かない">
+
+`_MonochromeLighting` の初期値を `0.5` に設定してください。詳しくは[シェーダー設定](/3plus1/settings/)を参照してください。
+
+</FaqCard>

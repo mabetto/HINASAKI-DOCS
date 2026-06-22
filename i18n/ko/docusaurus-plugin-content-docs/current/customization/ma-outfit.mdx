@@ -1,0 +1,89 @@
+---
+sidebar_position: 3
+title: 헤어·의상 추가（MA）
+---
+
+import TipsCard from '@site/src/components/TipsCard';
+
+# 헤어·의상 추가（Modular Avatar）
+
+Modular Avatar（MA）를 사용한 의상의 기본 설정（MA Merge Armature·MA Shape Changer 등）은 [공식 튜토리얼](https://modular-avatar.nadena.dev/ja/docs/tutorials)을 참조하시기 바랍니다。
+
+이 페이지에서는 MA로 의상이 작동하는 상태를 전제로, **3+1의 포맷에 맞추는** 절차를 설명합니다.
+
+---
+
+## 클로젯 메뉴에 추가하기
+
+3+1의 클로젯은 `3+1 OutfitMenu.asset`이라는 서브메뉴에 각 의상이 토글을 삽입하는 구조로 되어 있습니다. COS_A는 이 서브메뉴에 `SA_COS_A OutfitMenu.asset`（`CostumeHead` / `CostumeBody` / `CostumeSkirt` 3개의 토글）을 MA Menu Installer로 삽입하고 있습니다.
+
+### 1. MA Object Toggle 추가
+
+의상 오브젝트에 `Add Component` → **MA Object Toggle**을 추가합니다. ON/OFF의 초기 상태를 설정하기만 하면 파라미터와 애니메이션이 자동으로 생성됩니다.
+
+### 2. MA Menu Item과 MA Menu Installer 추가
+
+의상 오브젝트에 `Add Component`로 **MA Menu Item**과 **MA Menu Installer** 모두를 추가합니다.
+
+**MA Menu Item 설정：**
+
+| 항목 | 값 |
+|------|-----|
+| Name | 라벨 이름 |
+| Icon | 임의의 아이콘 이미지 |
+| Type | Toggle |
+| Parameter | MA Object Toggle이 생성한 파라미터 이름 |
+| Value | 1 |
+
+**MA Menu Installer 설정：**
+
+| 항목 | 값 |
+|------|-----|
+| Install Target Menu | `3+1 OutfitMenu.asset` |
+
+<TipsCard>COS_A의 `SA_COS_A OutfitMenu.asset`을 참고하여 아이콘과 파라미터 이름을 설정하면 형식을 맞추기 쉽습니다.</TipsCard>
+
+---
+
+## MA Parameters 맞추기
+
+COS_A와 동일한 파라미터 설정을 사용하려면 의상 오브젝트에 **MA Parameters**를 추가하고 아래와 같이 설정합니다.
+
+| 파라미터 이름 | 타입 | 기본값 | Saved |
+|--------------|-----|------------|-------|
+| `CostumeHead` | Bool | 0 | OFF |
+| `CostumeBody` | Bool | 0 | OFF |
+| `CostumeSkirt` | Bool | 0 | OFF |
+
+<TipsCard>Saved를 OFF로 설정하면 월드 이동 시 토글이 리셋됩니다. 항상 상태를 유지하려면 Saved를 ON으로 설정하십시오.</TipsCard>
+
+---
+
+## MA Merge Animator 맞추기
+
+의상에 고유 애니메이터가 있는 경우 **MA Merge Animator**를 추가하고 COS_A와 동일한 설정으로 맞춥니다.
+
+| 설정 항목 | 값 |
+|----------|-----|
+| Animator to Merge | 의상용 Animator Controller |
+| Layer Type | FX |
+| Delete Attached Animator | ON |
+| Path Mode | Relative |
+| Match Avatar Write Defaults | ON |
+
+---
+
+## lilToon 설정 맞추기
+
+프리퍼런스 메뉴의 **밝기**（`Brightness` 파라미터）와 **라이트 모노크로화**（`Lighting(mono)` 파라미터）는 COS_A의 애니메이터가 각 머티리얼의 `_LightMinLimit` / `_MonochromeLighting`을 직접 조작함으로써 기능합니다.
+
+새로 추가한 메시의 머티리얼은 이 애니메이터의 대상에서 제외되므로, **기본값을 본체와 맞춰 두면** 라디얼 미조작 시 외관을 통일할 수 있습니다.
+
+자세한 내용은 [셰이더 설정](/3plus1/settings/)을 참조하십시오.
+
+| 프로퍼티 | 최솟값（라디얼 0） | 최댓값（라디얼 1） |
+|-----------|------|------|
+| `_LightMinLimit` | 0.05 | 1.0 |
+| `_MonochromeLighting` | 0.5 | 1.0 |
+
+<TipsCard>라디얼로 밝기나 모노크로를 조작할 때 새 파츠만 따라오게 하려면 COS_A의 애니메이션 클립에 새 메시의 머티리얼 슬롯을 추가해야 합니다.</TipsCard>

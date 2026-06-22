@@ -1,0 +1,14 @@
+{
+  "logo.alt": {
+    "message": "HINASAKI",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.３＋１（さん↑ぷらす→うの↑）": {
+    "message": "3+1",
+    "description": "Navbar item with label ３＋１（さん↑ぷらす→うの↑）"
+  },
+  "item.label.更新履歴": {
+    "message": "Changelog",
+    "description": "Navbar item with label 更新履歴"
+  }
+}

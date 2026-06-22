@@ -1,0 +1,26 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.threePlusOneSidebar.category.概要": {
+    "message": "개요",
+    "description": "The label for category in sidebar threePlusOneSidebar"
+  },
+  "sidebar.threePlusOneSidebar.category.はじめる": {
+    "message": "시작하기",
+    "description": "The label for category in sidebar threePlusOneSidebar"
+  },
+  "sidebar.threePlusOneSidebar.category.基本操作": {
+    "message": "기본 조작",
+    "description": "The label for category in sidebar threePlusOneSidebar"
+  },
+  "sidebar.threePlusOneSidebar.category.改変ガイド": {
+    "message": "커스터마이즈 가이드",
+    "description": "The label for category in sidebar threePlusOneSidebar"
+  },
+  "sidebar.threePlusOneSidebar.category.仕様": {
+    "message": "사양",
+    "description": "The label for category in sidebar threePlusOneSidebar"
+  }
+}

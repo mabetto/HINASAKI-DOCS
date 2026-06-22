@@ -1,0 +1,14 @@
+{
+  "title": {
+    "message": "업데이트 기록",
+    "description": "The title for the blog used in SEO"
+  },
+  "description": {
+    "message": "HINASAKI 아바타 업데이트 기록",
+    "description": "The description for the blog used in SEO"
+  },
+  "sidebar.title": {
+    "message": "업데이트 기록",
+    "description": "The label for the left sidebar"
+  }
+}

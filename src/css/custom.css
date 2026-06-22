@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Noto+Sans+KR:wght@100..900&display=swap');
 
 :root {
   --ifm-font-family-base: -apple-system, BlinkMacSystemFont, "M PLUS Rounded 1c", sans-serif;
@@ -11,6 +11,35 @@
   --ifm-color-primary-lightest: #63dfdf;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+html[lang="ko"] {
+  --ifm-font-family-base: "Noto Sans KR", "fot-tsukubrdgothic-std", sans-serif;
+}
+
+html[lang="ko"] .navbar__link,
+html[lang="ko"] .navbar__brand {
+  font-weight: 400;
+}
+
+html[lang="ko"] h1,
+html[lang="ko"] h2,
+html[lang="ko"] h3,
+html[lang="ko"] h4,
+html[lang="ko"] h5,
+html[lang="ko"] h6,
+html[lang="ko"] .markdown h1,
+html[lang="ko"] .markdown h2,
+html[lang="ko"] .markdown h3,
+html[lang="ko"] .markdown h4,
+html[lang="ko"] .markdown h5,
+html[lang="ko"] .markdown h6,
+html[lang="ko"] .blog-list-page article h2,
+html[lang="ko"] .blog-post-page h1,
+html[lang="ko"] .menu__link,
+html[lang="ko"] .table-of-contents__link {
+  font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "M PLUS Rounded 1c", sans-serif;
+  font-variation-settings: "wght" 400;
 }
 
 [data-theme='dark'] .navbar {
@@ -31,6 +60,50 @@
 .footer {
   background-color: var(--ifm-background-color);
   border-top: 1px solid var(--ifm-toc-border-color);
+}
+
+.navbar-3plus1 {
+  font-size: 0 !important;
+  line-height: 1.65rem !important;
+  vertical-align: 0.4rem;
+  -webkit-mask-image: url('/img/3+1_logo.svg');
+  mask-image: url('/img/3+1_logo.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: auto 1rem;
+  mask-size: auto 1rem;
+  background-color: var(--ifm-navbar-link-color);
+  width: 4rem;
+}
+
+.navbar-sidebar .navbar-3plus1,
+.navbar-sidebar .navbar-changelog {
+  font-size: revert !important;
+  line-height: revert !important;
+  vertical-align: revert !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  width: auto !important;
+}
+
+.navbar-changelog {
+  font-size: 0 !important;
+  line-height: 1.65rem !important;
+  vertical-align: 0.4rem;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 1rem 1rem;
+  mask-size: 1rem 1rem;
+  background-color: var(--ifm-navbar-link-color);
+  width: 2rem;
 }
 
 .navbar__inner {
@@ -115,4 +188,197 @@
   [data-theme='dark'] .navbar-logo {
     content: url('/img/hinasaki_logo_square_white.svg');
   }
+}
+
+/* ============================================================
+   Tesla-style admonitions — CSS-only / SVG data URI icons
+   note        → 注   (青 Info circle)
+   info / tip  → 注意 (黄 TriangleAlert)
+   warning / danger → 警告 (赤 TriangleAlert)
+   ============================================================ */
+
+/* 共通: 左ボーダーのみ、横一列レイアウト */
+.theme-admonition {
+  border: none;
+  border-left: 4px solid #ccc;
+  border-radius: 0;
+  padding: 0.6rem 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0;
+}
+
+/* 見出し（アイコン＋ラベル）: 横並び */
+.theme-admonition > div:first-child {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0.3em;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-right: 0.8em;
+  white-space: nowrap;
+}
+
+/* 本文: 余白なし */
+.theme-admonition > div:last-child {
+  flex: 1;
+  font-size: 0.9rem;
+}
+.theme-admonition > div:last-child p { margin: 0; }
+
+/* デフォルトSVGを非表示にしてdata URI差し替え */
+.theme-admonition > div:first-child > span:first-child svg { display: none; }
+.theme-admonition > div:first-child > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.theme-admonition > div:first-child > span:first-child::after {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ─── 注 (note) ─── 青 */
+.theme-admonition-note {
+  background-color: #e8f4fd;
+  border-left-color: #1e88e5;
+}
+.theme-admonition-note > div:first-child { color: #1565c0; }
+.theme-admonition-note > div:first-child > span:first-child::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231e88e5' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
+}
+[data-theme='dark'] .theme-admonition-note {
+  background-color: rgba(30,136,229,0.1);
+  border-left-color: #64b5f6;
+}
+[data-theme='dark'] .theme-admonition-note > div:first-child { color: #90caf9; }
+[data-theme='dark'] .theme-admonition-note > div:first-child > span:first-child::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364b5f6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E");
+}
+
+/* ─── 注意 (info / tip) ─── 黄 */
+.theme-admonition-info,
+.theme-admonition-tip {
+  background-color: #fffbe6;
+  border-left-color: #f9a825;
+}
+.theme-admonition-info > div:first-child,
+.theme-admonition-tip  > div:first-child { color: #e65100; }
+.theme-admonition-info > div:first-child > span:first-child::after,
+.theme-admonition-tip  > div:first-child > span:first-child::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e67e00' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+}
+[data-theme='dark'] .theme-admonition-info,
+[data-theme='dark'] .theme-admonition-tip {
+  background-color: rgba(249,168,37,0.1);
+  border-left-color: #ffd54f;
+}
+[data-theme='dark'] .theme-admonition-info > div:first-child,
+[data-theme='dark'] .theme-admonition-tip  > div:first-child { color: #ffd54f; }
+[data-theme='dark'] .theme-admonition-info > div:first-child > span:first-child::after,
+[data-theme='dark'] .theme-admonition-tip  > div:first-child > span:first-child::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffd54f' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+}
+
+/* ─── 警告 (warning / danger) ─── 赤 */
+.theme-admonition-warning,
+.theme-admonition-danger {
+  background-color: #fdecea;
+  border-left-color: #e53935;
+}
+.theme-admonition-warning > div:first-child,
+.theme-admonition-danger  > div:first-child { color: #b71c1c; }
+.theme-admonition-warning > div:first-child > span:first-child::after,
+.theme-admonition-danger  > div:first-child > span:first-child::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e53935' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+}
+[data-theme='dark'] .theme-admonition-warning,
+[data-theme='dark'] .theme-admonition-danger {
+  background-color: rgba(229,57,53,0.1);
+  border-left-color: #ef9a9a;
+}
+[data-theme='dark'] .theme-admonition-warning > div:first-child,
+[data-theme='dark'] .theme-admonition-danger  > div:first-child { color: #ef9a9a; }
+[data-theme='dark'] .theme-admonition-warning > div:first-child > span:first-child::after,
+[data-theme='dark'] .theme-admonition-danger  > div:first-child > span:first-child::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ef9a9a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/%3E%3Cpath d='M12 9v4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
+}
+
+/* Icon table (Tesla-style icon + description) */
+.icon-table {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+.icon-table tr {
+  border-bottom: 1px solid var(--ifm-table-border-color);
+  background: none !important;
+}
+.icon-table tr:last-child {
+  border-bottom: none;
+}
+.icon-table td {
+  border: none;
+  padding: 0.45rem 0.75rem;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+.icon-table td:first-child {
+  width: 52px;
+  min-width: 52px;
+  padding: 0.4rem 0.5rem;
+  text-align: center;
+}
+.icon-table td:first-child img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+}
+.icon-table td:nth-child(2) {
+  width: 160px;
+  min-width: 120px;
+  white-space: nowrap;
+}
+.icon-table td:nth-child(3) {
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Face expression table */
+.face-table {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  margin: 0.5rem 0;
+}
+.face-table tr {
+  border-bottom: 1px solid var(--ifm-table-border-color);
+  background: none !important;
+}
+.face-table tr:last-child {
+  border-bottom: none;
+}
+.face-table th,
+.face-table td {
+  border: none;
+  padding: 0.5rem 0.4rem;
+  vertical-align: middle;
+  text-align: center;
+}
+.face-table thead tr {
+  border-bottom: 2px solid var(--ifm-table-border-color);
 }

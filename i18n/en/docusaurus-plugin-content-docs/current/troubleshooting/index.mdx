@@ -39,6 +39,14 @@ The material of the added front hair requires the setting `StencilComp: NotEqual
 
 </FaqCard>
 
+<FaqCard q="Shape key values (adj_bust_cloth1 etc.) reset when switching outfits">
+
+COS_A uses **MA Shape Changer** to control shape keys on the body mesh. When the outfit is turned OFF, MA Shape Changer is released and the controlled shape key values return to 0. This is expected behavior of MA Shape Changer.
+
+If you want the same shape keys to be maintained with another outfit, add **MA Shape Changer** to that outfit object as well and set the same shape keys and values. See [Adding Hair & Outfits (MA)](/3plus1/customization/ma-outfit) for details.
+
+</FaqCard>
+
 <FaqCard q="Brightness adjustment does not work for added materials only">
 
 Set the initial value of `_MonochromeLighting` to `0.5`. See [Shader Settings](/3plus1/settings/) for details.

@@ -1,0 +1,30 @@
+.card {
+  display: flex;
+  gap: 0.875rem;
+  align-items: flex-start;
+  border: 0.5px solid #f5a623;
+  border-left: 3px solid #f5a623;
+  border-radius: 0 8px 8px 0;
+  padding: 0.875rem 1rem;
+  margin: 0.75rem 0;
+  background: #fff8ee;
+}
+
+.icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  color: #f5a623;
+  margin-top: 0.2rem;
+}
+
+.body {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ifm-font-color-base);
+}
+
+.body p:last-child {
+  margin-bottom: 0;
+}

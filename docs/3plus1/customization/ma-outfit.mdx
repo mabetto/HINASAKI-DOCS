@@ -4,12 +4,23 @@ title: 髪・衣装の追加（MA）
 ---
 
 import TipsCard from '@site/src/components/TipsCard';
+import WarningCard from '@site/src/components/WarningCard';
 
 # 髪・衣装の追加（Modular Avatar）
 
-Modular Avatar（MA）による衣装の基本セットアップ（MA Merge Armature・MA Shape Changer など）は[公式チュートリアル](https://modular-avatar.nadena.dev/ja/docs/tutorials)を参照してください。
+Modular Avatar（MA）による衣装の基本セットアップ（MA Merge Armature など）は[公式チュートリアル](https://modular-avatar.nadena.dev/ja/docs/tutorials)を参照してください。
 
 このページでは、MAで衣装が動く状態になっている前提で、**３＋１のフォーマットに合わせる**手順を説明します。
+
+<WarningCard>
+**複数衣装を1アバターにまとめることは推奨しません。**
+メニュー切り替えで複数の衣装を1アバターに詰め込むと、全衣装のテクスチャ・メッシュが常に同梱されるため、アバターのダウンロードサイズが数百 MB 規模になることがあります。衣装ごとに別のアバターとしてアップロードすることを検討してください。
+</WarningCard>
+
+<WarningCard>
+**SA_COS_A は先に削除してください。**
+新しい衣装を追加する前に、Hierarchy から `SA_COS_A` オブジェクトを削除します。SA_COS_A を残したまま別の衣装を追加すると、クローゼットメニューに COS_A のトグルが残り続け、パラメーターや見た目が意図しない状態になります。
+</WarningCard>
 
 ---
 
@@ -17,11 +28,15 @@ Modular Avatar（MA）による衣装の基本セットアップ（MA Merge Arma
 
 ３＋１のクローゼットは `3+1 OutfitMenu.asset` というサブメニューに各衣装がトグルを差し込む構造になっています。COS_A はこのサブメニューへ `SA_COS_A OutfitMenu.asset`（`CostumeHead` / `CostumeBody` / `CostumeSkirt` の3トグル）を MA Menu Installer で挿入しています。
 
-### 1. MA Object Toggle を追加する
+### 1. アニメーションクリップを用意する
 
-衣装オブジェクトに `Add Component` → **MA Object Toggle** を追加します。ON/OFF の初期状態を設定するだけで、パラメーターとアニメーションが自動生成されます。
+衣装のON/OFFはアニメーションクリップで制御します。COS_A のアニメーションクリップを参考に、衣装オブジェクトの `GameObject.IsActive` を ON/OFF するクリップを作成してください。
 
-### 2. MA Menu Item と MA Menu Installer を追加する
+### 2. Animator Controller に組み込む
+
+作成したクリップを Animator Controller のレイヤーに追加し、パラメーター（Bool）でON/OFFを切り替えるステートマシンを構成します。COS_A の構成をコピーして改変すると手早く済みます。
+
+### 3. MA Menu Item と MA Menu Installer を追加する
 
 衣装オブジェクトに `Add Component` で **MA Menu Item** と **MA Menu Installer** の両方を追加します。
 
@@ -32,7 +47,7 @@ Modular Avatar（MA）による衣装の基本セットアップ（MA Merge Arma
 | Name | ラベル名 |
 | Icon | 任意のアイコン画像 |
 | Type | Toggle |
-| Parameter | MA Object Toggle が生成したパラメーター名 |
+| Parameter | Animator Controller のパラメーター名 |
 | Value | 1 |
 
 **MA Menu Installer の設定：**
@@ -42,6 +57,31 @@ Modular Avatar（MA）による衣装の基本セットアップ（MA Merge Arma
 | Install Target Menu | `3+1 OutfitMenu.asset` |
 
 <TipsCard>COS_A の `SA_COS_A OutfitMenu.asset` を参考にアイコンとパラメーター名を設定すると、体裁を揃えやすいです。</TipsCard>
+
+---
+
+## 衣装固有の変化を制御する
+
+衣装によってシェイプキーや Physbone の構成が変わる場合、アニメーションではなく MA のコンポーネントで動的に制御します。
+
+### MA Shape Changer
+
+衣装着用時に本体メッシュのシェイプキーを変化させたい場合に使います。衣装オブジェクトに `Add Component` → **MA Shape Changer** を追加し、対象のシェイプキーと値を設定してください。衣装のON/OFFに連動して自動で適用・解除されます。
+
+COS_A では以下のシェイプキーを MA Shape Changer で制御しています。衣装を OFF にするとこれらの値は 0 に戻ります。これは MA Shape Changer の仕様です。
+
+| シェイプキー | 衣装 ON | 衣装 OFF |
+|-------------|---------|---------|
+| `adj_bust_cloth1` | 100 | 0 |
+| `adj_bust_inner_omitting` | 100 | 0 |
+| `adj_shrink_hip(s)1` | 100 | 0 |
+| `opt_hekochiku` | 10 | 0 |
+
+<TipsCard>別の衣装でも同じシェイプキーを制御したい場合は、その衣装オブジェクトにも MA Shape Changer を追加して同じ値を設定してください。</TipsCard>
+
+### MA Object Toggle
+
+衣装着用時に特定のオブジェクト（Physbone コライダーなど）をON/OFFしたい場合に使います。衣装オブジェクトに `Add Component` → **MA Object Toggle** を追加し、対象オブジェクトと切り替えたい状態を設定してください。
 
 ---
 

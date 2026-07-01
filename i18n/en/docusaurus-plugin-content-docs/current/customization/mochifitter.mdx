@@ -57,10 +57,12 @@ Drag and drop the prefab of the outfit you want to convert into **Outfit to Conv
 
 ### 4. Configure Blend Shapes
 
-Check the blend shapes used by the outfit being converted, such as corset or high heels.
+Check only the blend shapes that the **source avatar actually uses when wearing that outfit**.
+
+Example: when converting Shinano's shoes, if Shinano sets `toe_highheel` to 100 to deform the foot into a high heel shape when wearing those shoes, check `toe_highheel` and set the value to 100.
 
 :::warning[Warning]
-Only check blend shapes that the target outfit is specifically designed to use. For outfits that do not have a high heel blend shape, set all blend shapes other than the base body high heel to 100 to restore the default state.
+Do not check blend shapes that the source avatar does not use when wearing the outfit. Weight transfer is calculated based on the body mesh with the checked blend shapes applied, so checking unnecessary blend shapes will cause the conversion result to be misaligned.
 :::
 
 ### 5. Advanced Settings
@@ -83,6 +85,14 @@ Click the **Execute Retargeting** button to run the conversion. After it complet
 ## Compatibility by Body Shape
 
 Because 3+1 has a larger bust than many other avatars, converting **form-fitting outfits** from avatars with a smaller bust may cause distortion around the chest and torso. This is less noticeable with looser designs, but tight-fitting designs may require manual correction.
+
+### Compatibility Notes by Source Avatar
+
+| Source Avatar | Compatibility | Notes |
+|--------------|------|------|
+| Shinano | ◎ | Few issues, high conversion accuracy |
+| Milltina | ○ | Generally good — Milltina Cow and 3+1 have similar chest proportions. Note that many Milltina outfits do not include bust shape keys. FC-exclusive outfits may have lower compatibility. |
+| Manuka | △ | Not recommended. Many Manuka outfits implement shape keys with the same names as the avatar but with different behavior, which can cause MochiFitter to malfunction. |
 
 <img src="/img/mochifitter/conversion-example.webp" alt="Conversion example: form-fitting (left) and loose (right)" style={{borderRadius:'8px', width:'100%', marginBottom:'0.5rem'}} />
 

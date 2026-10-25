@@ -1,0 +1,20 @@
+---
+sidebar_position: 6
+title: FT拡張（フェイストラッキング）
+---
+
+import WarningCard from '@site/src/components/WarningCard';
+
+# FT拡張
+
+FT拡張（`SA_FaceTracking.prefab`）は、アバター直下に配置して使用します。操作方法は [フェイストラッキング](/3plus1/basics/face-tracking)、導入手順は [FT拡張のインストール](/3plus1/getting-started/ft-install) を参照してください。
+
+---
+
+## パラメーター容量
+
+FT 単体の標準構成では、同期パラメーターを **253bit** 使用します。SE拡張やましゅまろPBとの併用時は、同期容量を自動で調整します。このとき他者へ送る一部の FT 入力の段階数が減るため、自分と他者で滑らかさが異なることがあります。
+
+<WarningCard>
+衣装や追加ギミックを増やす場合は、VRChat SDK で最終的な Expression Parameters 使用量が 256bit 以内か確認してください。FT 単体でも空きは少なく、自動調整は追加アセットの容量を確保しません。
+</WarningCard>

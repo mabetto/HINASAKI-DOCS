@@ -1,0 +1,69 @@
+---
+sidebar_position: 4
+title: FT拡張のインストール
+---
+
+# FT拡張のインストール
+
+FT拡張は、３＋１の顔・目・口をトラッキングで動かす拡張です。インストール後の使い方は [フェイストラッキング](/3plus1/basics/face-tracking) を参照してください。
+
+---
+
+## 必要なもの
+
+- ３＋１本体 **GA5 以降**（パーフェクトシンク対応データ）
+- VCC の Avatars プロジェクト
+- **Modular Avatar**
+- [**VRCFT - Jerry's Templates**](https://github.com/adjerry91/VRCFaceTracking-Templates)（7.0.5 基準）
+- PC側の **VRCFaceTracking アプリ**と、使用機器に対応するモジュール（[導入ガイド](https://docs.vrcft.io/docs/intro/getting-started)）
+- フェイス／アイトラッキング機器（下表）
+
+### 機器ごとの接続
+
+| 機器 | 使用するもの | 設定手順 |
+|------|------------|---------|
+| Meta Quest Pro | PCVR の接続方式に対応するモジュール | [Meta Quest Pro の設定](https://docs.vrcft.io/docs/hardware/vr/meta/quest-pro) |
+| iPhone / iPad | **Live Link Face** アプリ。顔全体がカメラに映る状態で使用します（HMD 装着中の下顔面専用トラッカーとしては使えません） | [iPhone / iPad の設定](https://docs.vrcft.io/docs/hardware/desktop/iphone) |
+| その他の機器 | 機器に対応するモジュール | [VRCFaceTracking 導入ガイド](https://docs.vrcft.io/docs/intro/getting-started) |
+
+---
+
+## Unity での導入
+
+1. プロジェクトをバックアップするか、新しい VCC の Avatars プロジェクトを用意します。
+2. **Modular Avatar**、**Jerry's Templates** と、３＋１本体の前提アセットを導入します。VCC には以下の URL からリポジトリを追加できます。
+
+   ```
+   vcc://vpm/addRepo?url=https://vpm.nadena.dev/vpm.json
+   ```
+
+   ```
+   vcc://vpm/addRepo?url=https%3A%2F%2FAdjerry91.github.io%2FVRCFaceTracking-Templates%2Findex.json
+   ```
+
+3. ３＋１本体をインポートし、アバターを Hierarchy へ配置します。
+4. `3+1_FT_EXT.unitypackage` をインポートします。
+5. 次のプレハブを、アバターの**直下**へドラッグ＆ドロップします。
+
+   ```
+   Assets/HINASAKI/SA_FT_Extension/Prefab/SA_FaceTracking.prefab
+   ```
+
+6. VRChat SDK でエラーとパラメーター使用量を確認し、アップロードします。
+
+:::warning[注意]
+
+- `SA_FaceTracking` はアバター直下に**1つだけ**配置してください。
+- Jerry のサンプル FT プレハブは不要です。
+
+:::
+
+---
+
+## VRChat で使い始める
+
+1. 使用機器と VRCFaceTracking を接続し、モジュールがトラッキング値を受信していることを確認します。
+2. VRChat のアクションメニューで **OSC → Enabled** を ON にします（[VRChat 公式：OSC の有効化](https://docs.vrchat.com/docs/osc-overview)）。
+3. アップロードしたアバターへ着替えます。
+
+AUTO は初期状態で ON のため、そのままトラッキングが動作します。

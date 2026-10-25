@@ -1,0 +1,62 @@
+/* 3x3 の正方形グリッド。縦横のピッチを同じにして、上下左右が等距離の十字にする */
+.pad {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 120px));
+  justify-content: center;
+  gap: 0;
+  margin: 1.25rem auto;
+  text-align: center;
+}
+
+.pad > * {
+  aspect-ratio: 1 / 1;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+}
+
+.visual {
+  display: block;
+  box-sizing: border-box;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+}
+
+.neutral {
+  border: 2px dashed var(--ifm-color-emphasis-400);
+  border-radius: 50%;
+}
+
+.label,
+.desc {
+  max-width: 100%;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+.label {
+  font-size: 0.85rem;
+}
+
+.desc {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+@media screen and (max-width: 480px) {
+  .visual {
+    width: 44px;
+    height: 44px;
+  }
+
+  .label,
+  .desc {
+    font-size: 0.72rem;
+  }
+}

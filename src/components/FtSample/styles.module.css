@@ -1,0 +1,28 @@
+/* 「表情」ページの Face と同じ 1:1 の角丸サムネイル。顔の肌（目〜顎）が大きく見えるよう 120px にしている */
+.thumb {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 0.5rem;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.thumb:last-child {
+  margin-bottom: 0;
+}
+
+.img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+}
+
+/* 狭い画面では、画像列に収まるよう小さくする */
+@media screen and (max-width: 600px) {
+  .thumb {
+    width: 80px;
+    height: 80px;
+  }
+}

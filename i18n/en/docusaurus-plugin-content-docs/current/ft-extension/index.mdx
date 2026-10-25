@@ -1,0 +1,20 @@
+---
+sidebar_position: 6
+title: FT Extension (Face Tracking)
+---
+
+import WarningCard from '@site/src/components/WarningCard';
+
+# FT Extension
+
+The FT Extension (`SA_FaceTracking.prefab`) is placed directly under the avatar. For usage, see [Face Tracking](/3plus1/basics/face-tracking); for installation, see [Installing the FT Extension](/3plus1/getting-started/ft-install).
+
+---
+
+## Parameter Capacity
+
+The standard FT-only setup uses **253 synchronized bits**. When combined with the SE Extension or ましゅまろPB, the capacity is adjusted automatically. Some FT inputs sent to others then have fewer steps, so smoothness can differ between your view and others'.
+
+<WarningCard>
+When adding clothing or other features, check that the final Expression Parameters cost in the VRChat SDK is within 256 bits. Even FT alone leaves little spare capacity, and the automatic adjustment does not reserve room for additional assets.
+</WarningCard>

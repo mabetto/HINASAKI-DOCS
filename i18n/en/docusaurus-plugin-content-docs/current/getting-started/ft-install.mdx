@@ -1,0 +1,69 @@
+---
+sidebar_position: 4
+title: Installing the FT Extension
+---
+
+# Installing the FT Extension
+
+The FT Extension adds face, eye and mouth tracking to 3+1. For how to use it after installing, see [Face Tracking](/3plus1/basics/face-tracking).
+
+---
+
+## Requirements
+
+- 3+1 base avatar **GA5 or later** (Perfect Sync blendshapes)
+- A VCC Avatars project
+- **Modular Avatar**
+- [**VRCFT - Jerry's Templates**](https://github.com/adjerry91/VRCFaceTracking-Templates) (7.0.5 baseline)
+- The **VRCFaceTracking** PC application and the module for your hardware ([setup guide](https://docs.vrcft.io/docs/intro/getting-started))
+- Face/eye tracking hardware (see below)
+
+### Connecting Your Hardware
+
+| Hardware | What to use | Setup guide |
+|----------|-------------|-------------|
+| Meta Quest Pro | The module matching your PCVR connection method | [Meta Quest Pro setup](https://docs.vrcft.io/docs/hardware/vr/meta/quest-pro) |
+| iPhone / iPad | The **Live Link Face** app. Your whole face must be visible to the camera (it cannot be used as a lower-face-only tracker behind a VR headset) | [iPhone / iPad setup](https://docs.vrcft.io/docs/hardware/desktop/iphone) |
+| Other hardware | The module for your hardware | [VRCFaceTracking setup guide](https://docs.vrcft.io/docs/intro/getting-started) |
+
+---
+
+## Installation in Unity
+
+1. Back up your project or create a new VCC Avatars project.
+2. Install **Modular Avatar**, **Jerry's Templates** and the prerequisites for 3+1. You can add the repositories to VCC from these URLs.
+
+   ```
+   vcc://vpm/addRepo?url=https://vpm.nadena.dev/vpm.json
+   ```
+
+   ```
+   vcc://vpm/addRepo?url=https%3A%2F%2FAdjerry91.github.io%2FVRCFaceTracking-Templates%2Findex.json
+   ```
+
+3. Import 3+1 and place your avatar in the Hierarchy.
+4. Import `3+1_FT_EXT.unitypackage`.
+5. Drag the following prefab **directly under** the avatar.
+
+   ```
+   Assets/HINASAKI/SA_FT_Extension/Prefab/SA_FaceTracking.prefab
+   ```
+
+6. Check SDK errors and parameter cost in the VRChat SDK, then upload.
+
+:::warning[Warning]
+
+- Place only **one** `SA_FaceTracking` under the avatar.
+- Jerry's sample FT prefab is not needed.
+
+:::
+
+---
+
+## Getting Started in VRChat
+
+1. Connect your hardware to VRCFaceTracking and confirm the module receives tracking data.
+2. In the VRChat Action Menu, turn **OSC → Enabled** on ([VRChat docs: enabling OSC](https://docs.vrchat.com/docs/osc-overview)).
+3. Switch to the uploaded avatar.
+
+AUTO is ON by default, so tracking starts working right away.

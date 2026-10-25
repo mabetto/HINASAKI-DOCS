@@ -1,0 +1,20 @@
+---
+sidebar_position: 6
+title: FT 확장（페이스 트래킹）
+---
+
+import WarningCard from '@site/src/components/WarningCard';
+
+# FT 확장
+
+FT 확장（`SA_FaceTracking.prefab`）은 아바타 바로 아래에 배치하여 사용합니다. 조작 방법은 [페이스 트래킹](/3plus1/basics/face-tracking), 설치 절차는 [FT 확장 설치](/3plus1/getting-started/ft-install)를 참조하십시오.
+
+---
+
+## 파라미터 용량
+
+FT 단독의 표준 구성은 동기화 파라미터를 **253bit** 사용합니다. SE 확장이나 ましゅまろPB와 병용하면 동기화 용량을 자동으로 조절합니다. 이때 다른 사용자에게 보내는 일부 FT 입력의 단계 수가 줄어들어, 내 화면과 다른 사용자 화면의 부드러움이 다를 수 있습니다.
+
+<WarningCard>
+의상이나 추가 기믹을 늘릴 때는 VRChat SDK에서 최종 Expression Parameters 사용량이 256bit 이내인지 확인하십시오. FT 단독으로도 여유가 적으며, 자동 조절은 추가 에셋의 용량을 확보하지 않습니다.
+</WarningCard>

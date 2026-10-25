@@ -1,0 +1,254 @@
+---
+sidebar_position: 5
+title: Face Tracking
+---
+
+import DirectionPad from '@site/src/components/DirectionPad';
+import FtSample from '@site/src/components/FtSample';
+
+# Face Tracking
+
+With the FT Extension installed, you can layer emotional nuance from a stick and gesture-based eye symbols and effects on top of your real facial movements. For installation, see [Installing the FT Extension](/3plus1/getting-started/ft-install).
+
+---
+
+## Mouth, Tongue and Eye Tracking
+
+The mouth is switched by **tracking input**, not by the stick.
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'22%'}} />
+    <col style={{width:'48%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>Part</th>
+      <th style={{textAlign:'center'}}>Action</th>
+      <th style={{textAlign:'center'}}>Sample</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Normal mouth</td>
+      <td>Reflected starting from a lightly opened mouth</td>
+      <td><FtSample name="ft-mouth-normal" alt="Normal mouth" /></td>
+    </tr>
+    <tr>
+      <td>Completed A mouth</td>
+      <td>Open wide without puckering</td>
+      <td><FtSample name="ft-mouth-a" alt="Completed A mouth" /></td>
+    </tr>
+    <tr>
+      <td>Triangle mouth</td>
+      <td>With a small opening, pucker your lips as for "o"</td>
+      <td><FtSample name="ft-mouth-triangle" alt="Triangle mouth" /></td>
+    </tr>
+    <tr>
+      <td>Jagged mouth</td>
+      <td>Hold an open jaw steady, stretch the mouth sideways and raise the upper lip. Switching directly from puckering may react slightly late</td>
+      <td><FtSample name="ft-mouth-jagged" alt="Jagged mouth" /></td>
+    </tr>
+    <tr>
+      <td>Tongue</td>
+      <td>Operated by sticking your tongue out. Available inputs depend on hardware and module</td>
+      <td><FtSample name="ft-tongue" alt="Tongue out" /></td>
+    </tr>
+    <tr>
+      <td>Eyes</td>
+      <td>Gaze, blinking and eye widening are tracked. Widening produces small pupils; looking up in that state pulls both eyes inward</td>
+      <td><FtSample name="ft-eye-widen" alt="Widened eyes" /> <FtSample name="ft-eye-widen-up" alt="Widened eyes looking up" /></td>
+    </tr>
+  </tbody>
+</table>
+
+### Mouth During Speech
+
+During normal speech, VRChat's standard lip sync takes priority. While mouth tracking is active, holding **Point** with either hand prioritizes the FT mouth even while speaking. Releasing it restores normal priority. This works even with Modifier off.
+
+---
+
+## Menu
+
+Everything is controlled from **VRCFaceTracking.app** in the avatar's menu.
+
+<table className="icon-table">
+  <tbody>
+    <tr>
+      <td><img src="/img/icons/AUTO.png" alt="AUTO" /></td>
+      <td><strong>AUTO</strong></td>
+      <td>Enables/disables FT. ON by default.</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/GESTURE_MODIFIER.png" alt="Modifier" /></td>
+      <td><strong>Modifier</strong></td>
+      <td>Enables/disables extra gesture symbols and effects.</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/CONFUSE.png" alt="Expression stick" /></td>
+      <td><strong>Expression-icon 2D stick</strong></td>
+      <td>Controls emotional nuance.</td>
+    </tr>
+  </tbody>
+</table>
+
+To use symbol expressions, turn Modifier on. With Modifier off, FT and the stick's nuance control still work.
+
+---
+
+## Stick Directions
+
+The direction selects the nuance and the tilt distance sets the strength. The center is neutral.
+
+<DirectionPad
+  up={{icon:'CONFUSE', label:'Up: CONFUSE', desc:'Confusion'}}
+  left={{icon:'ANGER', label:'Left: ANGER', desc:'Angry'}}
+  center={{label:'Center', desc:'Neutral'}}
+  right={{icon:'PLEASURE', label:'Right: PLEASURE', desc:'Fun / happy'}}
+  down={{icon:'SORROW', label:'Down: SORROW', desc:'Sad'}}
+/>
+
+The stick alone changes eyebrow nuance. Eye symbols are added with the gestures under "Effects with Modifier ON" below. Tilt clearly in the intended direction, not diagonally.
+
+:::warning[Resetting the stick]
+
+Move the stick's cursor back to the center. Closing the menu may not reset it.
+
+:::
+
+---
+
+## Effects with Modifier ON
+
+**Fist** is the fist gesture recognized by VRChat; either hand works. The expression changes depending on whether one hand or both hands make a fist. A fist at neutral does not show a symbol.
+
+### Eye Symbols
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'24%'}} />
+    <col style={{width:'20%'}} />
+    <col style={{width:'26%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>Direction</th>
+      <th style={{textAlign:'center'}}>Gesture</th>
+      <th style={{textAlign:'center'}}>Expression</th>
+      <th style={{textAlign:'center'}}>Sample</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Up (CONFUSE)</td>
+      <td>One fist</td>
+      <td>Shock symbol</td>
+      <td><FtSample name="ft-eye-shock-1" alt="Shock symbol" /></td>
+    </tr>
+    <tr>
+      <td>Up (CONFUSE)</td>
+      <td>Both fists</td>
+      <td>Shock symbol plus sweat, dark shading and round eyes</td>
+      <td><FtSample name="ft-eye-shock-2" alt="Shock symbol with sweat, dark shading and round eyes" /></td>
+    </tr>
+    <tr>
+      <td>Right (PLEASURE)</td>
+      <td>One / both fists</td>
+      <td><code>{'><'}</code> eyes</td>
+      <td><FtSample name="ft-eye-xx" alt="><  eyes" /></td>
+    </tr>
+    <tr>
+      <td>Left (ANGER)</td>
+      <td>Both fists</td>
+      <td>Dark eye shading and hidden pupils</td>
+      <td><FtSample name="ft-eye-anger-dark" alt="Dark eye shading and hidden pupils" /></td>
+    </tr>
+  </tbody>
+</table>
+
+- While `><` eyes are shown, surrounding eye tracking and eye rotation are temporarily suppressed to prevent overlap.
+- The anger mark in the left (ANGER) nuance follows brow-furrowing input. No fist is needed.
+- Down (SORROW) is the watery eyes below.
+
+### Watery Eyes
+
+Used with down (SORROW).
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'24%'}} />
+    <col style={{width:'46%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>Gesture</th>
+      <th style={{textAlign:'center'}}>Expression</th>
+      <th style={{textAlign:'center'}}>Sample</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>One fist</td>
+      <td>Watery eyes</td>
+      <td><FtSample name="ft-eye-watery-1" alt="Watery eyes" /></td>
+    </tr>
+    <tr>
+      <td>Both fists</td>
+      <td>Stronger watery eyes and a runny nose. Keep holding for pooled tears and drops</td>
+      <td><FtSample name="ft-eye-watery-2" alt="Stronger watery eyes and a runny nose" /> <FtSample name="ft-eye-watery-2-drops" alt="Tears turned into drops" /></td>
+    </tr>
+  </tbody>
+</table>
+
+- They fade in over about 1.5 seconds. Releasing the fist, leaving the direction, or turning Modifier off fades them out over about 1.5 seconds.
+- The extra highlight and watery-eye pupil size switch **while both eyes are closed**. Blink once with both eyes after selecting or releasing to apply the change. A wink does not switch them.
+
+### Heart Eyes and Star Eyes
+
+Chosen with dedicated gestures, not stick direction. Either hand works.
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'34%'}} />
+    <col style={{width:'36%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>Gesture</th>
+      <th style={{textAlign:'center'}}>Expression</th>
+      <th style={{textAlign:'center'}}>Sample</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Point (index finger)</td>
+      <td>Heart eyes with blush</td>
+      <td><FtSample name="ft-eye-heart" alt="Heart eyes with blush" /></td>
+    </tr>
+    <tr>
+      <td>Thumbs Up</td>
+      <td>Star eyes</td>
+      <td><FtSample name="ft-eye-star" alt="Star eyes" /></td>
+    </tr>
+  </tbody>
+</table>
+
+- Heart eyes work in Neutral, PLEASURE and CONFUSE; star eyes work in Neutral and PLEASURE. They are not shown in other nuances, and reappear when you return to an allowed one.
+- If both are specified, hearts take priority.
+- Blush comes with heart eyes and cannot be shown alone.
+---
+
+## Troubleshooting
+
+| Symptom | What to check |
+|---------|---------------|
+| FT does not work at all | Check, in order: VRCFaceTracking reception, the module, VRChat OSC, AUTO |
+| Only symbols do not appear | Check that Modifier is ON and VRChat recognizes the gesture |
+| Hearts or stars do not appear | Check nuance restrictions and return the stick to center |
+| Highlight/pupil size remains after releasing watery eyes | Blink once with both eyes |
+| Mouth differs only while speaking | Standard lip sync has priority; use Point for the FT mouth |
+| Capacity error | Check the final parameter cost including all add-ons ([Parameter Capacity](/3plus1/ft-extension/)) |

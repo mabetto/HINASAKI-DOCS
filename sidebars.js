@@ -19,6 +19,7 @@ const sidebars = {
       items: [
         'getting-started/import',
         'getting-started/se-install',
+        'getting-started/ft-install',
       ],
     },
     {
@@ -29,6 +30,7 @@ const sidebars = {
         'basics/menu',
         'basics/expressions',
         'basics/gestures',
+        'basics/face-tracking',
         'basics/sleep-poses',
       ],
     },
@@ -53,6 +55,7 @@ const sidebars = {
         'outfit/index',
         'settings/index',
         'se-extension/index',
+        'ft-extension/index',
       ],
     },
     'troubleshooting/index',

@@ -1,0 +1,254 @@
+---
+sidebar_position: 5
+title: 페이스 트래킹
+---
+
+import DirectionPad from '@site/src/components/DirectionPad';
+import FtSample from '@site/src/components/FtSample';
+
+# 페이스 트래킹
+
+FT 확장을 설치하면 실제 얼굴의 움직임에 스틱으로 조절하는 표정 뉘앙스와 제스처로 표시하는 눈 기호·연출을 더할 수 있습니다. 설치 절차는 [FT 확장 설치](/3plus1/getting-started/ft-install)를 참조하십시오.
+
+---
+
+## 입·혀·눈 트래킹
+
+입은 스틱이 아니라 **트래킹 입력**으로 바뀝니다.
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'22%'}} />
+    <col style={{width:'48%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>부위</th>
+      <th style={{textAlign:'center'}}>동작</th>
+      <th style={{textAlign:'center'}}>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>일반 입</td>
+      <td>가볍게 입을 벌리는 데서부터 반영됩니다</td>
+      <td><FtSample name="ft-mouth-normal" alt="일반 입" /></td>
+    </tr>
+    <tr>
+      <td>완성 A 입</td>
+      <td>입을 오므리지 않고 크게 벌립니다</td>
+      <td><FtSample name="ft-mouth-a" alt="완성 A 입" /></td>
+    </tr>
+    <tr>
+      <td>삼각 입</td>
+      <td>입을 조금 벌린 상태에서 「오」처럼 입술을 오므립니다</td>
+      <td><FtSample name="ft-mouth-triangle" alt="삼각 입" /></td>
+    </tr>
+    <tr>
+      <td>톱니 입</td>
+      <td>벌린 턱을 안정적으로 유지하고, 오므리지 않은 채 입을 옆으로 당기면서 윗입술을 올립니다. 오므린 직후에 전환하면 반응이 조금 늦을 수 있습니다</td>
+      <td><FtSample name="ft-mouth-jagged" alt="톱니 입" /></td>
+    </tr>
+    <tr>
+      <td>혀</td>
+      <td>혀를 내미는 동작으로 조작합니다. 감지할 수 있는 입력은 기기와 모듈에 따라 다릅니다</td>
+      <td><FtSample name="ft-tongue" alt="혀를 내민 상태" /></td>
+    </tr>
+    <tr>
+      <td>눈</td>
+      <td>시선·깜빡임·크게 뜨기를 반영합니다. 크게 뜨면 동공이 작아지고, 그 상태에서 위를 볼수록 양쪽 눈이 안쪽으로 모입니다</td>
+      <td><FtSample name="ft-eye-widen" alt="크게 뜬 눈" /> <FtSample name="ft-eye-widen-up" alt="크게 뜬 채 위를 본 상태" /></td>
+    </tr>
+  </tbody>
+</table>
+
+### 발화 중의 입
+
+일반 발화에서는 VRChat 표준 립싱크가 우선입니다. 입 트래킹이 유효한 동안 어느 한 손으로 **Point**를 하면 발화 중에도 FT 입을 우선할 수 있습니다. Point를 풀면 원래대로 돌아갑니다. 이 기능은 Modifier가 OFF여도 사용할 수 있습니다.
+
+---
+
+## 메뉴
+
+아바타 메뉴 안의 **VRCFaceTracking.app**에서 조작합니다.
+
+<table className="icon-table">
+  <tbody>
+    <tr>
+      <td><img src="/img/icons/AUTO.png" alt="AUTO" /></td>
+      <td><strong>AUTO</strong></td>
+      <td>FT를 켜거나 끕니다. 초기 상태는 ON입니다.</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/GESTURE_MODIFIER.png" alt="Modifier" /></td>
+      <td><strong>Modifier</strong></td>
+      <td>제스처에 의한 추가 기호·연출을 켜거나 끕니다.</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/CONFUSE.png" alt="표정 스틱" /></td>
+      <td><strong>표정 아이콘의 2D 스틱</strong></td>
+      <td>표정 뉘앙스를 조작합니다.</td>
+    </tr>
+  </tbody>
+</table>
+
+기호 표정을 사용하려면 Modifier를 ON으로 합니다. Modifier가 OFF여도 FT와 스틱의 뉘앙스 조작은 사용할 수 있습니다.
+
+---
+
+## 스틱 배치
+
+기울인 방향으로 뉘앙스를 선택하고 기울인 양으로 강도를 조절합니다. 중앙은 중립입니다.
+
+<DirectionPad
+  up={{icon:'CONFUSE', label:'위：CONFUSE', desc:'곤혹'}}
+  left={{icon:'ANGER', label:'왼쪽：ANGER', desc:'분노'}}
+  center={{label:'중앙', desc:'중립'}}
+  right={{icon:'PLEASURE', label:'오른쪽：PLEASURE', desc:'즐거움·기쁨'}}
+  down={{icon:'SORROW', label:'아래：SORROW', desc:'슬픔'}}
+/>
+
+스틱만 사용하면 눈썹 뉘앙스가 바뀝니다. 눈 기호는 아래 「Modifier ON의 연출」의 제스처로 더합니다. 기호를 표시할 때는 대각선이 아니라 원하는 방향으로 확실히 기울이십시오.
+
+:::warning[스틱 초기화]
+
+스틱의 커서를 중앙으로 움직여 되돌리십시오. 메뉴를 닫기만 하면 초기화되지 않을 수 있습니다.
+
+:::
+
+---
+
+## Modifier ON의 연출
+
+**Fist**는 VRChat에서 인식하는 주먹 제스처이며 좌우 어느 손이든 사용할 수 있습니다. 한 손인지 양손 동시인지에 따라 표현이 바뀝니다. 중립에서 Fist만 해서는 기호가 나오지 않습니다.
+
+### 눈 기호
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'24%'}} />
+    <col style={{width:'20%'}} />
+    <col style={{width:'26%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>방향</th>
+      <th style={{textAlign:'center'}}>제스처</th>
+      <th style={{textAlign:'center'}}>표현</th>
+      <th style={{textAlign:'center'}}>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>위（CONFUSE）</td>
+      <td>한 손 Fist</td>
+      <td>충격 기호</td>
+      <td><FtSample name="ft-eye-shock-1" alt="충격 기호" /></td>
+    </tr>
+    <tr>
+      <td>위（CONFUSE）</td>
+      <td>양손 Fist</td>
+      <td>충격 기호에 땀·어두운 음영·동그란 눈 추가</td>
+      <td><FtSample name="ft-eye-shock-2" alt="충격 기호와 땀·어두운 음영·동그란 눈" /></td>
+    </tr>
+    <tr>
+      <td>오른쪽（PLEASURE）</td>
+      <td>한 손／양손 Fist</td>
+      <td><code>{'><'}</code> 눈</td>
+      <td><FtSample name="ft-eye-xx" alt=">< 눈" /></td>
+    </tr>
+    <tr>
+      <td>왼쪽（ANGER）</td>
+      <td>양손 Fist</td>
+      <td>눈가를 어둡게 하고 동공을 숨기는 표현 추가</td>
+      <td><FtSample name="ft-eye-anger-dark" alt="눈가를 어둡게 하고 동공을 숨기는 표현" /></td>
+    </tr>
+  </tbody>
+</table>
+
+- `><` 눈이 표시되는 동안에는 겹침을 막기 위해 눈 주변 트래킹과 안구 회전을 잠시 억제합니다.
+- 왼쪽（ANGER）의 분노 마크는 눈썹을 찌푸리는 입력과 연동합니다. Fist는 필요하지 않습니다.
+- 아래（SORROW）는 다음의 「촉촉한 눈」입니다.
+
+### 촉촉한 눈
+
+아래（SORROW）에서 사용합니다.
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'24%'}} />
+    <col style={{width:'46%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>제스처</th>
+      <th style={{textAlign:'center'}}>표현</th>
+      <th style={{textAlign:'center'}}>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>한 손 Fist</td>
+      <td>촉촉한 눈</td>
+      <td><FtSample name="ft-eye-watery-1" alt="촉촉한 눈" /></td>
+    </tr>
+    <tr>
+      <td>양손 Fist</td>
+      <td>더 강한 촉촉함과 콧물. 유지하면 눈물이 고인 뒤 물방울 연출로 이어집니다</td>
+      <td><FtSample name="ft-eye-watery-2" alt="더 강한 촉촉함과 콧물" /> <FtSample name="ft-eye-watery-2-drops" alt="눈물이 물방울이 된 상태" /></td>
+    </tr>
+  </tbody>
+</table>
+
+- 약 1.5초에 걸쳐 나타납니다. Fist를 풀거나 방향을 되돌리거나 Modifier를 OFF로 하면 약 1.5초에 걸쳐 사라집니다.
+- 추가 하이라이트와 동공 크기는 **양쪽 눈을 감은 타이밍**에 전환됩니다. 선택한 뒤, 해제한 뒤 모두 양쪽 눈을 한 번 깜빡이면 반영됩니다. 한쪽 눈 윙크로는 전환되지 않습니다.
+
+### 하트 눈·별 눈
+
+방향이 아니라 전용 제스처로 선택합니다. 좌우 어느 손이든 사용할 수 있습니다.
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'34%'}} />
+    <col style={{width:'36%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>제스처</th>
+      <th style={{textAlign:'center'}}>표현</th>
+      <th style={{textAlign:'center'}}>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Point（손가락으로 가리키기）</td>
+      <td>하트 눈＋홍조</td>
+      <td><FtSample name="ft-eye-heart" alt="하트 눈과 홍조" /></td>
+    </tr>
+    <tr>
+      <td>Thumbs Up（엄지 올리기）</td>
+      <td>별 눈</td>
+      <td><FtSample name="ft-eye-star" alt="별 눈" /></td>
+    </tr>
+  </tbody>
+</table>
+
+- 하트 눈은 중립·PLEASURE·CONFUSE, 별 눈은 중립·PLEASURE일 때 사용할 수 있습니다. 그 외의 뉘앙스에서는 표시되지 않으며, 허용되는 뉘앙스로 돌아오면 다시 표시됩니다.
+- 둘을 동시에 지정하면 하트가 우선입니다.
+- 홍조는 하트 눈과 세트이며 단독으로는 표시할 수 없습니다.
+---
+
+## 제대로 동작하지 않을 때
+
+| 증상 | 확인할 것 |
+|------|----------|
+| FT 전체가 동작하지 않음 | VRCFaceTracking 수신, 모듈, VRChat OSC, AUTO를 차례로 확인 |
+| 기호만 나오지 않음 | Modifier가 ON인지, VRChat이 제스처를 올바르게 인식하는지 확인 |
+| 하트나 별이 나오지 않음 | 뉘앙스 제한을 확인하고 스틱을 중앙으로 되돌려 시도 |
+| 촉촉한 눈 해제 후 하이라이트／동공 크기가 남음 | 양쪽 눈을 한 번 깜빡임 |
+| 발화할 때만 입이 다름 | 표준 립싱크가 우선입니다. FT 입을 우선하려면 Point 사용 |
+| 용량 오류 | 추가 에셋을 포함한 최종 구성의 파라미터 사용량 확인（[파라미터 용량](/3plus1/ft-extension/)） |

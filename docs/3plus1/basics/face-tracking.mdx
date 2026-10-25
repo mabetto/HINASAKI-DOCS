@@ -1,0 +1,254 @@
+---
+sidebar_position: 5
+title: フェイストラッキング
+---
+
+import DirectionPad from '@site/src/components/DirectionPad';
+import FtSample from '@site/src/components/FtSample';
+
+# フェイストラッキング
+
+FT拡張をインストールすると、実際の顔の動きに、スティックによる表情ニュアンスと、ジェスチャーによる目の記号・演出を重ねられます。インストール手順は [FT拡張のインストール](/3plus1/getting-started/ft-install) を参照してください。
+
+---
+
+## 口・舌・目のトラッキング
+
+口は、スティックではなく**トラッキング入力**で切り替わります。
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'22%'}} />
+    <col style={{width:'48%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>部位</th>
+      <th style={{textAlign:'center'}}>動作</th>
+      <th style={{textAlign:'center'}}>見本</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>通常口</td>
+      <td>軽く口を開くところから反映されます</td>
+      <td><FtSample name="ft-mouth-normal" alt="通常口" /></td>
+    </tr>
+    <tr>
+      <td>完成A口</td>
+      <td>口をすぼめずに大きく開きます</td>
+      <td><FtSample name="ft-mouth-a" alt="完成A口" /></td>
+    </tr>
+    <tr>
+      <td>三角口</td>
+      <td>口の開きを小さくした状態で、唇をすぼめる「お」の動作をします</td>
+      <td><FtSample name="ft-mouth-triangle" alt="三角口" /></td>
+    </tr>
+    <tr>
+      <td>ギザギザ口</td>
+      <td>口を開いた状態を安定させ、すぼめずに口を横へ引き、上唇を上げます。すぼめからすぐ切り替えると、少し遅れて反応することがあります</td>
+      <td><FtSample name="ft-mouth-jagged" alt="ギザギザ口" /></td>
+    </tr>
+    <tr>
+      <td>舌</td>
+      <td>舌を出す動作で操作します。検出できる入力は機器・モジュールによって異なります</td>
+      <td><FtSample name="ft-tongue" alt="舌を出した状態" /></td>
+    </tr>
+    <tr>
+      <td>目</td>
+      <td>視線・瞬き・見開きを反映します。見開くと瞳孔が小さくなり、その状態で上を見るほど左右の目が内側へ寄ります</td>
+      <td><FtSample name="ft-eye-widen" alt="見開き" /> <FtSample name="ft-eye-widen-up" alt="見開いたまま上を見た状態" /></td>
+    </tr>
+  </tbody>
+</table>
+
+### 発話中の口
+
+通常の発話では、VRChat 標準のリップシンクが優先されます。口のトラッキングが有効な間、どちらかの手で**ポイント**をすると、発話中も FT の口を優先できます。ポイントを解除すると元に戻ります。この機能は Modifier が OFF でも使えます。
+
+---
+
+## メニュー
+
+アバターのメニュー内の **VRCFaceTracking.app** から操作します。
+
+<table className="icon-table">
+  <tbody>
+    <tr>
+      <td><img src="/img/icons/AUTO.png" alt="AUTO" /></td>
+      <td><strong>AUTO</strong></td>
+      <td>FT の有効／無効を切り替えます。初期状態は ON です。</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/GESTURE_MODIFIER.png" alt="Modifier" /></td>
+      <td><strong>Modifier</strong></td>
+      <td>ジェスチャーによる追加記号・演出を有効／無効にします。</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/CONFUSE.png" alt="表情スティック" /></td>
+      <td><strong>表情アイコンの2Dスティック</strong></td>
+      <td>表情のニュアンスを操作します。</td>
+    </tr>
+  </tbody>
+</table>
+
+記号表情を使うには Modifier を ON にします。Modifier が OFF でも、FT とスティックのニュアンス操作は使えます。
+
+---
+
+## スティックの配置
+
+倒した方向でニュアンスを選び、倒す量で強さを調整します。中央はニュートラルです。
+
+<DirectionPad
+  up={{icon:'CONFUSE', label:'上：CONFUSE', desc:'困惑'}}
+  left={{icon:'ANGER', label:'左：ANGER', desc:'怒り'}}
+  center={{label:'中央', desc:'ニュートラル'}}
+  right={{icon:'PLEASURE', label:'右：PLEASURE', desc:'楽しい・嬉しい'}}
+  down={{icon:'SORROW', label:'下：SORROW', desc:'悲しい'}}
+/>
+
+スティック単独では眉のニュアンスが動きます。目の記号は、次の「Modifier ON の演出」で重ねて表示します。記号を出すときは、斜めではなく目的の方向へはっきり倒してください。
+
+:::warning[スティックのリセット]
+
+中央へ戻すには、スティックのカーソルを中央へ動かしてください。メニューを閉じただけでは戻らないことがあります。
+
+:::
+
+---
+
+## Modifier ON の演出
+
+**フィスト**は VRChat が認識する握りこぶしで、左右どちらの手でも使えます。片手だけか両手同時かで表現が変わります。ニュートラルでフィストだけを握っても、記号は出ません。
+
+### 目の記号
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'24%'}} />
+    <col style={{width:'20%'}} />
+    <col style={{width:'26%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>方向</th>
+      <th style={{textAlign:'center'}}>ジェスチャー</th>
+      <th style={{textAlign:'center'}}>表現</th>
+      <th style={{textAlign:'center'}}>見本</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>上（CONFUSE）</td>
+      <td>片手フィスト</td>
+      <td>がーんの記号</td>
+      <td><FtSample name="ft-eye-shock-1" alt="がーんの記号" /></td>
+    </tr>
+    <tr>
+      <td>上（CONFUSE）</td>
+      <td>両手フィスト</td>
+      <td>がーんに、汗・暗い目元・丸い目を追加</td>
+      <td><FtSample name="ft-eye-shock-2" alt="がーん＋汗・暗い目元・丸い目" /></td>
+    </tr>
+    <tr>
+      <td>右（PLEASURE）</td>
+      <td>片手／両手フィスト</td>
+      <td><code>{'><'}</code> 目</td>
+      <td><FtSample name="ft-eye-xx" alt="><目" /></td>
+    </tr>
+    <tr>
+      <td>左（ANGER）</td>
+      <td>両手フィスト</td>
+      <td>暗い目元と、瞳を隠す表現を追加</td>
+      <td><FtSample name="ft-eye-anger-dark" alt="暗い目元と瞳を隠す表現" /></td>
+    </tr>
+  </tbody>
+</table>
+
+- `><` 目の表示中は、貫通を防ぐため目周辺のトラッキングと眼球の動きを一時的に抑えます。
+- 左（ANGER）の怒りマークは、眉をしかめる入力と連動します。フィストは不要です。
+- 下（SORROW）は、次の「うるうる」です。
+
+### うるうる
+
+下（SORROW）で使います。
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'24%'}} />
+    <col style={{width:'46%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>ジェスチャー</th>
+      <th style={{textAlign:'center'}}>表現</th>
+      <th style={{textAlign:'center'}}>見本</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>片手フィスト</td>
+      <td>うるうる</td>
+      <td><FtSample name="ft-eye-watery-1" alt="うるうる" /></td>
+    </tr>
+    <tr>
+      <td>両手フィスト</td>
+      <td>強いうるうると鼻水。保持すると涙がたまり、滴の演出へ進みます</td>
+      <td><FtSample name="ft-eye-watery-2" alt="強いうるうると鼻水" /> <FtSample name="ft-eye-watery-2-drops" alt="涙が滴になった状態" /></td>
+    </tr>
+  </tbody>
+</table>
+
+- 約1.5秒かけて現れます。フィストを放す、方向を戻す、Modifier を OFF にすると、約1.5秒で消えます。
+- 追加ハイライトと瞳サイズは、**両目を閉じたタイミング**で切り替わります。選択後、解除後ともに、一度両目で瞬きすると反映されます。片目のウィンクでは切り替わりません。
+
+### ハート目・星目
+
+方向ではなく専用ジェスチャーで選びます。左右どちらの手でも使えます。
+
+<table className="face-table">
+  <colgroup>
+    <col style={{width:'34%'}} />
+    <col style={{width:'36%'}} />
+    <col style={{width:'30%'}} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th style={{textAlign:'center'}}>ジェスチャー</th>
+      <th style={{textAlign:'center'}}>表現</th>
+      <th style={{textAlign:'center'}}>見本</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ポイント（人差し指を指す）</td>
+      <td>ハート目＋赤面</td>
+      <td><FtSample name="ft-eye-heart" alt="ハート目と赤面" /></td>
+    </tr>
+    <tr>
+      <td>サムズアップ</td>
+      <td>星目</td>
+      <td><FtSample name="ft-eye-star" alt="星目" /></td>
+    </tr>
+  </tbody>
+</table>
+
+- ハート目はニュートラル・PLEASURE・CONFUSE、星目はニュートラル・PLEASURE のときに使えます。それ以外のニュアンスでは表示されません。許可されるニュアンスへ戻すと再表示します。
+- ハートと星を同時に指定した場合は、ハートが優先されます。
+- 赤面はハート目とセットです。単独では出せません。
+---
+
+## うまく動かないとき
+
+| 症状 | 確認すること |
+|------|------------|
+| FT 全体が動かない | VRCFaceTracking の受信、モジュール、VRChat の OSC、AUTO を順に確認 |
+| 記号だけ出ない | Modifier が ON か、VRChat が正しくジェスチャーを認識しているか確認 |
+| ハートや星が出ない | ニュアンスの制限を確認し、スティックを中央へ戻して試す |
+| うるうる解除後にハイライト／瞳サイズが残る | 両目で一度瞬きする |
+| 発話中だけ口が違う | 標準リップシンクが優先されています。FT の口を優先するにはポイント |
+| 容量エラー | 追加アセットを含む最終構成のパラメーター使用量を確認（[パラメーター容量](/3plus1/ft-extension/)） |

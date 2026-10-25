@@ -1,0 +1,69 @@
+---
+sidebar_position: 4
+title: FT 확장 설치
+---
+
+# FT 확장 설치
+
+FT 확장은 3+1의 얼굴·눈·입을 트래킹으로 움직이는 확장입니다. 설치 후의 사용법은 [페이스 트래킹](/3plus1/basics/face-tracking)을 참조하십시오.
+
+---
+
+## 준비물
+
+- 3+1 본체 **GA5 이상**（Perfect Sync 대응 데이터）
+- VCC의 Avatars 프로젝트
+- **Modular Avatar**
+- [**VRCFT - Jerry's Templates**](https://github.com/adjerry91/VRCFaceTracking-Templates)（7.0.5 기준）
+- PC용 **VRCFaceTracking 앱**과 사용 기기에 대응하는 모듈（[설정 가이드](https://docs.vrcft.io/docs/intro/getting-started)）
+- 페이스／아이 트래킹 기기（아래 표）
+
+### 기기별 연결
+
+| 기기 | 사용할 것 | 설정 방법 |
+|------|----------|----------|
+| Meta Quest Pro | PCVR 연결 방식에 대응하는 모듈 | [Meta Quest Pro 설정](https://docs.vrcft.io/docs/hardware/vr/meta/quest-pro) |
+| iPhone / iPad | **Live Link Face** 앱. 카메라에 얼굴 전체가 보이는 상태로 사용합니다（HMD 착용 중의 하안면 전용 트래커로는 사용할 수 없습니다） | [iPhone / iPad 설정](https://docs.vrcft.io/docs/hardware/desktop/iphone) |
+| 그 외 기기 | 기기에 대응하는 모듈 | [VRCFaceTracking 설정 가이드](https://docs.vrcft.io/docs/intro/getting-started) |
+
+---
+
+## Unity에서 설치
+
+1. 프로젝트를 백업하거나 VCC에서 새 Avatars 프로젝트를 만듭니다.
+2. **Modular Avatar**, **Jerry's Templates**와 3+1 본체의 선행 에셋을 설치합니다. VCC에는 다음 URL로 저장소를 추가할 수 있습니다.
+
+   ```
+   vcc://vpm/addRepo?url=https://vpm.nadena.dev/vpm.json
+   ```
+
+   ```
+   vcc://vpm/addRepo?url=https%3A%2F%2FAdjerry91.github.io%2FVRCFaceTracking-Templates%2Findex.json
+   ```
+
+3. 3+1 본체를 임포트하고 아바타를 Hierarchy에 배치합니다.
+4. `3+1_FT_EXT.unitypackage`를 임포트합니다.
+5. 다음 프리팹을 아바타 **바로 아래**로 드래그 앤 드롭합니다.
+
+   ```
+   Assets/HINASAKI/SA_FT_Extension/Prefab/SA_FaceTracking.prefab
+   ```
+
+6. VRChat SDK에서 오류와 파라미터 사용량을 확인한 뒤 업로드합니다.
+
+:::warning[주의]
+
+- `SA_FaceTracking`은 아바타 바로 아래에 **하나만** 배치하십시오.
+- Jerry의 샘플 FT 프리팹은 필요하지 않습니다.
+
+:::
+
+---
+
+## VRChat에서 사용 시작하기
+
+1. 사용 기기와 VRCFaceTracking을 연결하고 모듈이 트래킹 값을 수신하는지 확인합니다.
+2. VRChat의 액션 메뉴에서 **OSC → Enabled**를 ON으로 합니다（[VRChat 공식：OSC 활성화](https://docs.vrchat.com/docs/osc-overview)）.
+3. 업로드한 아바타로 갈아입습니다.
+
+AUTO는 초기 상태가 ON이므로 바로 트래킹이 동작합니다.

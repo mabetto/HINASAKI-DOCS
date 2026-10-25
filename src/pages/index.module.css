@@ -1,21 +1,9 @@
 .main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 4rem 8rem;
-}
-
-.title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
-  text-align: left;
-  font-family: "fot-tsukubrdgothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.subtitle {
-  color: var(--ifm-font-color-base);
-  margin-bottom: 2.5rem;
-  font-size: 1rem;
-  text-align: left;
-  font-family: "fot-tsukubrdgothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .grid {
@@ -73,11 +61,6 @@
   font-family: "fot-tsukubrdgothic-std", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-:global(html[lang="ko"]) .title {
-  font-family: "fot-tsukubrdgothic-std", sans-serif;
-}
-
-:global(html[lang="ko"]) .subtitle,
 :global(html[lang="ko"]) .modelNumber {
   font-family: "source-han-serif-kr-variable", serif;
   font-variation-settings: "wght" 400;

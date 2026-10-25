@@ -1,7 +1,7 @@
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Translate, {translate} from '@docusaurus/Translate';
+import {translate} from '@docusaurus/Translate';
 import styles from './index.module.css';
 
 const avatars = [
@@ -24,10 +24,6 @@ export default function Home() {
       description={translate({id: 'homepage.description', message: 'HINASAKIアバタードキュメント'})}
     >
       <main className={styles.main}>
-        <h1 className={styles.title}>Avatar Documents</h1>
-        <p className={styles.subtitle}>
-          <Translate id="homepage.selectAvatar">アバターを選択してください。</Translate>
-        </p>
         <div className={styles.grid}>
           {avatars.map((avatar) => (
             <Link key={avatar.name} to={`${localePrefix}${avatar.path}`} className={styles.card}>

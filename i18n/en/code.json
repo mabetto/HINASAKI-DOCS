@@ -326,10 +326,6 @@
                                      "message":  "Tags",
                                      "description":  "The title of the tag list page"
                                  },
-    "homepage.selectAvatar":  {
-                                  "message":  "Select an avatar.",
-                                  "description":  "Homepage avatar selection prompt"
-                              },
     "homepage.description":  {
                                  "message":  "HINASAKI Avatar Documents",
                                  "description":  "Homepage homepage.description"

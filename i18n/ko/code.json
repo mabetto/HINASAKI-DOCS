@@ -326,10 +326,6 @@
                                      "message":  "태그",
                                      "description":  "The title of the tag list page"
                                  },
-    "homepage.selectAvatar":  {
-                                  "message":  "아바타를 선택해 주세요.",
-                                  "description":  "Homepage avatar selection prompt"
-                              },
     "homepage.description":  {
                                  "message":  "HINASAKI 아바타 문서",
                                  "description":  "Homepage homepage.description"

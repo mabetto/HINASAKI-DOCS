@@ -15,6 +15,24 @@ The FT Extension (`SA_FaceTracking.prefab`) is placed directly under the avatar.
 
 The standard FT-only setup uses **253 synchronized bits**. When combined with the SE Extension or ましゅまろPB, the capacity is adjusted automatically. Some FT inputs sent to others then have fewer steps, so smoothness can differ between your view and others'.
 
+### Differences by Setup
+
+The extension detects whether SE Extension and ましゅまろPB parameters are installed, and stops synchronizing some parameters accordingly. Your own input is unchanged; only the precision sent to others is reduced.
+
+| Setup | Bits removed from sync | Change in FT inputs sent to others |
+|-------|------------------------|------------------------------------|
+| FT only | None (253 bits) | None |
+| FT + SE Extension | 33 bits | 24 inputs lose 1 bit of precision; 6 of them send only the most significant bit. 3 configuration values are not sent |
+| FT + SE Extension + ましゅまろPB | 38 bits | In addition, 5 more inputs send only the most significant bit (11 in total) |
+| FT + ましゅまろPB (no SE Extension) | 2 bits | 2 inputs (`NoseSneer`, `MouthPress`) lose 1 bit of precision |
+
+Affected inputs (parameter names):
+
+- 1 bit less precision (with SE Extension): `BrowExpressionLeft` / `BrowExpressionRight` / `NoseSneer` / `CheekPuffLeft` / `JawForward` / `JawX` / `LipFunnel` / `LipPucker` / `LipSuckUpper` / `LipSuckLower` / `MouthLowerDown` / `MouthUpperUpRight` / `MouthUpperUpLeft` / `MouthRaiserUpper` / `MouthRaiserLower` / `MouthPress` / `MouthStretchLeft` / `MouthStretchRight` / `MouthX` / `SmileFrownLeft` / `SmileFrownRight` / `TongueOut` / `EyeSquintLeft` / `EyeSquintRight`
+- Most significant bit only (with SE Extension): `CheekPuffLeft` / `JawForward` / `LipSuckUpper` / `LipSuckLower` / `MouthPress` / `EyeSquintRight`
+- Most significant bit only (additionally with ましゅまろPB): `NoseSneer` / `MouthUpperUpRight` / `MouthUpperUpLeft` / `MouthRaiserUpper` / `MouthRaiserLower`
+- Configuration values not sent (with SE Extension): `FaceTrackingEmulation` / `FaceTrackingLimits` / `FT/EyeSync`
+
 <WarningCard>
 When adding clothing or other features, check that the final Expression Parameters cost in the VRChat SDK is within 256 bits. Even FT alone leaves little spare capacity, and the automatic adjustment does not reserve room for additional assets.
 </WarningCard>

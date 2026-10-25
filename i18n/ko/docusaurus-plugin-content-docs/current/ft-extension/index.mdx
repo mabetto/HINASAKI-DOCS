@@ -15,6 +15,24 @@ FT 확장（`SA_FaceTracking.prefab`）은 아바타 바로 아래에 배치하�
 
 FT 단독의 표준 구성은 동기화 파라미터를 **253bit** 사용합니다. SE 확장이나 ましゅまろPB와 병용하면 동기화 용량을 자동으로 조절합니다. 이때 다른 사용자에게 보내는 일부 FT 입력의 단계 수가 줄어들어, 내 화면과 다른 사용자 화면의 부드러움이 다를 수 있습니다.
 
+### 구성별 차이
+
+SE 확장·ましゅまろPB의 파라미터가 설치되어 있는지 자동으로 판별하고, 구성에 맞게 일부를 동기화에서 제외합니다. 내 입력은 그대로이며, 다른 사용자에게 보내는 정밀도만 낮아집니다.
+
+| 구성 | 동기화에서 제외되는 양 | 다른 사용자에게 보내는 FT 입력의 변화 |
+|------|------------------------|----------------------------------------|
+| FT 단독 | 없음（253bit） | 없음 |
+| FT ＋ SE 확장 | 33bit | 24개 입력의 정밀도를 1bit 낮춤. 그중 6개 입력은 최상위 1bit만 전송. 설정값 3개는 전송하지 않음 |
+| FT ＋ SE 확장 ＋ ましゅまろPB | 38bit | 위에 더해 5개 입력이 최상위 1bit만 전송（총 11개 입력） |
+| FT ＋ ましゅまろPB（SE 확장 없음） | 2bit | 2개 입력（`NoseSneer`・`MouthPress`）의 정밀도를 1bit 낮춤 |
+
+대상 입력（파라미터 이름）:
+
+- 정밀도 1bit 낮춤（SE 확장 설치 시）: `BrowExpressionLeft` / `BrowExpressionRight` / `NoseSneer` / `CheekPuffLeft` / `JawForward` / `JawX` / `LipFunnel` / `LipPucker` / `LipSuckUpper` / `LipSuckLower` / `MouthLowerDown` / `MouthUpperUpRight` / `MouthUpperUpLeft` / `MouthRaiserUpper` / `MouthRaiserLower` / `MouthPress` / `MouthStretchLeft` / `MouthStretchRight` / `MouthX` / `SmileFrownLeft` / `SmileFrownRight` / `TongueOut` / `EyeSquintLeft` / `EyeSquintRight`
+- 최상위 1bit만 전송（SE 확장 설치 시）: `CheekPuffLeft` / `JawForward` / `LipSuckUpper` / `LipSuckLower` / `MouthPress` / `EyeSquintRight`
+- 최상위 1bit만 전송（ましゅまろPB 병용 시 추가）: `NoseSneer` / `MouthUpperUpRight` / `MouthUpperUpLeft` / `MouthRaiserUpper` / `MouthRaiserLower`
+- 전송하지 않는 설정값（SE 확장 설치 시）: `FaceTrackingEmulation` / `FaceTrackingLimits` / `FT/EyeSync`
+
 <WarningCard>
 의상이나 추가 기믹을 늘릴 때는 VRChat SDK에서 최종 Expression Parameters 사용량이 256bit 이내인지 확인하십시오. FT 단독으로도 여유가 적으며, 자동 조절은 추가 에셋의 용량을 확보하지 않습니다.
 </WarningCard>

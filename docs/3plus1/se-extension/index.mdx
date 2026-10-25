@@ -9,6 +9,10 @@ title: SE拡張（R18）
 
 SE拡張（`SA_A2XL_R18.prefab`）は Modular Avatar で Non-Destructive に追加する R18 拡張パーツです。本体アバターに追加するだけで以下の機能が有効になります。
 
+- 接触検出と、接触量に応じた変形（クリトリス・乳首）
+- 放尿・射乳の液体エフェクトと効果音
+- SPS による挿入深度の検出と変形
+
 ---
 
 ## メニュー構造
@@ -16,40 +20,45 @@ SE拡張（`SA_A2XL_R18.prefab`）は Modular Avatar で Non-Destructive に追�
 MA Menu Installer によりトップメニューに自動統合されます。
 
 ```
-R18 Menu
-├─ PubicHair（ON/OFF）
-├─ Clitoris（ラジアル）
-├─ Nipple_L（ラジアル）
-├─ Nipple_R（ラジアル）
-└─ Pussy_Open（ラジアル）
+おさわりえっち！.app
+├─ くぱぁ（ラジアル）
+├─ クリトリス感度（ラジアル）
+├─ 右乳首感度（ラジアル）
+├─ 左乳首感度（ラジアル）
+└─ 下の毛オプション（ON/OFF）
 ```
 
 <table className="icon-table">
   <tbody>
     <tr>
-      <td><img src="/img/icons/PUBICHAIR_SWITCH.png" alt="PubicHair" /></td>
-      <td><strong>PubicHair</strong></td>
-      <td>陰毛の表示・非表示を切り替えます。設定は保存されます（`saved: true`）。</td>
+      <td><img src="/img/icons/OSAWARI_H.png" alt="おさわりえっち！.app" /></td>
+      <td><strong>おさわりえっち！.app</strong></td>
+      <td>SE拡張のメニューをまとめたサブメニューです。</td>
     </tr>
     <tr>
-      <td><img src="/img/icons/CLIT.png" alt="Clitoris" /></td>
-      <td><strong>Clitoris</strong></td>
+      <td><img src="/img/icons/PUSSYOPEN.png" alt="くぱぁ" /></td>
+      <td><strong>くぱぁ</strong>（`Pussy_Open`）</td>
+      <td>開閉状態を手動で調整します。セッション中のみ同期されます（`saved: false`）。</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/CLIT.png" alt="クリトリス感度" /></td>
+      <td><strong>クリトリス感度</strong>（`Clitoris`）</td>
       <td>クリトリスへの接触強度をリアルタイムで表示します。セッション中のみ同期されます（`saved: false`）。</td>
     </tr>
     <tr>
-      <td><img src="/img/icons/NIPPLES.png" alt="Nipple_L" /></td>
-      <td><strong>Nipple_L</strong></td>
-      <td>左乳首への接触強度をリアルタイムで表示します。セッション中のみ同期されます（`saved: false`）。</td>
-    </tr>
-    <tr>
-      <td><img src="/img/icons/NIPPLES.png" alt="Nipple_R" /></td>
-      <td><strong>Nipple_R</strong></td>
+      <td><img src="/img/icons/NIPPLES.png" alt="右乳首感度" /></td>
+      <td><strong>右乳首感度</strong>（`Nipple_R`）</td>
       <td>右乳首への接触強度をリアルタイムで表示します。セッション中のみ同期されます（`saved: false`）。</td>
     </tr>
     <tr>
-      <td><img src="/img/icons/PUSSYOPEN.png" alt="Pussy_Open" /></td>
-      <td><strong>Pussy_Open</strong></td>
-      <td>開閉状態を手動で調整します。セッション中のみ同期されます（`saved: false`）。</td>
+      <td><img src="/img/icons/NIPPLES.png" alt="左乳首感度" /></td>
+      <td><strong>左乳首感度</strong>（`Nipple_L`）</td>
+      <td>左乳首への接触強度をリアルタイムで表示します。セッション中のみ同期されます（`saved: false`）。</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/PUBICHAIR_SWITCH.png" alt="下の毛オプション" /></td>
+      <td><strong>下の毛オプション</strong>（`PubicHair`）</td>
+      <td>陰毛の表示・非表示を切り替えます。設定は保存されます（`saved: true`）。</td>
     </tr>
   </tbody>
 </table>
@@ -90,13 +99,15 @@ VRChat の ContactReceiver コンポーネントにより、他プレイヤー�
 
 接触中（`_Contact = true`）は対応する Float 値が **+0.02/tick** で上昇します。接触が離れると `SYS_NSFW_Contact_Subtract` レイヤーが起動し、値が 0.2 以上ある限り **-0.02/tick** で徐々に減衰させます。これにより接触の余韻が自然に残る挙動になっています。
 
-Float 値が **0.99 を超える**と特殊ステートへ遷移します：
+Float 値が **0.99 を超える**と特殊ステートへ遷移し、液体エフェクトが始まります：
 
-| 部位 | 閾値 | 遷移先ステート |
-|------|------|-------------|
-| クリトリス | Clitoris > 0.99 | `CLITORIS_ORGASM` |
-| 左乳首 | Nipple_L > 0.99 | `LACTATION_L` |
-| 右乳首 | Nipple_R > 0.99 | `LACTATION_R` |
+| 部位 | 条件 | 遷移先ステート | 内容 |
+|------|------|-------------|------|
+| クリトリス | `Clitoris > 0.99` かつ `CostumeBody = 2` | `CLITORIS_ORGASM` | 放尿（`Peeing_System` の `Emitter_Pee` を有効化） |
+| 左乳首 | `Nipple_L > 0.99` かつ `CostumeBody` が 0・1 以外 | `LACTATION_L` | 射乳（左の Milk エミッターを有効化し、`act_lactation_L` を 100 に） |
+| 右乳首 | `Nipple_R > 0.99` かつ `CostumeBody` が 0・1 以外 | `LACTATION_R` | 射乳（右の Milk エミッターを有効化し、`act_lactation_R` を 100 に） |
+
+`CostumeBody` が 1 になるか、再生が終わると `WAIT_RESET` ステートへ移り、値が 0.99 以下に下がるまで再発動しません。
 
 ### アニメーターレイヤー構成
 
@@ -104,21 +115,24 @@ R18FX Controller は役割ごとに独立したレイヤーで構成されてい
 
 | レイヤー | 役割 |
 |---------|------|
+| `FX_PUBICHAIR` | `PubicHair` で陰毛の表示・非表示を切り替え |
 | `SYS_NSFW_Contact_Subtract` | 接触が離れたとき Float 値を自動減衰させるシステム |
-| `FX_CLITORIS_CONTACT` | クリトリス接触中に `Clitoris` を加算し、上限でオーガズムへ遷移 |
+| `FX_CLITORIS_CONTACT` | クリトリス接触中に `Clitoris` を加算し、上限でオーガズム（放尿）へ遷移 |
 | `FX_NIPPLE_L_CONTACT` | 左乳首接触中に `Nipple_L` を加算し、上限で射乳へ遷移 |
 | `FX_NIPPLE_R_CONTACT` | 右乳首接触中に `Nipple_R` を加算し、上限で射乳へ遷移 |
 | `FX_CLITORIS_ERECTION` | `Clitoris` 値で Clit ボーンの LocalScale をドライブ |
 | `FX_NIPPLE_L_ERECTION` | `Nipple_L` 値で Nipple.L ボーンの LocalPosition をドライブ |
 | `FX_NIPPLE_R_ERECTION` | `Nipple_R` 値で Nipple.R ボーンの LocalPosition をドライブ |
-| `FX_PUSSY_OPEN` | `Pussy_Open` で SPS `act_(i)_open` と排尿エミッターを制御 |
+| `FX_PUSSY_OPEN` | `Pussy_Open` で `Basebody` のシェイプキー `act_(i)_open` をドライブ |
+| `CFG_LIQUID_BRIGHTNESS` / `CFG_LIQUID_MONOCHROME_LIGHTING` | 液体の明るさ・ライトのモノクロ化を、本体の `Brightness` / `Lighting(mono)` に連動 |
+| `SFX_*` | 液体の効果音の再生制御（[液体エフェクトと効果音](#液体エフェクトと効果音)） |
 
 :::warning[改変時の注意]
 
-`FX_PUSSY_OPEN` レイヤーの IDLE ステートには `CostumeBody = 2`（脱衣状態）の遷移条件が設定されています。デフォルト衣装を削除した場合はこの条件が満たされず、PUSSY_OPEN が機能しません。
+`FX_PUSSY_OPEN`・`FX_CLITORIS_CONTACT`・`FX_NIPPLE_*_CONTACT` の遷移には `CostumeBody` の条件が含まれます。デフォルト衣装を削除した場合は `CostumeBody = 2`（脱衣状態）にならず、くぱぁ・放尿・射乳が機能しません。
 
 **対処法：**
-- `SA_A2XL_SE R18FX` の `CostumeBody` パラメーターを削除し、`FX_PUSSY_OPEN` レイヤーの IDLE ステートの条件も削除する
+- `SA_A2XL_SE R18FX` の `CostumeBody` パラメーターを削除し、各レイヤーの `CostumeBody` の条件も削除する
 - または、独自衣装の脱衣ステートに `CostumeBody = 2` を割り当てる
 
 :::
@@ -132,7 +146,44 @@ ERECTION 系レイヤーは `m_TimeParameterActive: true` を使い、アニメ�
 | CLITORIS_ERECTION | `Armature/Hips/Clit` | ボーンの LocalScale を変化 |
 | NIPPLE_L_ERECTION | `Armature/.../Nipple.L` | ボーンの LocalPosition を変化 |
 | NIPPLE_R_ERECTION | `Armature/.../Nipple.R` | ボーンの LocalPosition を変化 |
-| PUSSY_OPEN | `Basebody` / `Peeing_System` | SPS `act_(i)_open` ＋ 排尿エミッターの IsActive |
+| PUSSY_OPEN | `Basebody` | シェイプキー `act_(i)_open` を 0〜100 で変化 |
+| CLITORIS_ORGASM | `Peeing_System/Urethra/Emitter_Pee` | `IsActive` を ON（`_OFF` で OFF） |
+| LACTATION_L_ON / LACTATION_R_ON | `Lactation_System` の Milk エミッター、`Basebody` | エミッターの `IsActive` を ON、`act_lactation_L/R` を 100、`_DropAlpha` を約1.5秒で 0→1 |
+
+---
+
+## 液体エフェクトと効果音
+
+放尿（`Peeing_System`）と射乳（`Lactation_System`）は、粒子と効果音で構成されています。
+
+| システム | 粒子 | 発動 |
+|---------|------|------|
+| `Peeing_System` | 流れ（Pee）、滴（Pee_drop）、水たまり（Pee_revert 系） | `CLITORIS_ORGASM` |
+| `Lactation_System` | 左右それぞれ Milk（流れ）、WaterRunoff（伝い落ちる液）、AccentDrops（滴） | `LACTATION_L` / `LACTATION_R` |
+
+### 液体の明るさ
+
+液体のマテリアルは、本体のプリファレンスメニューの設定に連動します。
+
+| パラメーター | 液体のプロパティ | 範囲（0 → 1） |
+|------------|----------------|--------------|
+| `Brightness` | `_LightMinLimit` | 0.05 → 1.0 |
+| `Lighting(mono)` | `_MonochromeLighting` | 0.0 → 1.0 |
+
+### 効果音
+
+| 効果音 | ファイル | 設定 |
+|--------|---------|------|
+| 放尿の流れ（`Flow`） | `SA_A2XL_R18_LEAK_A.wav` | 音量 0.5 / 最大距離 2m |
+| 射乳の流れ（`Flow`） | `SA_A2XL_R18_LEAK_B.wav` | 音量 0.5 / 最大距離 2m |
+| 着弾音（`Impact`） | `SA_A2XL_R18_DROP.wav` | ループ / 音量 0.6 / 最大距離 4m |
+| ランダム SE（`SFX_RANDOM`） | `SA_A2XL_R18_SPLURT_A〜E.wav` | 音量 0.5 / 最大距離 4m |
+
+- **流れの音**：音源が液体の軌道（`Trajectory`）に沿って移動します。
+- **着弾音**：液体の着弾点は8か所（`Hit_00`〜`Hit_07`）で判定し、当たっている位置の音源に重み（`Weight`）を切り替えます。音量は `*_ImpactLevel` に連動し、0.001 を超えている間ループ再生、0.0001 以下で停止します。
+- **ランダム SE**：`SFX_CONTACT_A` / `SFX_CONTACT_B` が 0.75 を超えると、SPS の `Pussy` と `Anus` 配下の `SFX_RANDOM` を有効にして再生します。両方が 0.5 以下に戻るまで再発動しません。
+
+`SFX_Pee_*` / `SFX_MilkL_*` / `SFX_MilkR_*` / `SFX_CONTACT_*` は、効果音の制御に使われるアニメーター内部のパラメーターです。
 
 ---
 
@@ -148,6 +199,16 @@ VRCFury v1.1174.0 による侵入深度検出システムです。ContactReceive
 侵入深度に応じて BlendShape が自動的に駆動されます。`enableAuto: true` により自動検出が有効です。
 
 ArmatureLink（`linkMode: 4`）によりベースアバターのボーン階層へ Non-Destructive に統合されます。
+
+### SPS_DEFORM_FX
+
+`SA_A2XL_SE SPS_DEFORM_FX` コントローラーは、SPS の侵入深度（`SPS_DEPTH`）と速度（`SPS_VELOCITY`）から、押し込み（PUSH）と引き抜き（SUCK）を判定して変形を切り替えます。
+
+| ステート | 遷移条件 |
+|---------|---------|
+| `PUSH` | 深度の変化量が -0.00015 以下、`SPS_DEPTH` が 0.12 以下、`SPS_VELOCITY` が -0.005 以下 |
+| `SUCK` | 深度の変化量が 0.00015 超、`SPS_DEPTH` が 0.12 以下、`SPS_VELOCITY` が 0.005 超 |
+| `NEUTRAL` | `SPS_DEPTH` が 0.12 を超える。または `PUSH_SETTLE` / `SUCK_SETTLE`（変化量が ±0.00015 以内に収まった状態）を経由して復帰 |
 
 ---
 

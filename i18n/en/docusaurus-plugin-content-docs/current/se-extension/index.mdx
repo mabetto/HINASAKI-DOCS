@@ -9,47 +9,56 @@ title: SE Extension (R18)
 
 The SE Extension (`SA_A2XL_R18.prefab`) is an R18 expansion part added non-destructively via Modular Avatar. Adding it to the base avatar enables the following features.
 
+- Contact detection, with deformation that follows contact intensity (clitoris and nipples)
+- Urination and lactation liquid effects with sound effects
+- Penetration depth detection and deformation via SPS
+
 ---
 
 ## Menu Structure
 
-Automatically integrated into the top menu by MA Menu Installer.
+Automatically integrated into the top menu by MA Menu Installer. The labels below are those shown with the English language extension.
 
 ```
-R18 Menu
-├─ PubicHair (ON/OFF)
-├─ Clitoris (Radial)
-├─ Nipple_L (Radial)
-├─ Nipple_R (Radial)
-└─ Pussy_Open (Radial)
+Rub4Acme!.app
+├─ Pussy Open (Radial)
+├─ Clitoris Sensitivity (Radial)
+├─ R Nipple Sensitivity (Radial)
+├─ L Nipple Sensitivity (Radial)
+└─ Pubic Hair (ON/OFF)
 ```
 
 <table className="icon-table">
   <tbody>
     <tr>
-      <td><img src="/img/icons/PUBICHAIR_SWITCH.png" alt="PubicHair" /></td>
-      <td><strong>PubicHair</strong></td>
-      <td>Toggles pubic hair visibility. The setting is saved (`saved: true`).</td>
+      <td><img src="/img/icons/OSAWARI_H.png" alt="Rub4Acme!.app" /></td>
+      <td><strong>Rub4Acme!.app</strong></td>
+      <td>The submenu that groups the SE Extension's menu items.</td>
     </tr>
     <tr>
-      <td><img src="/img/icons/CLIT.png" alt="Clitoris" /></td>
-      <td><strong>Clitoris</strong></td>
+      <td><img src="/img/icons/PUSSYOPEN.png" alt="Pussy Open" /></td>
+      <td><strong>Pussy Open</strong> (`Pussy_Open`)</td>
+      <td>Manually adjusts the open/close state. Synced during the session only (`saved: false`).</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/CLIT.png" alt="Clitoris Sensitivity" /></td>
+      <td><strong>Clitoris Sensitivity</strong> (`Clitoris`)</td>
       <td>Displays clitoral contact intensity in real time. Synced during the session only (`saved: false`).</td>
     </tr>
     <tr>
-      <td><img src="/img/icons/NIPPLES.png" alt="Nipple_L" /></td>
-      <td><strong>Nipple_L</strong></td>
-      <td>Displays left nipple contact intensity in real time. Synced during the session only (`saved: false`).</td>
-    </tr>
-    <tr>
-      <td><img src="/img/icons/NIPPLES.png" alt="Nipple_R" /></td>
-      <td><strong>Nipple_R</strong></td>
+      <td><img src="/img/icons/NIPPLES.png" alt="R Nipple Sensitivity" /></td>
+      <td><strong>R Nipple Sensitivity</strong> (`Nipple_R`)</td>
       <td>Displays right nipple contact intensity in real time. Synced during the session only (`saved: false`).</td>
     </tr>
     <tr>
-      <td><img src="/img/icons/PUSSYOPEN.png" alt="Pussy_Open" /></td>
-      <td><strong>Pussy_Open</strong></td>
-      <td>Manually adjusts the open/close state. Synced during the session only (`saved: false`).</td>
+      <td><img src="/img/icons/NIPPLES.png" alt="L Nipple Sensitivity" /></td>
+      <td><strong>L Nipple Sensitivity</strong> (`Nipple_L`)</td>
+      <td>Displays left nipple contact intensity in real time. Synced during the session only (`saved: false`).</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/PUBICHAIR_SWITCH.png" alt="Pubic Hair" /></td>
+      <td><strong>Pubic Hair</strong> (`PubicHair`)</td>
+      <td>Toggles pubic hair visibility. The setting is saved (`saved: true`).</td>
     </tr>
   </tbody>
 </table>
@@ -90,13 +99,15 @@ The `_Contact` Bool parameters represent real-time "currently touching" state, w
 
 While contact is active (`_Contact = true`), the corresponding Float value increases at **+0.02/tick**. When contact ends, the `SYS_NSFW_Contact_Subtract` layer activates and gradually decreases the value at **-0.02/tick** as long as it is 0.2 or above. This creates a natural lingering sensation after contact ends.
 
-When the Float value **exceeds 0.99**, a transition to a special state occurs:
+When the Float value **exceeds 0.99**, a transition to a special state occurs and a liquid effect starts:
 
-| Area | Threshold | Destination State |
-|------|------|-------------|
-| Clitoris | Clitoris > 0.99 | `CLITORIS_ORGASM` |
-| Left nipple | Nipple_L > 0.99 | `LACTATION_L` |
-| Right nipple | Nipple_R > 0.99 | `LACTATION_R` |
+| Area | Condition | Destination State | Effect |
+|------|------|-------------|------|
+| Clitoris | `Clitoris > 0.99` and `CostumeBody = 2` | `CLITORIS_ORGASM` | Urination (enables `Emitter_Pee` in `Peeing_System`) |
+| Left nipple | `Nipple_L > 0.99` and `CostumeBody` is neither 0 nor 1 | `LACTATION_L` | Lactation (enables the left Milk emitter and sets `act_lactation_L` to 100) |
+| Right nipple | `Nipple_R > 0.99` and `CostumeBody` is neither 0 nor 1 | `LACTATION_R` | Lactation (enables the right Milk emitter and sets `act_lactation_R` to 100) |
+
+When `CostumeBody` becomes 1, or when playback finishes, the layer moves to the `WAIT_RESET` state and does not trigger again until the value drops to 0.99 or below.
 
 ### Animator Layer Structure
 
@@ -104,21 +115,24 @@ The R18FX Controller is structured with independent layers for each function.
 
 | Layer | Role |
 |---------|------|
+| `FX_PUBICHAIR` | Toggles pubic hair visibility via `PubicHair` |
 | `SYS_NSFW_Contact_Subtract` | System that automatically decreases Float values when contact ends |
-| `FX_CLITORIS_CONTACT` | Increments `Clitoris` during contact and transitions to orgasm at the upper limit |
+| `FX_CLITORIS_CONTACT` | Increments `Clitoris` during contact and transitions to orgasm (urination) at the upper limit |
 | `FX_NIPPLE_L_CONTACT` | Increments `Nipple_L` during contact and transitions to lactation at the upper limit |
 | `FX_NIPPLE_R_CONTACT` | Increments `Nipple_R` during contact and transitions to lactation at the upper limit |
 | `FX_CLITORIS_ERECTION` | Drives the LocalScale of the Clit bone based on the `Clitoris` value |
 | `FX_NIPPLE_L_ERECTION` | Drives the LocalPosition of the Nipple.L bone based on the `Nipple_L` value |
 | `FX_NIPPLE_R_ERECTION` | Drives the LocalPosition of the Nipple.R bone based on the `Nipple_R` value |
-| `FX_PUSSY_OPEN` | Controls SPS `act_(i)_open` and the urination emitter via `Pussy_Open` |
+| `FX_PUSSY_OPEN` | Drives the `Basebody` shape key `act_(i)_open` via `Pussy_Open` |
+| `CFG_LIQUID_BRIGHTNESS` / `CFG_LIQUID_MONOCHROME_LIGHTING` | Links the liquid's brightness and monochrome lighting to the base avatar's `Brightness` / `Lighting(mono)` |
+| `SFX_*` | Controls playback of the liquid sound effects ([Liquid Effects and Sound Effects](#liquid-effects-and-sound-effects)) |
 
 :::warning[Note When Modifying]
 
-The IDLE state of the `FX_PUSSY_OPEN` layer has a transition condition of `CostumeBody = 2` (undressed state). If the default costume is removed, this condition will not be met and PUSSY_OPEN will not function.
+The transitions of `FX_PUSSY_OPEN`, `FX_CLITORIS_CONTACT` and `FX_NIPPLE_*_CONTACT` include conditions on `CostumeBody`. If the default costume is removed, `CostumeBody = 2` (undressed state) is never reached, and Pussy Open, urination and lactation will not function.
 
 **Solutions:**
-- Delete the `CostumeBody` parameter from `SA_A2XL_SE R18FX` and also remove the condition from the IDLE state of the `FX_PUSSY_OPEN` layer.
+- Delete the `CostumeBody` parameter from `SA_A2XL_SE R18FX` and also remove the `CostumeBody` conditions from each layer.
 - Alternatively, assign `CostumeBody = 2` to the undressed state of your custom costume.
 
 :::
@@ -132,7 +146,44 @@ ERECTION layers use `m_TimeParameterActive: true` to directly control the animat
 | CLITORIS_ERECTION | `Armature/Hips/Clit` | Changes bone LocalScale |
 | NIPPLE_L_ERECTION | `Armature/.../Nipple.L` | Changes bone LocalPosition |
 | NIPPLE_R_ERECTION | `Armature/.../Nipple.R` | Changes bone LocalPosition |
-| PUSSY_OPEN | `Basebody` / `Peeing_System` | SPS `act_(i)_open` + IsActive of urination emitter |
+| PUSSY_OPEN | `Basebody` | Changes the shape key `act_(i)_open` from 0 to 100 |
+| CLITORIS_ORGASM | `Peeing_System/Urethra/Emitter_Pee` | Turns `IsActive` ON (`_OFF` turns it OFF) |
+| LACTATION_L_ON / LACTATION_R_ON | The Milk emitter in `Lactation_System`, and `Basebody` | Turns the emitter's `IsActive` ON, sets `act_lactation_L/R` to 100, and fades `_DropAlpha` from 0 to 1 over about 1.5 seconds |
+
+---
+
+## Liquid Effects and Sound Effects
+
+Urination (`Peeing_System`) and lactation (`Lactation_System`) are built from particles and sound effects.
+
+| System | Particles | Triggered by |
+|---------|------|------|
+| `Peeing_System` | Stream (Pee), drops (Pee_drop), puddles (Pee_revert group) | `CLITORIS_ORGASM` |
+| `Lactation_System` | Per side: Milk (stream), WaterRunoff (liquid running down), AccentDrops (drops) | `LACTATION_L` / `LACTATION_R` |
+
+### Liquid Brightness
+
+The liquid materials follow the settings in the base avatar's preference menu.
+
+| Parameter | Liquid property | Range (0 → 1) |
+|------------|----------------|--------------|
+| `Brightness` | `_LightMinLimit` | 0.05 → 1.0 |
+| `Lighting(mono)` | `_MonochromeLighting` | 0.0 → 1.0 |
+
+### Sound Effects
+
+| Sound | File | Settings |
+|--------|---------|------|
+| Urination stream (`Flow`) | `SA_A2XL_R18_LEAK_A.wav` | Volume 0.5 / max distance 2m |
+| Lactation stream (`Flow`) | `SA_A2XL_R18_LEAK_B.wav` | Volume 0.5 / max distance 2m |
+| Impact (`Impact`) | `SA_A2XL_R18_DROP.wav` | Loop / volume 0.6 / max distance 4m |
+| Random SE (`SFX_RANDOM`) | `SA_A2XL_R18_SPLURT_A–E.wav` | Volume 0.5 / max distance 4m |
+
+- **Stream sound**: the audio source moves along the liquid's trajectory (`Trajectory`).
+- **Impact sound**: the liquid's impact point is detected at 8 locations (`Hit_00`–`Hit_07`), and the weight (`Weight`) switches to the audio source at the position being hit. Volume follows `*_ImpactLevel`; it loops while the level is above 0.001 and stops at 0.0001 or below.
+- **Random SE**: when `SFX_CONTACT_A` / `SFX_CONTACT_B` exceeds 0.75, it enables and plays `SFX_RANDOM` under the SPS `Pussy` and `Anus`. It does not trigger again until both return to 0.5 or below.
+
+`SFX_Pee_*` / `SFX_MilkL_*` / `SFX_MilkR_*` / `SFX_CONTACT_*` are animator-internal parameters used to control the sound effects.
 
 ---
 
@@ -148,6 +199,16 @@ A penetration depth detection system using VRCFury v1.1174.0. Operates independe
 BlendShapes are driven automatically in proportion to penetration depth. Automatic detection is enabled via `enableAuto: true`.
 
 Non-destructive integration into the base avatar's bone hierarchy is achieved via ArmatureLink (`linkMode: 4`).
+
+### SPS_DEFORM_FX
+
+The `SA_A2XL_SE SPS_DEFORM_FX` controller determines pushing (PUSH) and pulling out (SUCK) from the SPS penetration depth (`SPS_DEPTH`) and velocity (`SPS_VELOCITY`), and switches the deformation accordingly.
+
+| State | Transition condition |
+|---------|---------|
+| `PUSH` | Depth change is -0.00015 or less, `SPS_DEPTH` is 0.12 or less, and `SPS_VELOCITY` is -0.005 or less |
+| `SUCK` | Depth change is above 0.00015, `SPS_DEPTH` is 0.12 or less, and `SPS_VELOCITY` is above 0.005 |
+| `NEUTRAL` | `SPS_DEPTH` exceeds 0.12, or returns via `PUSH_SETTLE` / `SUCK_SETTLE` (the change has settled within ±0.00015) |
 
 ---
 

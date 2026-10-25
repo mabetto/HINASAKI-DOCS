@@ -97,6 +97,7 @@ Effects such as sweat, tears, and mosaic use **HINASAKI SFX SHADER** rather than
 |-----------|------|
 | **Teardrop** (うるうる目・落涙) | Eye glistening, tears, falling droplets |
 | **Waterdrop** (水滴) | Sweat and other water droplets flowing across a surface |
+| **Liquid** (液体) | Spurting liquid and droplets, puddles, and rivulets running down surfaces |
 | **Mosaic** (平面モザイク) | Mosaic processing of the background |
 
 ---
@@ -195,6 +196,76 @@ A water droplet effect arranged in a grid across the entire surface.
 #### Drop Settings (Green Line) / Noise Settings / Overall Effect Settings
 
 These are the same properties as the Teardrop drop settings, noise settings, and overall effect settings.
+
+---
+
+### Liquid (HSFX_Liquid)
+
+<video controls muted loop playsInline preload="metadata" style={{borderRadius:'12px', width:'100%'}}>
+  <source src="/video/hsfx-liquid-demo.mp4" type="video/mp4" />
+</video>
+
+Choose the "Liquid renderer" for each material, then adjust the appearance settings.
+
+#### Renderer and Presets
+
+| Property | Description |
+|-----------|------|
+| Liquid renderer | **Stream / drops**: renders the spurting stream and scattering droplets / **Puddle / runoff**: renders puddles left on a surface and rivulets running down it |
+| Water / Blood / Milk (buttons) | Presets that set the liquid's appearance all at once |
+| White silhouette | For checking the shape. Displays the liquid as a white silhouette |
+
+#### Liquid Appearance
+
+| Property | Description |
+|-----------|------|
+| Liquid body color | Color of the liquid body |
+| Body opacity | Opacity of the liquid body (0–1) |
+| Soft body lighting | Softness of the body shading (0–1) |
+| Transmission tint / Transmission tint density | The color seen through the liquid, and its density (0–1) |
+| Refraction | Strength of background refraction (distortion) (0–1) |
+| Reflection | Strength of reflection (0–2) |
+| Highlight | Strength of the highlight (0–2) |
+| Roughness | Surface roughness (0.02–1) |
+
+#### Stream / Drops (Stream / drops only)
+
+| Property | Description |
+|-----------|------|
+| Droplet silhouette | Displays droplets with a droplet outline |
+| Stream ripple amplitude / Stream ripple speed | Size (0–0.3) and speed (0–5) of the stream's sway |
+| Ribbon end fade | Width over which the ends of the stream fade out (0–0.2) |
+
+#### Puddle
+
+| Property | Description |
+|-----------|------|
+| Puddle ripple amplitude / speed / damping | Size (0–0.3), speed (0–5) and settling speed (0–16) of the surface ripples |
+| Puddle relief strength / frequency | Strength (0–2) and fineness (0.1–4) of the surface relief |
+| Micro bump strength / density / size (m) | Fine bumps on the surface: strength (0–1), density (0–1), size (0.0005–0.01 m) |
+| Puddle edge roundness / width (m) / feather (m) | Edge roundness (0–2), width (0.001–0.03 m), feathering (0–0.03 m) |
+| Puddle breakup speed | Speed at which the puddle breaks apart (0–4) |
+
+#### Rivulets (Puddle / runoff only)
+
+| Property | Description |
+|-----------|------|
+| Rivulet width (m) | Width of rivulets running down a surface (0.003–0.04 m) |
+| Rivulet tail (seconds) | How long a rivulet trails behind (0–0.15 s) |
+| Detached drop diameter (m) | Size of droplets that break away from a rivulet (0.002–0.03 m) |
+| Puddle overlap compensation | Compensation when puddles overlap (0.05–1) |
+| Backface / curve tolerance | Tolerance for liquid attaching to curved surfaces and backfaces (0–0.3) |
+
+#### MatCap
+
+| Property | Description |
+|-----------|------|
+| MatCap / tint | MatCap texture and color |
+| MatCap strength | Strength of the MatCap (0–2) |
+| Fresnel influence | How much reflection concentrates at the edges (0–1) |
+| MatCap rotation | Rotation angle of the MatCap (−180–180°) |
+
+Lighting is shared with the [OpenLit Lighting Settings](#openlit-lighting-settings).
 
 ---
 

@@ -9,47 +9,56 @@ title: SE 확장（R18）
 
 SE 확장（`SA_A2XL_R18.prefab`）은 Modular Avatar를 통해 비파괴적으로 추가하는 R18 확장 파츠입니다. 본체 아바타에 추가하는 것만으로 다음 기능이 활성화됩니다.
 
+- 접촉 감지와 접촉 강도에 따른 변형（클리토리스·유두）
+- 배뇨·사출 액체 이펙트와 효과음
+- SPS에 의한 삽입 깊이 감지와 변형
+
 ---
 
 ## 메뉴 구조
 
-MA Menu Installer에 의해 최상위 메뉴에 자동으로 통합됩니다.
+MA Menu Installer에 의해 최상위 메뉴에 자동으로 통합됩니다. 아래는 한국어 언어 확장에서 표시되는 이름입니다.
 
 ```
-R18 Menu
-├─ PubicHair（ON/OFF）
-├─ Clitoris（라디얼）
-├─ Nipple_L（라디얼）
-├─ Nipple_R（라디얼）
-└─ Pussy_Open（라디얼）
+Rub4Acme!.app
+├─ 보지（라디얼）
+├─ 클리토리스 감도（라디얼）
+├─ 오른쪽 젖꼭지 감도（라디얼）
+├─ 왼쪽 젖꼭지 감도（라디얼）
+└─ 음모（ON/OFF）
 ```
 
 <table className="icon-table">
   <tbody>
     <tr>
-      <td><img src="/img/icons/PUBICHAIR_SWITCH.png" alt="PubicHair" /></td>
-      <td><strong>PubicHair</strong></td>
-      <td>음모의 표시·비표시를 전환합니다. 설정이 저장됩니다（`saved: true`）.</td>
+      <td><img src="/img/icons/OSAWARI_H.png" alt="Rub4Acme!.app" /></td>
+      <td><strong>Rub4Acme!.app</strong></td>
+      <td>SE 확장의 메뉴를 모아 둔 서브메뉴입니다.</td>
     </tr>
     <tr>
-      <td><img src="/img/icons/CLIT.png" alt="Clitoris" /></td>
-      <td><strong>Clitoris</strong></td>
+      <td><img src="/img/icons/PUSSYOPEN.png" alt="보지" /></td>
+      <td><strong>보지</strong>（`Pussy_Open`）</td>
+      <td>개폐 상태를 수동으로 조정합니다. 세션 중에만 동기화됩니다（`saved: false`）.</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/CLIT.png" alt="클리토리스 감도" /></td>
+      <td><strong>클리토리스 감도</strong>（`Clitoris`）</td>
       <td>클리토리스에 대한 접촉 강도를 실시간으로 표시합니다. 세션 중에만 동기화됩니다（`saved: false`）.</td>
     </tr>
     <tr>
-      <td><img src="/img/icons/NIPPLES.png" alt="Nipple_L" /></td>
-      <td><strong>Nipple_L</strong></td>
-      <td>왼쪽 유두에 대한 접촉 강도를 실시간으로 표시합니다. 세션 중에만 동기화됩니다（`saved: false`）.</td>
-    </tr>
-    <tr>
-      <td><img src="/img/icons/NIPPLES.png" alt="Nipple_R" /></td>
-      <td><strong>Nipple_R</strong></td>
+      <td><img src="/img/icons/NIPPLES.png" alt="오른쪽 젖꼭지 감도" /></td>
+      <td><strong>오른쪽 젖꼭지 감도</strong>（`Nipple_R`）</td>
       <td>오른쪽 유두에 대한 접촉 강도를 실시간으로 표시합니다. 세션 중에만 동기화됩니다（`saved: false`）.</td>
     </tr>
     <tr>
-      <td><img src="/img/icons/PUSSYOPEN.png" alt="Pussy_Open" /></td>
-      <td><strong>Pussy_Open</strong></td>
-      <td>개폐 상태를 수동으로 조정합니다. 세션 중에만 동기화됩니다（`saved: false`）.</td>
+      <td><img src="/img/icons/NIPPLES.png" alt="왼쪽 젖꼭지 감도" /></td>
+      <td><strong>왼쪽 젖꼭지 감도</strong>（`Nipple_L`）</td>
+      <td>왼쪽 유두에 대한 접촉 강도를 실시간으로 표시합니다. 세션 중에만 동기화됩니다（`saved: false`）.</td>
+    </tr>
+    <tr>
+      <td><img src="/img/icons/PUBICHAIR_SWITCH.png" alt="음모" /></td>
+      <td><strong>음모</strong>（`PubicHair`）</td>
+      <td>음모의 표시·비표시를 전환합니다. 설정이 저장됩니다（`saved: true`）.</td>
     </tr>
   </tbody>
 </table>
@@ -90,13 +99,15 @@ VRChat의 ContactReceiver 컴포넌트를 통해 다른 플레이어나 자신�
 
 접촉 중（`_Contact = true`）에는 대응하는 Float 값이 **+0.02/tick**으로 상승합니다. 접촉이 끊기면 `SYS_NSFW_Contact_Subtract` 레이어가 가동되어, 값이 0.2 이상인 한 **-0.02/tick**으로 서서히 감쇠합니다. 이를 통해 접촉의 여운이 자연스럽게 남는 동작이 구현됩니다.
 
-Float 값이 **0.99를 초과**하면 특수 상태로 전환됩니다：
+Float 값이 **0.99를 초과**하면 특수 상태로 전환되고 액체 이펙트가 시작됩니다：
 
-| 부위 | 임곗값 | 전환 대상 상태 |
-|------|------|-------------|
-| 클리토리스 | Clitoris > 0.99 | `CLITORIS_ORGASM` |
-| 왼쪽 유두 | Nipple_L > 0.99 | `LACTATION_L` |
-| 오른쪽 유두 | Nipple_R > 0.99 | `LACTATION_R` |
+| 부위 | 조건 | 전환 대상 상태 | 내용 |
+|------|------|-------------|------|
+| 클리토리스 | `Clitoris > 0.99` 그리고 `CostumeBody = 2` | `CLITORIS_ORGASM` | 배뇨（`Peeing_System`의 `Emitter_Pee`를 활성화） |
+| 왼쪽 유두 | `Nipple_L > 0.99` 그리고 `CostumeBody`가 0·1 이외 | `LACTATION_L` | 사출（왼쪽 Milk 에미터를 활성화하고 `act_lactation_L`을 100으로） |
+| 오른쪽 유두 | `Nipple_R > 0.99` 그리고 `CostumeBody`가 0·1 이외 | `LACTATION_R` | 사출（오른쪽 Milk 에미터를 활성화하고 `act_lactation_R`을 100으로） |
+
+`CostumeBody`가 1이 되거나 재생이 끝나면 `WAIT_RESET` 상태로 이동하며, 값이 0.99 이하로 내려갈 때까지 다시 발동하지 않습니다.
 
 ### 애니메이터 레이어 구성
 
@@ -104,21 +115,24 @@ R18FX Controller는 역할별로 독립된 레이어로 구성되어 있습니�
 
 | 레이어 | 역할 |
 |---------|------|
+| `FX_PUBICHAIR` | `PubicHair`로 음모의 표시·비표시를 전환 |
 | `SYS_NSFW_Contact_Subtract` | 접촉이 끊겼을 때 Float 값을 자동으로 감쇠시키는 시스템 |
-| `FX_CLITORIS_CONTACT` | 클리토리스 접촉 중에 `Clitoris`를 가산하고, 상한에서 오르가즘으로 전환 |
+| `FX_CLITORIS_CONTACT` | 클리토리스 접촉 중에 `Clitoris`를 가산하고, 상한에서 오르가즘（배뇨）으로 전환 |
 | `FX_NIPPLE_L_CONTACT` | 왼쪽 유두 접촉 중에 `Nipple_L`을 가산하고, 상한에서 사출로 전환 |
 | `FX_NIPPLE_R_CONTACT` | 오른쪽 유두 접촉 중에 `Nipple_R`을 가산하고, 상한에서 사출로 전환 |
 | `FX_CLITORIS_ERECTION` | `Clitoris` 값으로 Clit 본의 LocalScale을 드라이브 |
 | `FX_NIPPLE_L_ERECTION` | `Nipple_L` 값으로 Nipple.L 본의 LocalPosition을 드라이브 |
 | `FX_NIPPLE_R_ERECTION` | `Nipple_R` 값으로 Nipple.R 본의 LocalPosition을 드라이브 |
-| `FX_PUSSY_OPEN` | `Pussy_Open`으로 SPS `act_(i)_open`과 배뇨 에미터를 제어 |
+| `FX_PUSSY_OPEN` | `Pussy_Open`으로 `Basebody`의 셰이프 키 `act_(i)_open`을 드라이브 |
+| `CFG_LIQUID_BRIGHTNESS` / `CFG_LIQUID_MONOCHROME_LIGHTING` | 액체의 밝기·라이트 모노크롬화를 본체의 `Brightness` / `Lighting(mono)`에 연동 |
+| `SFX_*` | 액체 효과음의 재생 제어（[액체 이펙트와 효과음](#액체-이펙트와-효과음)） |
 
 :::warning[개변 시 주의]
 
-`FX_PUSSY_OPEN` 레이어의 IDLE 상태에는 `CostumeBody = 2`（탈의 상태）의 전환 조건이 설정되어 있습니다. 기본 의상을 삭제한 경우 이 조건이 충족되지 않아 PUSSY_OPEN이 작동하지 않습니다.
+`FX_PUSSY_OPEN`·`FX_CLITORIS_CONTACT`·`FX_NIPPLE_*_CONTACT`의 전환에는 `CostumeBody` 조건이 포함되어 있습니다. 기본 의상을 삭제한 경우 `CostumeBody = 2`（탈의 상태）가 되지 않아 보지 개폐·배뇨·사출이 작동하지 않습니다.
 
 **대처법：**
-- `SA_A2XL_SE R18FX`의 `CostumeBody` 파라미터를 삭제하고, `FX_PUSSY_OPEN` 레이어의 IDLE 상태 조건도 삭제한다.
+- `SA_A2XL_SE R18FX`의 `CostumeBody` 파라미터를 삭제하고, 각 레이어의 `CostumeBody` 조건도 삭제한다.
 - 또는 자체 제작 의상의 탈의 상태에 `CostumeBody = 2`를 할당한다.
 
 :::
@@ -132,7 +146,44 @@ ERECTION 계열 레이어는 `m_TimeParameterActive: true`를 사용하여, 애�
 | CLITORIS_ERECTION | `Armature/Hips/Clit` | 본의 LocalScale을 변화 |
 | NIPPLE_L_ERECTION | `Armature/.../Nipple.L` | 본의 LocalPosition을 변화 |
 | NIPPLE_R_ERECTION | `Armature/.../Nipple.R` | 본의 LocalPosition을 변화 |
-| PUSSY_OPEN | `Basebody` / `Peeing_System` | SPS `act_(i)_open` + 배뇨 에미터의 IsActive |
+| PUSSY_OPEN | `Basebody` | 셰이프 키 `act_(i)_open`을 0〜100으로 변화 |
+| CLITORIS_ORGASM | `Peeing_System/Urethra/Emitter_Pee` | `IsActive`를 ON（`_OFF`에서 OFF） |
+| LACTATION_L_ON / LACTATION_R_ON | `Lactation_System`의 Milk 에미터, `Basebody` | 에미터의 `IsActive`를 ON, `act_lactation_L/R`을 100으로, `_DropAlpha`를 약 1.5초에 걸쳐 0→1 |
+
+---
+
+## 액체 이펙트와 효과음
+
+배뇨（`Peeing_System`）와 사출（`Lactation_System`）은 파티클과 효과음으로 구성되어 있습니다.
+
+| 시스템 | 파티클 | 발동 |
+|---------|------|------|
+| `Peeing_System` | 흐름（Pee）, 방울（Pee_drop）, 물웅덩이（Pee_revert 계열） | `CLITORIS_ORGASM` |
+| `Lactation_System` | 좌우 각각 Milk（흐름）, WaterRunoff（타고 흐르는 액체）, AccentDrops（방울） | `LACTATION_L` / `LACTATION_R` |
+
+### 액체의 밝기
+
+액체의 머티리얼은 본체의 프리퍼런스 메뉴 설정에 연동됩니다.
+
+| 파라미터 | 액체의 프로퍼티 | 범위（0 → 1） |
+|------------|----------------|--------------|
+| `Brightness` | `_LightMinLimit` | 0.05 → 1.0 |
+| `Lighting(mono)` | `_MonochromeLighting` | 0.0 → 1.0 |
+
+### 효과음
+
+| 효과음 | 파일 | 설정 |
+|--------|---------|------|
+| 배뇨의 흐름（`Flow`） | `SA_A2XL_R18_LEAK_A.wav` | 볼륨 0.5 / 최대 거리 2m |
+| 사출의 흐름（`Flow`） | `SA_A2XL_R18_LEAK_B.wav` | 볼륨 0.5 / 최대 거리 2m |
+| 착탄음（`Impact`） | `SA_A2XL_R18_DROP.wav` | 루프 / 볼륨 0.6 / 최대 거리 4m |
+| 랜덤 SE（`SFX_RANDOM`） | `SA_A2XL_R18_SPLURT_A〜E.wav` | 볼륨 0.5 / 최대 거리 4m |
+
+- **흐름 소리**：음원이 액체의 궤적（`Trajectory`）을 따라 이동합니다.
+- **착탄음**：액체의 착탄점은 8곳（`Hit_00`〜`Hit_07`）에서 판정하며, 닿고 있는 위치의 음원으로 가중치（`Weight`）를 전환합니다. 볼륨은 `*_ImpactLevel`에 연동되어, 0.001을 초과하는 동안 루프 재생하고 0.0001 이하에서 정지합니다.
+- **랜덤 SE**：`SFX_CONTACT_A` / `SFX_CONTACT_B`가 0.75를 초과하면 SPS의 `Pussy`와 `Anus` 아래의 `SFX_RANDOM`을 활성화하여 재생합니다. 둘 다 0.5 이하로 돌아갈 때까지 다시 발동하지 않습니다.
+
+`SFX_Pee_*` / `SFX_MilkL_*` / `SFX_MilkR_*` / `SFX_CONTACT_*`는 효과음 제어에 사용되는 애니메이터 내부 파라미터입니다.
 
 ---
 
@@ -148,6 +199,16 @@ VRCFury v1.1174.0을 이용한 침투 깊이 감지 시스템입니다. ContactR
 침투 깊이에 따라 BlendShape가 자동으로 구동됩니다. `enableAuto: true`로 자동 감지가 활성화되어 있습니다.
 
 ArmatureLink（`linkMode: 4`）를 통해 베이스 아바타의 본 계층에 비파괴적으로 통합됩니다.
+
+### SPS_DEFORM_FX
+
+`SA_A2XL_SE SPS_DEFORM_FX` 컨트롤러는 SPS의 침투 깊이（`SPS_DEPTH`）와 속도（`SPS_VELOCITY`）로부터 밀어 넣기（PUSH）와 빼내기（SUCK）를 판정하여 변형을 전환합니다.
+
+| 상태 | 전환 조건 |
+|---------|---------|
+| `PUSH` | 깊이 변화량이 -0.00015 이하, `SPS_DEPTH`가 0.12 이하, `SPS_VELOCITY`가 -0.005 이하 |
+| `SUCK` | 깊이 변화량이 0.00015 초과, `SPS_DEPTH`가 0.12 이하, `SPS_VELOCITY`가 0.005 초과 |
+| `NEUTRAL` | `SPS_DEPTH`가 0.12를 초과. 또는 `PUSH_SETTLE` / `SUCK_SETTLE`（변화량이 ±0.00015 이내로 안정된 상태）을 거쳐 복귀 |
 
 ---
 

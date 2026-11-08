@@ -13,9 +13,9 @@ The FT Extension adds face, eye and mouth tracking to 3+1. For how to use it aft
 
 - 3+1 base avatar **GA5 or later** (Perfect Sync blendshapes)
 - A VCC Avatars project
+- **VRChat SDK 3.10.6 or later** ([release notes](https://creators.vrchat.com/releases/release-3-10-6/))
 - **Modular Avatar**
-- [**VRCFT - Jerry's Templates**](https://github.com/adjerry91/VRCFaceTracking-Templates) (7.0.5 baseline)
-- The **VRCFaceTracking** PC application and the module for your hardware ([setup guide](https://docs.vrcft.io/docs/intro/getting-started))
+- The **VRCFaceTracking** PC application (the version that supports VRChat's native face tracking) and the module for your hardware ([setup guide](https://docs.vrcft.io/docs/intro/getting-started))
 - Face/eye tracking hardware (see below)
 
 ### Connecting Your Hardware
@@ -24,6 +24,7 @@ The FT Extension adds face, eye and mouth tracking to 3+1. For how to use it aft
 |----------|-------------|-------------|
 | Meta Quest Pro | The module matching your PCVR connection method | [Meta Quest Pro setup](https://docs.vrcft.io/docs/hardware/vr/meta/quest-pro) |
 | iPhone / iPad | The **Live Link Face** app. Your whole face must be visible to the camera (it cannot be used as a lower-face-only tracker behind a VR headset) | [iPhone / iPad setup](https://docs.vrcft.io/docs/hardware/desktop/iphone) |
+| PC webcam | VRChat's **Selfie Expression** | Enable it in VRChat's main menu → **Tracking & IK** → **Camera Tracking** ([VRChat docs: Face Tracking](https://creators.vrchat.com/avatars/face-tracking/)) |
 | Other hardware | The module for your hardware | [VRCFaceTracking setup guide](https://docs.vrcft.io/docs/intro/getting-started) |
 
 ---
@@ -31,14 +32,10 @@ The FT Extension adds face, eye and mouth tracking to 3+1. For how to use it aft
 ## Installation in Unity
 
 1. Back up your project or create a new VCC Avatars project.
-2. Install **Modular Avatar**, **Jerry's Templates** and the prerequisites for 3+1. You can add the repositories to VCC from these URLs.
+2. Update the VRChat SDK to 3.10.6 or later, and install **Modular Avatar** and the prerequisites for 3+1. You can add the repository to VCC from this URL.
 
    ```
    vcc://vpm/addRepo?url=https://vpm.nadena.dev/vpm.json
-   ```
-
-   ```
-   vcc://vpm/addRepo?url=https%3A%2F%2FAdjerry91.github.io%2FVRCFaceTracking-Templates%2Findex.json
    ```
 
 3. Import 3+1 and place your avatar in the Hierarchy.
@@ -51,12 +48,23 @@ The FT Extension adds face, eye and mouth tracking to 3+1. For how to use it aft
 
 6. Check SDK errors and parameter cost in the VRChat SDK, then upload.
 
+Enabling VRChat's native face tracking and Use All Tracking Keys (Descriptor settings) and connecting the inputs to the Animator are configured automatically at build time. No manual setup is needed.
+
 :::warning[Warning]
 
 - Place only **one** `SA_FaceTracking` under the avatar.
-- Jerry's sample FT prefab is not needed.
+- If the Descriptor already has another native face tracking setup registered, it is not overwritten and the build stops with a duplicate error.
 
 :::
+
+### Updating from an Earlier Version
+
+If you already have an earlier version of the FT Extension installed, replace it as follows.
+
+1. Back up your project.
+2. Move the whole earlier `Assets/HINASAKI/SA_FT_Extension` folder **outside the Unity project**. Importing over it alone may leave old scripts behind. Moving it to a differently named folder inside Assets does not count as moving it out.
+3. Import `3+1_FT_EXT.unitypackage`.
+4. Confirm that only one `SA_FaceTracking`, the new reference, remains directly under the avatar, then upload again.
 
 ---
 

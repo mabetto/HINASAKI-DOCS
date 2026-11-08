@@ -13,9 +13,9 @@ FT 확장은 3+1의 얼굴·눈·입을 트래킹으로 움직이는 확장입�
 
 - 3+1 본체 **GA5 이상**（Perfect Sync 대응 데이터）
 - VCC의 Avatars 프로젝트
+- **VRChat SDK 3.10.6 이상**（[릴리스 노트](https://creators.vrchat.com/releases/release-3-10-6/)）
 - **Modular Avatar**
-- [**VRCFT - Jerry's Templates**](https://github.com/adjerry91/VRCFaceTracking-Templates)（7.0.5 기준）
-- PC용 **VRCFaceTracking 앱**과 사용 기기에 대응하는 모듈（[설정 가이드](https://docs.vrcft.io/docs/intro/getting-started)）
+- PC용 **VRCFaceTracking 앱**（VRChat 표준 FT 대응판）과 사용 기기에 대응하는 모듈（[설정 가이드](https://docs.vrcft.io/docs/intro/getting-started)）
 - 페이스／아이 트래킹 기기（아래 표）
 
 ### 기기별 연결
@@ -24,6 +24,7 @@ FT 확장은 3+1의 얼굴·눈·입을 트래킹으로 움직이는 확장입�
 |------|----------|----------|
 | Meta Quest Pro | PCVR 연결 방식에 대응하는 모듈 | [Meta Quest Pro 설정](https://docs.vrcft.io/docs/hardware/vr/meta/quest-pro) |
 | iPhone / iPad | **Live Link Face** 앱. 카메라에 얼굴 전체가 보이는 상태로 사용합니다（HMD 착용 중의 하안면 전용 트래커로는 사용할 수 없습니다） | [iPhone / iPad 설정](https://docs.vrcft.io/docs/hardware/desktop/iphone) |
+| PC 웹캠 | VRChat의 **Selfie Expression** | VRChat 메인 메뉴 → **Tracking & IK** → **Camera Tracking**에서 활성화합니다（[VRChat 공식：Face Tracking](https://creators.vrchat.com/avatars/face-tracking/)） |
 | 그 외 기기 | 기기에 대응하는 모듈 | [VRCFaceTracking 설정 가이드](https://docs.vrcft.io/docs/intro/getting-started) |
 
 ---
@@ -31,14 +32,10 @@ FT 확장은 3+1의 얼굴·눈·입을 트래킹으로 움직이는 확장입�
 ## Unity에서 설치
 
 1. 프로젝트를 백업하거나 VCC에서 새 Avatars 프로젝트를 만듭니다.
-2. **Modular Avatar**, **Jerry's Templates**와 3+1 본체의 선행 에셋을 설치합니다. VCC에는 다음 URL로 저장소를 추가할 수 있습니다.
+2. VRChat SDK를 3.10.6 이상으로 올리고, **Modular Avatar**와 3+1 본체의 선행 에셋을 설치합니다. VCC에는 다음 URL로 저장소를 추가할 수 있습니다.
 
    ```
    vcc://vpm/addRepo?url=https://vpm.nadena.dev/vpm.json
-   ```
-
-   ```
-   vcc://vpm/addRepo?url=https%3A%2F%2FAdjerry91.github.io%2FVRCFaceTracking-Templates%2Findex.json
    ```
 
 3. 3+1 본체를 임포트하고 아바타를 Hierarchy에 배치합니다.
@@ -51,12 +48,23 @@ FT 확장은 3+1의 얼굴·눈·입을 트래킹으로 움직이는 확장입�
 
 6. VRChat SDK에서 오류와 파라미터 사용량을 확인한 뒤 업로드합니다.
 
+VRChat 표준 FT 활성화와 Use All Tracking Keys（Descriptor 설정）, Animator로의 입력 연결은 빌드 시 자동으로 설정됩니다. 수동 설정은 필요하지 않습니다.
+
 :::warning[주의]
 
 - `SA_FaceTracking`은 아바타 바로 아래에 **하나만** 배치하십시오.
-- Jerry의 샘플 FT 프리팹은 필요하지 않습니다.
+- Descriptor에 이미 다른 표준 FT 설정이 등록되어 있으면 덮어쓰지 않고 중복 오류로 빌드를 중단합니다.
 
 :::
+
+### 이전 버전에서 업데이트
+
+이전 버전의 FT 확장을 이미 설치했다면 다음 절차로 교체합니다.
+
+1. 프로젝트를 백업합니다.
+2. 이전 버전의 `Assets/HINASAKI/SA_FT_Extension` 폴더 전체를 **Unity 프로젝트 밖**으로 옮겨 둡니다. 덮어쓰기 임포트만으로는 이전 버전의 스크립트가 남을 수 있습니다. Assets 안의 다른 이름 폴더로 옮기는 것은 옮겨 두는 것이 아닙니다.
+3. `3+1_FT_EXT.unitypackage`를 임포트합니다.
+4. 아바타 바로 아래의 `SA_FaceTracking`이 새 참조 1개만 남아 있는지 확인한 뒤 다시 업로드합니다.
 
 ---
 

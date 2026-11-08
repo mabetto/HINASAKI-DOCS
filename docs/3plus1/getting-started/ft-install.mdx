@@ -13,9 +13,9 @@ FT拡張は、３＋１の顔・目・口をトラッキングで動かす拡張
 
 - ３＋１本体 **GA5 以降**（パーフェクトシンク対応データ）
 - VCC の Avatars プロジェクト
+- **VRChat SDK 3.10.6 以降**（[リリースノート](https://creators.vrchat.com/releases/release-3-10-6/)）
 - **Modular Avatar**
-- [**VRCFT - Jerry's Templates**](https://github.com/adjerry91/VRCFaceTracking-Templates)（7.0.5 基準）
-- PC側の **VRCFaceTracking アプリ**と、使用機器に対応するモジュール（[導入ガイド](https://docs.vrcft.io/docs/intro/getting-started)）
+- PC側の **VRCFaceTracking アプリ**（VRChat 標準 FT 対応版）と、使用機器に対応するモジュール（[導入ガイド](https://docs.vrcft.io/docs/intro/getting-started)）
 - フェイス／アイトラッキング機器（下表）
 
 ### 機器ごとの接続
@@ -24,6 +24,7 @@ FT拡張は、３＋１の顔・目・口をトラッキングで動かす拡張
 |------|------------|---------|
 | Meta Quest Pro | PCVR の接続方式に対応するモジュール | [Meta Quest Pro の設定](https://docs.vrcft.io/docs/hardware/vr/meta/quest-pro) |
 | iPhone / iPad | **Live Link Face** アプリ。顔全体がカメラに映る状態で使用します（HMD 装着中の下顔面専用トラッカーとしては使えません） | [iPhone / iPad の設定](https://docs.vrcft.io/docs/hardware/desktop/iphone) |
+| PC のウェブカメラ | VRChat の **Selfie Expression** | VRChat のメインメニュー → **Tracking & IK** → **Camera Tracking** で有効にします（[VRChat 公式：Face Tracking](https://creators.vrchat.com/avatars/face-tracking/)） |
 | その他の機器 | 機器に対応するモジュール | [VRCFaceTracking 導入ガイド](https://docs.vrcft.io/docs/intro/getting-started) |
 
 ---
@@ -31,14 +32,10 @@ FT拡張は、３＋１の顔・目・口をトラッキングで動かす拡張
 ## Unity での導入
 
 1. プロジェクトをバックアップするか、新しい VCC の Avatars プロジェクトを用意します。
-2. **Modular Avatar**、**Jerry's Templates** と、３＋１本体の前提アセットを導入します。VCC には以下の URL からリポジトリを追加できます。
+2. VRChat SDK を 3.10.6 以降にし、**Modular Avatar** と、３＋１本体の前提アセットを導入します。VCC には以下の URL からリポジトリを追加できます。
 
    ```
    vcc://vpm/addRepo?url=https://vpm.nadena.dev/vpm.json
-   ```
-
-   ```
-   vcc://vpm/addRepo?url=https%3A%2F%2FAdjerry91.github.io%2FVRCFaceTracking-Templates%2Findex.json
    ```
 
 3. ３＋１本体をインポートし、アバターを Hierarchy へ配置します。
@@ -51,12 +48,23 @@ FT拡張は、３＋１の顔・目・口をトラッキングで動かす拡張
 
 6. VRChat SDK でエラーとパラメーター使用量を確認し、アップロードします。
 
+VRChat 標準 FT の有効化と Use All Tracking Keys（Descriptor の設定）、Animator への入力接続は、ビルド時に自動で設定されます。手動での設定は不要です。
+
 :::warning[注意]
 
 - `SA_FaceTracking` はアバター直下に**1つだけ**配置してください。
-- Jerry のサンプル FT プレハブは不要です。
+- Descriptor にすでに別の標準 FT 設定が登録されている場合は、上書きせず、重複エラーでビルドを停止します。
 
 :::
+
+### 旧版からの更新
+
+旧版の FT拡張を導入済みの場合は、次の手順で入れ替えます。
+
+1. プロジェクトをバックアップします。
+2. 旧版の `Assets/HINASAKI/SA_FT_Extension` フォルダ一式を、**Unity プロジェクトの外**へ退避します。上書きインポートだけでは、旧版のスクリプトが残る場合があります。Assets 内の別名フォルダへ移動しても、退避にはなりません。
+3. `3+1_FT_EXT.unitypackage` をインポートします。
+4. アバター直下の `SA_FaceTracking` が、新しい参照の 1 個だけになっていることを確認し、再アップロードします。
 
 ---
 
